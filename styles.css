@@ -668,6 +668,142 @@ body {
     opacity: 0.6;
 }
 
+/* Reservation Calendar */
+.calendar-container {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 30px;
+    border: 1px solid var(--border);
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.calendar-month {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.calendar-nav {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--primary);
+    transition: var(--transition);
+}
+
+.calendar-nav:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 2px;
+}
+
+.cal-day-header {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    padding: 8px 0;
+}
+
+#cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    position: relative;
+    padding: 4px;
+}
+
+.cal-empty {
+    background: none;
+}
+
+.cal-day-num {
+    font-weight: 500;
+    color: var(--text);
+}
+
+.cal-today {
+    background: var(--bg-alt);
+    border: 2px solid var(--primary-light);
+}
+
+.cal-today .cal-day-num {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.cal-reserved {
+    background: var(--accent);
+    border-radius: var(--radius-sm);
+}
+
+.cal-reserved .cal-day-num {
+    color: white;
+    font-weight: 700;
+}
+
+.cal-reservation-name {
+    font-size: 0.55rem;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .calendar-container {
+        padding: 16px;
+    }
+
+    .cal-day {
+        aspect-ratio: auto;
+        min-height: 44px;
+    }
+
+    .cal-reservation-name {
+        font-size: 0.5rem;
+    }
+}
+
 /* Photo Collage Grid */
 .collage-grid {
     display: grid;

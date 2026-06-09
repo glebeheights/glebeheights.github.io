@@ -209,6 +209,25 @@
         <div class="container">
             <h2 class="section-title">Beach Reservations</h2>
             <p class="section-subtitle">Reserve our community beach area for your private event</p>
+
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav" id="cal-prev" aria-label="Previous month">&larr;</button>
+                    <h3 class="calendar-month" id="cal-month-label"></h3>
+                    <button class="calendar-nav" id="cal-next" aria-label="Next month">&rarr;</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="cal-day-header">Sun</div>
+                    <div class="cal-day-header">Mon</div>
+                    <div class="cal-day-header">Tue</div>
+                    <div class="cal-day-header">Wed</div>
+                    <div class="cal-day-header">Thu</div>
+                    <div class="cal-day-header">Fri</div>
+                    <div class="cal-day-header">Sat</div>
+                </div>
+                <div class="calendar-days" id="cal-days"></div>
+            </div>
+
             <div class="reservations-content">
                 <div class="reservation-info">
                     <h3>How to Reserve</h3>
