@@ -180,6 +180,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Reservation request form
+    const reservationForm = document.getElementById('reservation-form');
+    if (reservationForm) {
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('res-name');
+            const email = document.getElementById('res-email');
+            const date = document.getElementById('res-date');
+            const purpose = document.getElementById('res-purpose');
+            const guests = document.getElementById('res-guests');
+            const notes = document.getElementById('res-notes');
+            const status = document.getElementById('reservation-status');
+
+            [name, email, date].forEach(el => el.classList.remove('invalid'));
+
+            let valid = true;
+            if (!name.value.trim()) { name.classList.add('invalid'); valid = false; }
+            if (!email.value.trim() || !email.validity.valid) { email.classList.add('invalid'); valid = false; }
+            if (!date.value) { date.classList.add('invalid'); valid = false; }
+
+            if (!valid) {
+                status.hidden = false;
+                status.className = 'form-status error';
+                status.textContent = 'Please fill in all required fields.';
+                return;
+            }
+
+            const dateObj = new Date(date.value + 'T00:00:00');
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            const subject = `Beach Reservation Request - ${formattedDate} - ${name.value.trim()}`;
+
+            let body = `Hi,\n\nI would like to request a reservation for the community beach.\n\n`;
+            body += `Name: ${name.value.trim()}\n`;
+            body += `Email: ${email.value.trim()}\n`;
+            body += `Preferred Date: ${formattedDate}\n`;
+            if (purpose.value.trim()) body += `Event/Purpose: ${purpose.value.trim()}\n`;
+            if (guests.value) body += `Expected Guests: ${guests.value}\n`;
+            if (notes.value.trim()) body += `Additional Notes: ${notes.value.trim()}\n`;
+            body += `\nThank you!`;
+
+            const mailtoUrl = `mailto:glebeheights.secretary@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
+
+            status.hidden = false;
+            status.className = 'form-status success';
+            status.textContent = 'Your email client should now open with the reservation details. If it didn\u2019t open, please email glebeheights.secretary@gmail.com directly.';
+        });
+
+        reservationForm.querySelectorAll('input, textarea').forEach(el => {
+            el.addEventListener('input', () => el.classList.remove('invalid'));
+        });
+    }
+
     // Lightbox for collage images
     document.querySelectorAll('.collage-grid-img').forEach(img => {
         img.addEventListener('click', () => {

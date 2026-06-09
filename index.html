@@ -198,6 +198,43 @@
                 </div>
             </div>
 
+            <div class="reservation-form-container">
+                <h3 class="reservation-form-title">Request a Reservation</h3>
+                <p class="reservation-form-subtitle">Fill out the form below and your email client will open with the details pre-filled. Submit requests at least 2 weeks in advance.</p>
+                <form id="reservation-form" class="reservation-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-name">Name <span class="required">*</span></label>
+                            <input type="text" id="res-name" name="name" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="res-email">Email <span class="required">*</span></label>
+                            <input type="email" id="res-email" name="email" required placeholder="you@example.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-date">Preferred Date <span class="required">*</span></label>
+                            <input type="date" id="res-date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="res-guests">Expected Guests</label>
+                            <input type="number" id="res-guests" name="guests" min="1" placeholder="e.g. 20">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-purpose">Event / Purpose</label>
+                        <input type="text" id="res-purpose" name="purpose" placeholder="e.g. Birthday party, Family gathering">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-notes">Additional Notes</label>
+                        <textarea id="res-notes" name="notes" rows="3" placeholder="Any other details (setup needs, timing, etc.)"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-accent">Send Reservation Request</button>
+                    <div id="reservation-status" class="form-status" hidden></div>
+                </form>
+            </div>
+
             <div class="reservations-content">
                 <div class="reservation-info">
                     <h3>How to Reserve</h3>
@@ -209,7 +246,6 @@
                         <li>Reservations are first-come, first-served</li>
                         <li>The beach remains open to all residents even during reservations unless otherwise noted</li>
                     </ul>
-                    <a href="mailto:glebeheights.secretary@gmail.com?subject=Beach%20Reservation%20Request" class="btn btn-primary">Request a Reservation</a>
                 </div>
                 <div class="reservation-rules">
                     <h3>Guidelines</h3>
