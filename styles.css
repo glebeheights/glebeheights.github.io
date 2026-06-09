@@ -697,6 +697,7 @@ body {
     box-shadow: var(--shadow-lg);
     padding: 30px;
     border: 1px solid var(--border);
+    overflow: hidden;
 }
 
 .calendar-header {
@@ -736,7 +737,7 @@ body {
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 2px;
     margin-bottom: 2px;
 }
@@ -753,7 +754,7 @@ body {
 
 #cal-days {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 4px;
 }
 
@@ -767,6 +768,8 @@ body {
     font-size: 0.9rem;
     position: relative;
     padding: 4px;
+    overflow: hidden;
+    min-width: 0;
 }
 
 .cal-empty {
@@ -803,7 +806,7 @@ body {
     color: white;
     text-align: center;
     line-height: 1.2;
-    max-width: 100%;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -824,7 +827,7 @@ body {
     color: white;
     text-align: center;
     line-height: 1.2;
-    max-width: 100%;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -845,7 +848,7 @@ body {
     color: white;
     text-align: center;
     line-height: 1.2;
-    max-width: 100%;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1723,7 +1726,7 @@ body.admin-mode-active .cal-day:not(.cal-empty):hover {
     color: white;
     text-align: center;
     line-height: 1.2;
-    max-width: 100%;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
