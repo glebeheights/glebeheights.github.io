@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Work Hours | Glebe Heights Community Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body.workhours-page {
+            padding-top: 72px;
+        }
+
+        .page-hero {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 48px 24px 40px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .page-body {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .requirements-banner {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .requirements-banner strong {
+            color: var(--text);
+        }
+
+        .requirements-banner p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .requirements-banner p:last-child {
+            margin-bottom: 0;
+        }
+
+        .season-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 48px 0 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .season-header:first-of-type {
+            margin-top: 0;
+        }
+
+        .season-note {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 500px;
+        }
+
+        .hours-table th {
+            background: var(--primary-dark);
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        .hours-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .hours-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .hours-table tr:hover td {
+            background: var(--bg-alt);
+        }
+
+        .hours-table td:nth-child(3) {
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .hours-table th:nth-child(3) {
+            text-align: center;
+        }
+
+        .submit-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 36px 40px;
+            margin-top: 48px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .submit-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .submit-section p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .page-body {
+                padding: 24px 16px 60px;
+            }
+
+            .submit-section {
+                padding: 24px 20px;
+            }
+        }
+
+        @media print {
+            body.workhours-page {
+                padding-top: 0;
+            }
+
+            .header, .footer, .breadcrumb, .submit-section {
+                display: none !important;
+            }
+
+            .page-hero {
+                background: none !important;
+                color: var(--text) !important;
+                padding: 10px 0;
+            }
+
+            .page-hero h1 {
+                font-size: 1.6rem;
+                color: var(--primary-dark);
+            }
+
+            .page-body {
+                padding: 0;
+            }
+
+            .table-wrapper {
+                box-shadow: none;
+                overflow: visible;
+            }
+
+            .hours-table {
+                min-width: auto;
+            }
+
+            .hours-table th {
+                background: var(--primary-dark) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+
+            .hours-table td {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+
+            .requirements-banner {
+                border-left: 3px solid var(--accent);
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body class="workhours-page">
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚓</span>
+                <span class="logo-text">Glebe Heights</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#events" class="nav-link">Events</a>
+                <a href="index.html#dues" class="nav-link">Dues</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <h1>Community Work Hours</h1>
+    </section>
+
+    <div class="page-body">
+        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Community Work Hours</p>
+
+        <div class="requirements-banner">
+            <p><strong>Boat slip holders:</strong> 8 hours required per year (June 1 &ndash; May 31).</p>
+            <p><strong>Kayak rack holders:</strong> 4 hours required per year.</p>
+            <p><strong>$25/hour fee</strong> if hours are not completed.</p>
+        </div>
+
+        <h2 class="season-header">2026 Season</h2>
+        <p class="season-note">Beginning 4/1/2026</p>
+
+        <div class="table-wrapper">
+            <table class="hours-table">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Date</th>
+                        <th>Hours</th>
+                        <th>Task</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Denaro</td>
+                        <td>4/14/2026</td>
+                        <td>1</td>
+                        <td>Tree</td>
+                    </tr>
+                    <tr>
+                        <td>Denaro</td>
+                        <td>4/24/2026</td>
+                        <td>2</td>
+                        <td>Work party</td>
+                    </tr>
+                    <tr>
+                        <td>Gillogly</td>
+                        <td>5/8/2026</td>
+                        <td>1</td>
+                        <td>Grass</td>
+                    </tr>
+                    <tr>
+                        <td>Lavezzo</td>
+                        <td>4/24/2026</td>
+                        <td>1.5</td>
+                        <td>Grass</td>
+                    </tr>
+                    <tr>
+                        <td>Gillogly</td>
+                        <td>5/30/2026</td>
+                        <td>2</td>
+                        <td>Grass</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="season-header">2025 Season</h2>
+        <p class="season-note">Beginning 4/1/2025</p>
+
+        <div class="table-wrapper">
+            <table class="hours-table">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Date</th>
+                        <th>Hours</th>
+                        <th>Task</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Davies</td>
+                        <td>4/1/2025</td>
+                        <td>7</td>
+                        <td>Wood</td>
+                    </tr>
+                    <tr>
+                        <td>Sokol</td>
+                        <td>5/2/2025</td>
+                        <td>3</td>
+                        <td>Sand</td>
+                    </tr>
+                    <tr>
+                        <td>Denaro</td>
+                        <td>5/3/2025</td>
+                        <td>4</td>
+                        <td>Sand</td>
+                    </tr>
+                    <tr>
+                        <td>Burton</td>
+                        <td>5/3/2025</td>
+                        <td>4</td>
+                        <td>Sand</td>
+                    </tr>
+                    <tr>
+                        <td>Holsey</td>
+                        <td>5/12/2025</td>
+                        <td>2.5</td>
+                        <td>Grass/meeting</td>
+                    </tr>
+                    <tr>
+                        <td>Davies</td>
+                        <td>5/19/2025</td>
+                        <td>3</td>
+                        <td>Kayak racks</td>
+                    </tr>
+                    <tr>
+                        <td>Denaro</td>
+                        <td>5/25/2025</td>
+                        <td>3</td>
+                        <td>Grass</td>
+                    </tr>
+                    <tr>
+                        <td>Davies</td>
+                        <td>7/1&ndash;7/2/2025</td>
+                        <td>11</td>
+                        <td>Nets/beach</td>
+                    </tr>
+                    <tr>
+                        <td>Marquis</td>
+                        <td>7/2/2025</td>
+                        <td>7</td>
+                        <td>Nets/beach</td>
+                    </tr>
+                    <tr>
+                        <td>Lavezzo</td>
+                        <td>8/8/2025</td>
+                        <td>4.5</td>
+                        <td>Grass</td>
+                    </tr>
+                    <tr>
+                        <td>Gillogly</td>
+                        <td>8/28/2025</td>
+                        <td>2</td>
+                        <td>Grass</td>
+                    </tr>
+                    <tr>
+                        <td>Denaro</td>
+                        <td>8/29/2025</td>
+                        <td>4</td>
+                        <td>Work party</td>
+                    </tr>
+                    <tr>
+                        <td>Holsey</td>
+                        <td>8/29/2025</td>
+                        <td>2</td>
+                        <td>Work party</td>
+                    </tr>
+                    <tr>
+                        <td>Shay</td>
+                        <td>8/29/2025</td>
+                        <td>2</td>
+                        <td>Work party</td>
+                    </tr>
+                    <tr>
+                        <td>Brian</td>
+                        <td>8/29/2025</td>
+                        <td>2</td>
+                        <td>Work party</td>
+                    </tr>
+                    <tr>
+                        <td>Marquis</td>
+                        <td>September 2025</td>
+                        <td>3</td>
+                        <td>Ladder/nets</td>
+                    </tr>
+                    <tr>
+                        <td>Gillogly</td>
+                        <td>9/19/2025</td>
+                        <td>2.5</td>
+                        <td>Grass</td>
+                    </tr>
+                    <tr>
+                        <td>Gillogly</td>
+                        <td>10/2/2025</td>
+                        <td>2</td>
+                        <td>Grass</td>
+                    </tr>
+                    <tr>
+                        <td>Gillogly</td>
+                        <td>10/16/2025</td>
+                        <td>2</td>
+                        <td>Grass</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="submit-section">
+            <h2>Submit Work Hours</h2>
+            <p>Completed some community work? Log your hours by emailing the details to the secretary.</p>
+            <a href="mailto:glebeheights.secretary@gmail.com?subject=Work%20Hours%20Submission&body=Name%3A%20%0ADate%3A%20%0AHours%3A%20%0ATask%20Description%3A%20" class="btn-submit">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email Work Hours
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">⚓</span>
+                <span>Glebe Heights Community Association</span>
+            </div>
+            <p class="footer-copy">&copy; 2026 Glebe Heights Community Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('nav');
+        if (toggle && nav) {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

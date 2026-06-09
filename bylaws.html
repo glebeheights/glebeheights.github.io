@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>By-Laws | Glebe Heights Community Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body.bylaws-page {
+            padding-top: 72px;
+        }
+
+        .page-hero {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 48px 24px 40px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .page-hero .subtitle {
+            font-size: 1rem;
+            opacity: 0.85;
+            font-style: italic;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .page-body {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .bylaws-toc {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            margin-bottom: 48px;
+        }
+
+        .bylaws-toc h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+        }
+
+        .bylaws-toc ol {
+            list-style: upper-roman;
+            padding-left: 28px;
+            columns: 2;
+            column-gap: 32px;
+        }
+
+        .bylaws-toc li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            break-inside: avoid;
+        }
+
+        .bylaws-toc a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .bylaws-toc a:hover {
+            color: var(--accent);
+        }
+
+        .article {
+            margin-bottom: 40px;
+            scroll-margin-top: 90px;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .article-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-block {
+            margin-bottom: 16px;
+        }
+
+        .section-label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .section-block p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .beach-rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .beach-rules-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 14px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .beach-rules-list li::before {
+            content: '\2022';
+            position: absolute;
+            left: 6px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .bylaws-footer-note {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            margin-top: 48px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .bylaws-footer-note strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .page-body {
+                padding: 24px 16px 60px;
+            }
+
+            .bylaws-toc ol {
+                columns: 1;
+            }
+
+            .bylaws-toc {
+                padding: 20px 20px;
+            }
+        }
+
+        @media print {
+            body.bylaws-page {
+                padding-top: 0;
+            }
+
+            .header, .footer, .breadcrumb, .bylaws-toc {
+                display: none !important;
+            }
+
+            .page-hero {
+                background: none !important;
+                color: var(--text) !important;
+                padding: 10px 0;
+            }
+
+            .page-hero h1 {
+                font-size: 1.6rem;
+                color: var(--primary-dark);
+            }
+
+            .page-hero .subtitle {
+                color: var(--text-light);
+            }
+
+            .page-body {
+                padding: 0;
+            }
+
+            .article {
+                break-inside: avoid;
+                margin-bottom: 20px;
+            }
+
+            .article-title {
+                font-size: 1.1rem;
+                break-after: avoid;
+            }
+
+            .section-block p {
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+        }
+    </style>
+</head>
+<body class="bylaws-page">
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚓</span>
+                <span class="logo-text">Glebe Heights</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#events" class="nav-link">Events</a>
+                <a href="index.html#dues" class="nav-link">Dues</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <h1>GHCA By-Laws</h1>
+        <p class="subtitle">Revised June 9, 2025</p>
+    </section>
+
+    <div class="page-body">
+        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; By-Laws</p>
+
+        <nav class="bylaws-toc">
+            <h2>Table of Contents</h2>
+            <ol>
+                <li><a href="#article-1">Purpose of the Association</a></li>
+                <li><a href="#article-2">Seal</a></li>
+                <li><a href="#article-3">Membership</a></li>
+                <li><a href="#article-4">Conduct of Meetings</a></li>
+                <li><a href="#article-5">Elected Officers</a></li>
+                <li><a href="#article-6">Elections</a></li>
+                <li><a href="#article-7">Board of Directors</a></li>
+                <li><a href="#article-8">Meetings</a></li>
+                <li><a href="#article-9">Assessments</a></li>
+                <li><a href="#article-10">Use of Association Property</a></li>
+                <li><a href="#article-11">Duties of Officers</a></li>
+                <li><a href="#article-12">Special Officers</a></li>
+                <li><a href="#article-13">Amendments to the By-Laws</a></li>
+                <li><a href="#article-14">Authority of These By-Laws</a></li>
+                <li><a href="#article-15">Addendum (Beach Rules)</a></li>
+            </ol>
+        </nav>
+
+        <div class="article" id="article-1">
+            <h2 class="article-title">Article I</h2>
+            <span class="article-name">Purpose of the Association</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> The Glebe Heights Community Association (GHCA), Inc. hereinafter referred to as the Association, is a non-profit association of property owners and residents of Glebe Heights, Edgewater, County of Anne Arundel, and State of Maryland, duly incorporated under the laws of the State of Maryland as a non-stock and non-profit corporation, for the purpose of furthering the interests of said property owners, and of maintaining and administering the affairs of the Association.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-2">
+            <h2 class="article-title">Article II</h2>
+            <span class="article-name">Seal</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> The Association shall have a seal, which shall be in the form of a circle with the following words thereon: &ldquo;GLEBE HEIGHTS COMMUNITY ASSOCIATION, INC., 1972, MARYLAND&rdquo;.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-3">
+            <h2 class="article-title">Article III</h2>
+            <span class="article-name">Membership</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> Every person who owns property or resides in Glebe Heights, Edgewater, Anne Arundel County, Maryland, as of January 1st, 2017 may be eligible for membership in the Association solely by virtue of his or her status.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> Membership may be obtained by payment of an assessment and shall be limited to 75 members. If membership interest exceeds the current limit, a waiting list will be established. Memberships will automatically renew if the assessment is paid by the June 1st deadline.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 3:</span> One vote allowed per paid member present at a meeting, limited to a maximum of two (2) votes per household.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-4">
+            <h2 class="article-title">Article IV</h2>
+            <span class="article-name">Conduct of Meetings</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> Questions respecting the conduct of meetings, propriety of discussion, elections, etc. which are not specifically covered by these by-laws, shall be governed by &ldquo;Roberts Rules of Order&rdquo;.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-5">
+            <h2 class="article-title">Article V</h2>
+            <span class="article-name">Elected Officers</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> Elected officers of the Association shall be a President, a Vice President, a Treasurer, a Secretary, Chairman of the Beach Committee, Chairman of the Roads Committee, and Chairman of the Ways and Means Committee, all of who shall be elected by secret ballot.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> All elected officers of the Association shall hold office for two years or until their Successors qualify.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 3:</span> Any officer who fails to attend three consecutive meetings without a valid excuse shall be terminated and a successor appointed by the Board of Directors.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-6">
+            <h2 class="article-title">Article VI</h2>
+            <span class="article-name">Elections</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> In April of the election year the President shall appoint a Nominating Committee consisting of five (5) members, excluding current officers. At the May meeting, the Nominating Committee shall present a slate of officers who have agreed to serve if elected. Nominations may also be taken from the floor until elections are held at the June meeting. This committee shall prepare written ballots and provide space for the write-in of candidates by the membership.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> To be eligible as a candidate for any elected office, the person must be an assessment-paying member in the Association for two (2) consecutive years, and a citizen of the United States.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 3:</span> No person shall be elected by absentee vote or vote by proxy. The outgoing officers shall continue the Election Meeting until all officers are elected. At that time the outgoing President shall introduce all new officers. The new President shall adjourn the meeting.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-7">
+            <h2 class="article-title">Article VII</h2>
+            <span class="article-name">Board of Directors</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> The Board of Directors shall consist of the following: President, Vice President, Secretary, Treasurer, Chairman of the Beach Committee, Chairman of the Roads Committee, and Chairman of the Ways and Means Committee.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> Meetings of the Board of Directors shall be held at such time and place as the Board may determine.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 3:</span> Any Board of Directors&rsquo; meeting shall require five (5) members to constitute a quorum. In the absence of a quorum the presiding officer shall adjourn the meeting to such time and place as may be determined by the members present, notice of which shall be given to the absent members.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 4:</span> The Board of Directors reserves the right, after due opportunity to be heard and upon at least thirty (30) days notice, at either a regular or a special meeting to suspend or expel a member by two-thirds majority vote of those present and voting for any act or conduct deemed detrimental to the best interests of the Association. The notice shall be sent by mail to the member at his address as it appears upon the records of the Association.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 5:</span> The Board of Directors shall have the power to remove or cause to be removed buildings, derelicts, dilapidated or unsafe or unsightly piers or boats or other craft that are attached to or on property under the Association&rsquo;s jurisdiction, according to law. The Board of Directors may also remove or cause to be removed any property, such as furniture, fishing and crabbing equipment, tools or other items not property of the association without notice after a period of Seventy-two (72) hours.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 6:</span> The Board of Directors shall have the power to enforce all provisions within these By-Laws and amendments. Violations of any terms shall result in a mailed letter from the Board to the member outlining the violation and the means in which it should be corrected. Three (3) violations in one calendar year will result in a mandatory vote by the board to determine the members continued status with the Association. Penalties for continued violations of the Association By-Laws are at the sole discretion of the Board, to include loss of boat/kayak clip or slip seniority, dismissal, and future membership.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-8">
+            <h2 class="article-title">Article VIII</h2>
+            <span class="article-name">Meetings</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1: Regular Meetings.</span> Meetings will be held on the second Monday of each month at 6:30pm at the community beach or other designated area. The membership will be given adequate notice of any change.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2: Special Meetings.</span> A special meeting of the members of the Association may be called by the President, the Board of Directors, or by a petition signed by ten (10) members of the Association. The said special meeting shall be held at a designated area in Glebe Heights, Edgewater, Anne Arundel County, and State of Maryland. The call for the meeting shall state the purpose and object of the meeting. No other business than that stated in such notice shall be transacted.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 3: Quorum.</span> The presence of seven (7) members at a meeting of the Association shall constitute a quorum for the conduct of business, and in the absence thereof the President shall adjourn the meeting.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 4:</span> No member shall be allowed to speak more than once nor longer than (5) minutes on the same motion to the exclusion of others unless to explain, and then he must confine himself to explanation and not debate the main question.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-9">
+            <h2 class="article-title">Article IX</h2>
+            <span class="article-name">Assessments</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> All assessments for membership shall be set by the Board of Directors.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> Assessments will be tiered to reflect use of the major association amenities. Basic membership will include access to all areas of the property. Boat Ramp access and use will require an additional assessment. Boat Slip access and use will require the member to pay the Boat Ramp assessment and an additional assessment based on the size of the vessel being maintained at the slip. A minimum slip fee is required based upon a twelve (12) foot vessel.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-10">
+            <h2 class="article-title">Article X</h2>
+            <span class="article-name">Use of Association Property</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> Persons not members of the Association will be denied use of the beach, grills, fire pit, piers and boating facilities, including boat ramp and any future improvements erected and maintained by authority of the Association.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> Each assessment-paying member shall be given one Identification Card. Guests must be accompanied to the beach, pier, boat ramp and facilities by a member who shall be responsible for his guests&rsquo; actions and conduct. Also must, while being responsible, be held liable for costs payable for any damage to property or any item maintained by this Association.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 3:</span> Each assessment paying member shall be given one (1) key to the gate lock and one (1) key to the boat ramp lock depending on level of membership. Keys SHALL NOT be duplicated and SHALL NOT be given to any person other than the current members. Keys MUST NOT be given to guests under any circumstance.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 4:</span> Members holding boat slips must have eight (8) hours of community service per year (June 1 to May 31). Members holding Kayak slips must have four (4) hours of community service per year (June 1 to May 31). Examples of such community service include, but are not limited to: cutting grass, maintenance on pier and/or sea nettle nets, picking up supplies, assisting in fund raisers and so forth. This time must be turned in to the President on a weekly basis or as performed. Board Members will determine violations with fines up to $25.00 per hour for each hour of community service or dismissal of boat slip privileges. Illness and hardship will be a factor considered in this decision.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 5:</span> Property owners may not rent boat slips with the rental property in the community. The Renter(s) must be placed on the Association Waiting List as do all property owners.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 6:</span> Association members holding a boat slip are permitted to lodge only those boats that are owned by the member. A member can reserve a slip if the member owns a boat, or a boat purchase is anticipated, however, they may not rent, lease, or loan the slip to other individual(s) within or outside of the Association without permission from the Board. Any member with a boat slip must have a boat within two years, effective June 9, 2025, or they must forfeit the boat slip. Owner must show proof of registration. If member does not have a boat during this time frame, member will move down to the wait list, for the following year, based on seniority. Failure to comply may result in dismissal of boat slip privileges as determined by the Board members.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 7:</span> Boat and Kayak slips are available to members for an additional assessment. If available slips do not exist, a waiting list will be formed for the next available slip. Members will be assigned slips on the basis of seniority on the slip list. Boat slip fees are determined by the board each year and assessed per foot, with a minimum size of twelve (12) feet. Kayak slip fees are determined by the Board each year and assessed per rack slot. Slip assignments will be made after the June 1st, yearly slip dues deadline. Previous slip holder will lose their place in the seniority list if dues is not received by the June 1st deadline.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-11">
+            <h2 class="article-title">Article XI</h2>
+            <span class="article-name">Duties of Officers</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> The President shall preside at all meetings of the Association and of the Board of Directors. The President shall have the power to limit debate on all questions or motions; maintain order at all times; insist that all debates be on the question at hand; not grant the floor to the same person twice to talk on the same question until each member present has had an opportunity to voice his or her views or opinions. The President, with the approval of the Board of Directors, shall appoint all committee chairmen, except as otherwise provided in these by-laws. The Chairman of each committee shall make a report to the membership at the regular meetings on the committee&rsquo;s activities. The President shall be equally responsible with the Treasurer and Secretary for the care and custody of all documents of the Association, said documents to be kept in such place as shall be designated by the Board of Directors. He shall also appoint an Audit Committee of three (3) for a yearly audit.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> The Vice President shall, in the absence of the President, or in the event of inability to act, perform the duties of the President. In the event of absence or inability of both the President and Vice-President to act, the Association shall elect a President, pro tem, who shall preside.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 3:</span> The Treasurer shall have the care and custody of the funds of the Association; be equally responsible with the President for the care and custody of all documents of the Association; have the power to sign checks and vouchers for the payment of monies; send out bills; keep correct books of the financial affairs of the Association; report the condition of said finances to the membership at every meeting; keep the books open at all times for inspection by the Board of Directors. The Treasurer, with the concurrence of the President is authorized to expend up to $300 without the full vote of the membership, to conduct regular business, including utilities, maintenance, and event supplies.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 4:</span> The Secretary shall keep minutes of all meetings; keep the Seal of the Association and the roster of members; send out all notices and carry on all correspondence, etc.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-12">
+            <h2 class="article-title">Article XII</h2>
+            <span class="article-name">Special Officers</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> All recommendations pertaining to the appointment of Special Officers of Glebe Heights in the name of the Association shall be approved by the membership at a regular meeting, and certification of approval shall be by two elected officers of the Association to the appointing authorities.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-13">
+            <h2 class="article-title">Article XIII</h2>
+            <span class="article-name">Amendments to the By-Laws</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> Any amendment to the By-Laws must be submitted in writing to the membership and read at three (3) consecutive meetings. The amendment is to be voted upon at the third meeting. A two-thirds majority is required for acceptance.</p>
+            </div>
+            <div class="section-block">
+                <p><span class="section-label">Section 2:</span> Any change to a proposed amendment offered at the time an amendment is presented at a general or special meeting, if adopted, will constitute and be construed as a new amendment, which then must be presented in full conformity with Section 1 hereof.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-14">
+            <h2 class="article-title">Article XIV</h2>
+            <span class="article-name">Authority of These By-Laws</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> These By-Laws shall become effective when approved by more than two-thirds of those members present and voting at a meeting called by the membership for the sole purpose of approving these By-Laws and shall replace all previous By-Laws of the Association.</p>
+            </div>
+        </div>
+
+        <div class="article" id="article-15">
+            <h2 class="article-title">Article XV</h2>
+            <span class="article-name">Addendum (Beach Rules)</span>
+            <div class="section-block">
+                <p><span class="section-label">Section 1:</span> Added to these By-Laws are all rules incorporated in regards to the Community Beach operation. These rules shall be available for all members. Notice shall also be posted on the beach.</p>
+                <ul class="beach-rules-list">
+                    <li>Admittance to the beach by members and accompanied guest only.</li>
+                    <li>Admittance to pier by members and accompanied guest only.</li>
+                    <li>Boat ramp for use only by paid up members of the Association ramp maintenance fee.</li>
+                    <li>Parking of cars for members only in designated areas. Members will be assigned two (2) Parking Passes per household and must display those passes in the front windshield of the vehicle when parked on the association property. Failure to display may result in the towing of the vehicle at the owners expense.</li>
+                    <li>Open fires ONLY allowed in the designated fire pit AND MUST be guarded by a member. All fires should be completely extinguished before leaving the property.</li>
+                    <li>No one allowed on beach after 11 pm (unless due to circumstances beyond control.)</li>
+                    <li>All picnic tables, etc. must always be neat and clean with no trash of any kind to be tossed around.</li>
+                    <li>No animals allowed on beach. Animals are allowed on other areas of the property but must be cleaned up after promptly.</li>
+                    <li>This is a private beach owned and maintained by the GHCA, Inc. Any defacing of property, damage of any means, can and will be enforced by law.</li>
+                    <li>There will be no boat trailers left at the beach property for more than twenty-four (24) hours. Violators will be subject to towing at the owners expense.</li>
+                    <li>No alcohol will be allowed on Glebe Heights Association Property. Special exceptions must be preapproved by the Board and in accordance with Maryland State Law.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bylaws-footer-note">
+            <p>By-Laws approved by 2/3rds vote on 11/14/2016. <strong>Revised June 9, 2025.</strong></p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">⚓</span>
+                <span>Glebe Heights Community Association</span>
+            </div>
+            <p class="footer-copy">&copy; 2026 Glebe Heights Community Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('nav');
+        if (toggle && nav) {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

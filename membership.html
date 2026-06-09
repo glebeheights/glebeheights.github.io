@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Application | Glebe Heights Community Association</title>
+    <meta name="description" content="Apply for membership in the Glebe Heights Community Association. Access the community beach, pier, boat ramp, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body.membership-page {
+            padding-top: 72px;
+        }
+
+        .membership-hero {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 60px 24px 50px;
+        }
+
+        .membership-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .membership-hero .community-def {
+            font-size: 1rem;
+            font-style: italic;
+            opacity: 0.85;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .membership-body {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 50px 24px 80px;
+        }
+
+        .membership-body h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 48px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .membership-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .membership-body p,
+        .membership-body li {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .membership-body ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .membership-body ul li {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .membership-body ul li::before {
+            content: '•';
+            position: absolute;
+            left: 6px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 24px;
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .fee-table th,
+        .fee-table td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .fee-table th {
+            background: var(--primary-dark);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fee-table td {
+            color: var(--text);
+        }
+
+        .fee-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .fee-table tr:hover td {
+            background: var(--bg-alt);
+        }
+
+        .fee-table td:last-child {
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .info-callout {
+            background: var(--bg-alt);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .info-callout p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .info-callout p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-callout strong {
+            color: var(--text);
+        }
+
+        .meeting-highlight {
+            background: white;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .meeting-highlight p {
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .meeting-highlight .meeting-time {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Registration Form */
+        .reg-form {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+        }
+
+        .reg-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            align-items: start;
+            margin-bottom: 18px;
+            gap: 12px;
+        }
+
+        .form-row label {
+            font-weight: 500;
+            color: var(--text);
+            padding-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        .form-row input[type="text"],
+        .form-row input[type="email"],
+        .form-row input[type="tel"],
+        .form-row textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: var(--bg);
+            transition: var(--transition);
+        }
+
+        .form-row input:focus,
+        .form-row textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+        }
+
+        .form-row textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 28px 0;
+        }
+
+        /* Membership Checkboxes */
+        .membership-options {
+            margin: 24px 0;
+        }
+
+        .membership-options h4 {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-alt);
+            transition: var(--transition);
+        }
+
+        .option-item:hover {
+            border-color: var(--primary-light);
+        }
+
+        .option-item input[type="checkbox"] {
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .option-label {
+            flex: 1;
+        }
+
+        .option-label .option-name {
+            font-weight: 500;
+            color: var(--text);
+            display: block;
+        }
+
+        .option-label .option-detail {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .option-price {
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+            padding-top: 2px;
+        }
+
+        .option-calc {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .option-calc input[type="number"] {
+            width: 70px;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .option-calc input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+        }
+
+        .option-calc .calc-result {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding: 16px 20px;
+            background: var(--primary-dark);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 1.1rem;
+        }
+
+        .total-row .total-label {
+            font-weight: 600;
+        }
+
+        .total-row .total-amount {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        /* Return Info */
+        .return-info {
+            background: var(--bg-alt);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+        }
+
+        .return-info h4 {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .return-info p {
+            font-size: 0.95rem;
+        }
+
+        .return-info a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .return-info a:hover {
+            color: var(--accent);
+        }
+
+        /* Payment Section */
+        .payment-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .payment-info h4 {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .payment-info p {
+            font-size: 0.95rem;
+        }
+
+        .payment-info .payment-email {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-top: 12px;
+        }
+
+        .payment-info .payment-email strong {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 4px;
+            color: var(--text-muted);
+        }
+
+        .payment-info .payment-email a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .payment-qr {
+            text-align: center;
+        }
+
+        .payment-qr img {
+            max-width: 240px;
+            width: 100%;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+        }
+
+        .payment-qr p {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Terms of Use */
+        .terms-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 36px 40px;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .terms-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .terms-section h4 {
+            font-weight: 600;
+            color: var(--primary);
+            margin: 20px 0 10px;
+            font-size: 0.95rem;
+        }
+
+        .terms-section ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .terms-section ol li {
+            padding-left: 6px;
+            margin-bottom: 10px;
+            font-size: 0.92rem;
+        }
+
+        .sig-block {
+            margin-top: 36px;
+            padding-top: 20px;
+        }
+
+        .sig-line {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 16px;
+        }
+
+        .sig-field {
+            border-bottom: 1px solid var(--text);
+            padding-bottom: 6px;
+            min-height: 36px;
+        }
+
+        .sig-field-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Print Button */
+        .print-bar {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+
+        .btn-print {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-print:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(26, 82, 118, 0.25);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .membership-body {
+                padding: 30px 16px 60px;
+            }
+
+            .reg-form {
+                padding: 24px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .form-row label {
+                padding-top: 0;
+            }
+
+            .payment-section {
+                grid-template-columns: 1fr;
+            }
+
+            .sig-line {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .terms-section {
+                padding: 24px 20px;
+            }
+
+            .fee-table th,
+            .fee-table td {
+                padding: 10px 14px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body.membership-page {
+                padding-top: 0;
+            }
+
+            .header,
+            .footer,
+            .print-bar,
+            .back-link,
+            .no-print {
+                display: none !important;
+            }
+
+            .membership-hero {
+                background: none !important;
+                color: var(--text) !important;
+                padding: 20px 0 10px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .membership-hero h1 {
+                font-size: 1.8rem;
+                color: var(--primary-dark);
+            }
+
+            .membership-hero .community-def {
+                color: var(--text-light);
+            }
+
+            .membership-body {
+                padding: 10px 0;
+            }
+
+            .membership-body h2 {
+                margin-top: 24px;
+                font-size: 1.3rem;
+                break-after: avoid;
+            }
+
+            .reg-form,
+            .terms-section {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                padding: 20px;
+                break-inside: avoid;
+            }
+
+            .fee-table {
+                box-shadow: none;
+            }
+
+            .fee-table th {
+                background: var(--primary-dark) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .info-callout {
+                border-left: 3px solid var(--accent);
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .total-row {
+                background: var(--primary-dark) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .option-item {
+                break-inside: avoid;
+            }
+
+            .payment-qr img {
+                max-width: 180px;
+            }
+
+            a[href]::after {
+                content: none;
+            }
+        }
+    </style>
+</head>
+<body class="membership-page">
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚓</span>
+                <span class="logo-text">Glebe Heights</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#events" class="nav-link">Events</a>
+                <a href="index.html#dues" class="nav-link">Dues</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="membership-hero">
+        <h1>⚓ Glebe Heights Community Association</h1>
+        <p class="community-def">"A unified body of individuals&hellip; an interacting population of various kinds of individuals in a common location&hellip; a group of people with a common characteristic or interest living together within a larger society."</p>
+    </section>
+
+    <div class="membership-body">
+        <a href="index.html" class="back-link">&larr; Back to Main Site</a>
+
+        <h2>Membership Information</h2>
+        <p>Ownership or residence in the Glebe Heights community makes you eligible to participate in the Glebe Heights Community Association. However, <strong>membership in the association is required</strong> for access to the beach and pier facilities.</p>
+        <p>Your annual dues support the maintenance and improvement of our shared waterfront spaces, community events, and neighborhood infrastructure.</p>
+
+        <h2>2026 Fee Schedule</h2>
+        <table class="fee-table">
+            <thead>
+                <tr>
+                    <th>Membership Type</th>
+                    <th>Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Beach / Membership <span style="color: var(--text-muted); font-size: 0.85rem;">(includes gate key)</span></td>
+                    <td>$60</td>
+                </tr>
+                <tr>
+                    <td>Beach / Membership + Boat Ramp Use <span style="color: var(--text-muted); font-size: 0.85rem;">(includes gate + boat ramp keys)</span></td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td>Kayak Rack Fee</td>
+                    <td>$25</td>
+                </tr>
+                <tr>
+                    <td>Boat Slip Fee <span style="color: var(--text-muted); font-size: 0.85rem;">(requires 4 hours of service)</span></td>
+                    <td>$7 / foot</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-callout">
+            <p><strong>Boat Slip Assignments:</strong> Boat slips are first come, first served and will be assigned on or about <strong>May 1, 2026</strong>.</p>
+            <p>Dues must be received by <strong>April 30, 2026</strong> or your name goes to the bottom of the wait list. A <strong>$100 fee</strong> plus boat registration is required for boat slip assignment.</p>
+        </div>
+
+        <div class="meeting-highlight">
+            <p class="meeting-time">Monthly Meetings: 2nd Monday of Each Month</p>
+            <p>April through October &bull; At the Beach &bull; 6:30 PM</p>
+            <p style="margin-top: 8px;"><strong>First Meeting: April 13, 2026</strong></p>
+        </div>
+
+        <p>Questions? Email us at <a href="mailto:glebeheights.secretary@gmail.com" style="color: var(--primary-light); text-decoration: none; font-weight: 500;">glebeheights.secretary@gmail.com</a></p>
+
+        <h2>Registration Form</h2>
+        <div class="reg-form">
+            <h3>2026 Membership Application</h3>
+
+            <div class="form-row">
+                <label for="reg-name">Name</label>
+                <input type="text" id="reg-name" name="name" autocomplete="name">
+            </div>
+            <div class="form-row">
+                <label for="reg-address">Address</label>
+                <input type="text" id="reg-address" name="address" autocomplete="street-address">
+            </div>
+            <div class="form-row">
+                <label for="reg-phone">Phone</label>
+                <input type="tel" id="reg-phone" name="phone" autocomplete="tel">
+            </div>
+            <div class="form-row">
+                <label for="reg-email">Email</label>
+                <input type="email" id="reg-email" name="email" autocomplete="email">
+            </div>
+            <div class="form-row">
+                <label for="reg-family">Family Members</label>
+                <textarea id="reg-family" name="family_members" rows="2" placeholder="List names of household members"></textarea>
+            </div>
+
+            <hr class="form-divider">
+
+            <div class="membership-options">
+                <h4>Select Membership Type &amp; Add-Ons</h4>
+
+                <div class="option-item">
+                    <input type="checkbox" id="opt-beach" onchange="calculateTotal()">
+                    <div class="option-label">
+                        <span class="option-name">Beach / Membership Only</span>
+                        <span class="option-detail">Includes gate key for beach and pier access</span>
+                    </div>
+                    <span class="option-price">$60</span>
+                </div>
+
+                <div class="option-item">
+                    <input type="checkbox" id="opt-boat-ramp" onchange="calculateTotal()">
+                    <div class="option-label">
+                        <span class="option-name">Beach / Membership + Boat Ramp</span>
+                        <span class="option-detail">Includes gate key + boat ramp key</span>
+                    </div>
+                    <span class="option-price">$100</span>
+                </div>
+
+                <div class="option-item">
+                    <input type="checkbox" id="opt-kayak" onchange="calculateTotal()">
+                    <div class="option-label">
+                        <span class="option-name">Kayak Rack Fee</span>
+                    </div>
+                    <span class="option-price">$25</span>
+                </div>
+
+                <div class="option-item">
+                    <input type="checkbox" id="opt-slip" onchange="calculateTotal()">
+                    <div class="option-label">
+                        <span class="option-name">Boat Slip</span>
+                        <span class="option-detail">$7 per foot &bull; Requires 4 service hours</span>
+                        <div class="option-calc">
+                            <label for="slip-length">Boat length:</label>
+                            <input type="number" id="slip-length" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
+                            <span>ft &times; $7 =</span>
+                            <span class="calc-result" id="slip-total">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="option-item">
+                    <input type="checkbox" id="opt-service" onchange="calculateTotal()">
+                    <div class="option-label">
+                        <span class="option-name">Service Hour Payment</span>
+                        <span class="option-detail">Pay in lieu of volunteer service hours ($20/hr)</span>
+                        <div class="option-calc">
+                            <label for="service-hours">Hours:</label>
+                            <input type="number" id="service-hours" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
+                            <span>hrs &times; $20 =</span>
+                            <span class="calc-result" id="service-total">$0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-row">
+                <span class="total-label">Total Fees Due</span>
+                <span class="total-amount" id="grand-total">$0</span>
+            </div>
+        </div>
+
+        <div class="return-info">
+            <h4>How to Submit</h4>
+            <p>Email completed form to <a href="mailto:glebeheights.secretary@gmail.com">glebeheights.secretary@gmail.com</a> or drop off at any monthly meeting.</p>
+            <p>Make checks payable to <strong>"Glebe Heights Community Association"</strong>.</p>
+        </div>
+
+        <h2>Payment via Zelle</h2>
+        <div class="payment-section">
+            <div class="payment-info">
+                <h4>Pay Electronically</h4>
+                <p>Use your bank's Zelle feature to send payment instantly. Scan the QR code or send directly to the treasury email below.</p>
+                <div class="payment-email">
+                    <strong>Treasury Email (Zelle)</strong>
+                    <a href="mailto:glebeheights.treasure@gmail.com">glebeheights.treasure@gmail.com</a>
+                </div>
+            </div>
+            <div class="payment-qr">
+                <img src="images/zelle.jpg" alt="Zelle QR code for Glebe Heights Comm Assn Inc">
+                <p>Glebe Heights Comm Assn Inc</p>
+            </div>
+        </div>
+
+        <h2>Terms of Use Agreement</h2>
+        <div class="terms-section">
+            <h3>Glebe Heights Community Association &mdash; Terms of Use</h3>
+
+            <h4>ARTICLE X &mdash; Use of Facilities</h4>
+            <ol>
+                <li>Non-members shall be denied the use of all community association facilities.</li>
+                <li>One ID card shall be issued per membership. Guests must be accompanied by a member at all times.</li>
+                <li>One gate key shall be issued per membership (Beach level). One boat ramp key shall be issued per membership (Beach + Boat Ramp level). Keys may not be duplicated or shared.</li>
+            </ol>
+
+            <h4>ARTICLE XV &mdash; Beach &amp; Property Rules</h4>
+            <ol>
+                <li>The beach area is for members and their accompanied guests only.</li>
+                <li>The boat ramp is for use by paid boat ramp members only.</li>
+                <li>Two (2) parking passes shall be issued per household.</li>
+                <li>Fires are permitted only in the designated fire pit and must be attended at all times.</li>
+                <li>No persons shall be on the beach after 11:00 PM.</li>
+                <li>Members are responsible for keeping the beach and facilities clean. Please clean up after yourself and your guests.</li>
+                <li>No animals are permitted on the beach. Animals are allowed on other community property provided owners clean up after them.</li>
+                <li>No trailer storage on community property for more than 24 hours.</li>
+                <li>Parking in the community lot is for members only.</li>
+            </ol>
+
+            <div class="sig-block">
+                <p style="margin-bottom: 20px; font-size: 0.95rem; color: var(--text);">By signing below, I acknowledge that I have read, understand, and agree to abide by the Glebe Heights Community Association Terms of Use.</p>
+                <div class="sig-line">
+                    <div>
+                        <div class="sig-field"></div>
+                        <div class="sig-field-label">Signature</div>
+                    </div>
+                    <div>
+                        <div class="sig-field"></div>
+                        <div class="sig-field-label">Date</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="print-bar no-print">
+            <button class="btn-print" onclick="window.print()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Print Application
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">⚓</span>
+                <span>Glebe Heights Community Association</span>
+            </div>
+            <div class="footer-links">
+                <a href="https://www.facebook.com/groups/2401248880153425" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Glebe Heights Community Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const toggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('nav');
+        if (toggle && nav) {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+        }
+
+        function calculateTotal() {
+            let total = 0;
+
+            if (document.getElementById('opt-beach').checked) total += 60;
+            if (document.getElementById('opt-boat-ramp').checked) total += 100;
+            if (document.getElementById('opt-kayak').checked) total += 25;
+
+            const slipLen = parseInt(document.getElementById('slip-length').value) || 0;
+            const slipCost = document.getElementById('opt-slip').checked ? slipLen * 7 : 0;
+            document.getElementById('slip-total').textContent = '$' + slipCost;
+            total += slipCost;
+
+            const serviceHrs = parseInt(document.getElementById('service-hours').value) || 0;
+            const serviceCost = document.getElementById('opt-service').checked ? serviceHrs * 20 : 0;
+            document.getElementById('service-total').textContent = '$' + serviceCost;
+            total += serviceCost;
+
+            document.getElementById('grand-total').textContent = '$' + total;
+        }
+    </script>
+</body>
+</html>

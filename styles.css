@@ -101,6 +101,13 @@ body {
     background: var(--bg-alt);
 }
 
+.nav-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    margin: 0 4px;
+}
+
 .mobile-toggle {
     display: none;
     flex-direction: column;
