@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const isAdmin = window.GHCAAdmin && window.GHCAAdmin.isAdmin();
+
     // Beach Reservation Calendar
     const reservations = [
         { date: '2025-05-24', name: 'Louis Lavezzo' },
@@ -50,6 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentMonth = currentDate.getMonth();
         let currentYear = currentDate.getFullYear();
 
+        function getAdminReservations() {
+            if (window.GHCAAdmin && window.GHCAAdmin.getAdminReservations) {
+                return window.GHCAAdmin.getAdminReservations();
+            }
+            return [];
+        }
+
         function renderCalendar(month, year) {
             calDays.innerHTML = '';
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -59,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const today = new Date();
+            const adminRes = getAdminReservations();
 
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
@@ -71,24 +81,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 const reservation = reservations.find(r => r.date === dateStr);
                 const meeting = meetings.find(m => m.date === dateStr);
                 const event = events.find(e => e.date === dateStr);
+                const adminReservation = adminRes.find(r => r.date === dateStr);
                 const isToday = (day === today.getDate() && month === today.getMonth() && year === today.getFullYear());
 
                 const dayEl = document.createElement('div');
                 dayEl.className = 'cal-day';
-                if (reservation) dayEl.classList.add('cal-reserved');
-                if (meeting) dayEl.classList.add('cal-meeting');
-                if (event) dayEl.classList.add('cal-event');
+                if (adminReservation) dayEl.classList.add('cal-admin-reserved');
+                else if (reservation) dayEl.classList.add('cal-reserved');
+                if (meeting && !adminReservation) dayEl.classList.add('cal-meeting');
+                if (event && !adminReservation) dayEl.classList.add('cal-event');
                 if (isToday) dayEl.classList.add('cal-today');
 
                 dayEl.innerHTML = `<span class="cal-day-num">${day}</span>`;
-                if (reservation) {
+                if (adminReservation) {
+                    dayEl.innerHTML += `<span class="cal-admin-name">${adminReservation.name}</span>`;
+                } else if (reservation) {
                     dayEl.innerHTML += `<span class="cal-reservation-name">${reservation.name}</span>`;
                 } else if (meeting) {
                     dayEl.innerHTML += `<span class="cal-meeting-name">${meeting.name}</span>`;
                 } else if (event) {
                     dayEl.innerHTML += `<span class="cal-event-name">${event.name}</span>`;
                 }
+
+                if (isAdmin) {
+                    dayEl.addEventListener('click', function() {
+                        handleCalendarDayClick(dateStr, adminReservation, reservation);
+                    });
+                }
+
                 calDays.appendChild(dayEl);
+            }
+        }
+
+        function handleCalendarDayClick(dateStr, adminReservation, existingReservation) {
+            if (adminReservation) {
+                if (confirm(`Remove admin reservation "${adminReservation.name}" on ${dateStr}?`)) {
+                    GHCAAdmin.removeAdminReservation(dateStr);
+                    renderCalendar(currentMonth, currentYear);
+                    GHCAAdmin.showNotification('Reservation removed', 'success');
+                }
+            } else if (!existingReservation) {
+                const name = prompt('Add reservation — enter name:');
+                if (name && name.trim()) {
+                    GHCAAdmin.addAdminReservation(dateStr, name.trim());
+                    renderCalendar(currentMonth, currentYear);
+                    GHCAAdmin.showNotification('Reservation added', 'success');
+                }
+            } else {
+                alert(`This date already has a reservation: ${existingReservation.name}`);
             }
         }
 
@@ -105,6 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         renderCalendar(currentMonth, currentYear);
+
+        if (isAdmin) {
+            GHCAAdmin.initCalendarAdmin();
+        }
     }
     const header = document.getElementById('header');
     const nav = document.getElementById('nav');
@@ -251,4 +295,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Admin mode initialization for index.html
+    if (window.GHCAAdmin && GHCAAdmin.isAdmin()) {
+        // Make content sections editable
+        GHCAAdmin.makeEditable('.about-text', 'about-text');
+        GHCAAdmin.makeEditable('.amenity-card', 'amenity');
+        GHCAAdmin.makeEditable('.highlight-card', 'highlight');
+        GHCAAdmin.makeEditable('.contact-card', 'contact');
+
+        // Initialize updates admin controls
+        GHCAAdmin.initUpdatesAdmin();
+
+        // Load any previously saved edits
+        GHCAAdmin.loadSavedEdits();
+    } else if (window.GHCAAdmin) {
+        // Non-admin: still load saved content so visitors see admin edits
+        GHCAAdmin.loadSavedEdits();
+    }
 });
