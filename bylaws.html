@@ -48,6 +48,122 @@
             color: var(--accent);
         }
 
+        .back-members {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .back-members:hover {
+            color: var(--accent);
+        }
+
+        .search-container {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+        }
+
+        .search-btn {
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .search-btn-clear {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .search-btn-clear:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            background: none;
+        }
+
+        .search-nav-btn {
+            padding: 10px 14px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-nav-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .search-info {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .search-info.visible {
+            display: block;
+        }
+
+        .search-info strong {
+            color: var(--primary);
+        }
+
+        mark.search-highlight {
+            background: rgba(230, 126, 34, 0.3);
+            color: inherit;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        mark.search-highlight.current {
+            background: var(--accent);
+            color: white;
+        }
+
         .page-body {
             max-width: 820px;
             margin: 0 auto;
@@ -190,7 +306,7 @@
                 padding-top: 0;
             }
 
-            .header, .footer, .breadcrumb, .bylaws-toc {
+            .header, .footer, .breadcrumb, .bylaws-toc, .search-container {
                 display: none !important;
             }
 
@@ -258,7 +374,18 @@
     </section>
 
     <div class="page-body">
-        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; By-Laws</p>
+        <p class="breadcrumb"><a href="members.html" class="back-members">&larr; Back to Members Area</a> &nbsp;|&nbsp; <a href="index.html">Home</a> &rsaquo; By-Laws</p>
+
+        <div class="search-container">
+            <div class="search-row">
+                <input type="text" class="search-input" id="bylaws-search" placeholder="Search bylaws..." autocomplete="off">
+                <button class="search-btn" id="btn-search">Search</button>
+                <button class="search-nav-btn" id="btn-prev-match">&larr; Prev</button>
+                <button class="search-nav-btn" id="btn-next-match">Next &rarr;</button>
+                <button class="search-btn search-btn-clear" id="btn-clear-search">Clear</button>
+            </div>
+            <p class="search-info" id="search-info"><strong id="match-count">0</strong> matches found &mdash; viewing <strong id="match-current">0</strong> of <strong id="match-total">0</strong></p>
+        </div>
 
         <nav class="bylaws-toc">
             <h2>Table of Contents</h2>
@@ -513,6 +640,143 @@
                 nav.classList.toggle('active');
             });
         }
+
+        // Bylaws Search
+        const searchInput = document.getElementById('bylaws-search');
+        const btnSearch = document.getElementById('btn-search');
+        const btnPrev = document.getElementById('btn-prev-match');
+        const btnNext = document.getElementById('btn-next-match');
+        const btnClear = document.getElementById('btn-clear-search');
+        const searchInfo = document.getElementById('search-info');
+        const matchCountEl = document.getElementById('match-count');
+        const matchCurrentEl = document.getElementById('match-current');
+        const matchTotalEl = document.getElementById('match-total');
+
+        let highlights = [];
+        let currentHighlight = -1;
+
+        function clearHighlights() {
+            highlights = [];
+            currentHighlight = -1;
+            document.querySelectorAll('mark.search-highlight').forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+            searchInfo.classList.remove('visible');
+        }
+
+        function performSearch() {
+            clearHighlights();
+            const query = searchInput.value.trim();
+            if (!query) return;
+
+            const contentArea = document.querySelector('.page-body');
+            const articles = contentArea.querySelectorAll('.article, .bylaws-toc, .bylaws-footer-note');
+
+            articles.forEach(article => {
+                highlightInElement(article, query);
+            });
+
+            highlights = Array.from(document.querySelectorAll('mark.search-highlight'));
+            const count = highlights.length;
+
+            matchCountEl.textContent = count;
+            matchTotalEl.textContent = count;
+            matchCurrentEl.textContent = count > 0 ? '1' : '0';
+            searchInfo.classList.add('visible');
+
+            if (count > 0) {
+                currentHighlight = 0;
+                scrollToHighlight(0);
+            }
+        }
+
+        function highlightInElement(el, query) {
+            const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+            const textNodes = [];
+            while (walker.nextNode()) {
+                textNodes.push(walker.currentNode);
+            }
+
+            const lowerQuery = query.toLowerCase();
+
+            textNodes.forEach(node => {
+                const text = node.textContent;
+                const lowerText = text.toLowerCase();
+                const idx = lowerText.indexOf(lowerQuery);
+                if (idx === -1) return;
+
+                const parts = [];
+                let lastIdx = 0;
+                let searchIdx = 0;
+
+                let currentText = text;
+                let currentLower = lowerText;
+                let offset = 0;
+
+                while (true) {
+                    const found = currentLower.indexOf(lowerQuery, searchIdx);
+                    if (found === -1) break;
+
+                    if (found > lastIdx) {
+                        parts.push(document.createTextNode(currentText.slice(lastIdx, found)));
+                    }
+
+                    const mark = document.createElement('mark');
+                    mark.className = 'search-highlight';
+                    mark.textContent = currentText.slice(found, found + query.length);
+                    parts.push(mark);
+
+                    lastIdx = found + query.length;
+                    searchIdx = lastIdx;
+                }
+
+                if (parts.length > 0) {
+                    if (lastIdx < currentText.length) {
+                        parts.push(document.createTextNode(currentText.slice(lastIdx)));
+                    }
+                    const fragment = document.createDocumentFragment();
+                    parts.forEach(p => fragment.appendChild(p));
+                    node.parentNode.replaceChild(fragment, node);
+                }
+            });
+        }
+
+        function scrollToHighlight(idx) {
+            highlights.forEach(h => h.classList.remove('current'));
+            if (idx >= 0 && idx < highlights.length) {
+                highlights[idx].classList.add('current');
+                highlights[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                matchCurrentEl.textContent = idx + 1;
+            }
+        }
+
+        btnSearch.addEventListener('click', performSearch);
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                performSearch();
+            }
+        });
+
+        btnNext.addEventListener('click', function() {
+            if (highlights.length === 0) return;
+            currentHighlight = (currentHighlight + 1) % highlights.length;
+            scrollToHighlight(currentHighlight);
+        });
+
+        btnPrev.addEventListener('click', function() {
+            if (highlights.length === 0) return;
+            currentHighlight = (currentHighlight - 1 + highlights.length) % highlights.length;
+            scrollToHighlight(currentHighlight);
+        });
+
+        btnClear.addEventListener('click', function() {
+            clearHighlights();
+            searchInput.value = '';
+            searchInput.focus();
+        });
     </script>
 </body>
 </html>

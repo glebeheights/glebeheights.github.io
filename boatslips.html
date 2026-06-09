@@ -88,7 +88,7 @@
             width: 100%;
             border-collapse: collapse;
             background: white;
-            min-width: 900px;
+            min-width: 600px;
         }
 
         .slip-table th {
@@ -120,10 +120,21 @@
             background: var(--bg-alt);
         }
 
-        .slip-table td:nth-child(2),
-        .slip-table td:nth-child(8) {
+        .slip-table td:nth-child(2) {
             font-weight: 600;
             color: var(--primary);
+        }
+
+        .back-members {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .back-members:hover {
+            color: var(--accent);
         }
 
         .slip-table td.text-muted {
@@ -238,27 +249,17 @@
     </section>
 
     <div class="page-body">
-        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Boat Slip Assignments</p>
-
-        <div class="fee-reference">
-            <span class="fee-badge">Gate Key <strong>$60</strong></span>
-            <span class="fee-badge">Boat Ramp <strong>$40</strong></span>
-            <span class="fee-badge">Slip <strong>$7/ft</strong></span>
-            <span class="fee-badge">Kayak Rack <strong>$25/spot</strong></span>
-        </div>
+        <p class="breadcrumb"><a href="members.html" class="back-members">&larr; Back to Members Area</a> &nbsp;|&nbsp; <a href="index.html">Home</a> &rsaquo; Boat Slip Assignments</p>
 
         <div class="table-wrapper">
             <table class="slip-table">
                 <thead>
                     <tr>
                         <th>Member</th>
-                        <th>Membership</th>
-                        <th>Ramp</th>
-                        <th>Boat Slip (Size / Cost)</th>
+                        <th>Boat Size</th>
                         <th>Slip #</th>
                         <th>Kayak Rack</th>
                         <th>Rack #</th>
-                        <th>Total Dues</th>
                         <th>Hours</th>
                         <th>Seniority</th>
                     </tr>
@@ -266,181 +267,136 @@
                 <tbody>
                     <tr>
                         <td>Bacci</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>12' / $84</td>
+                        <td>12'</td>
                         <td>5</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$384</td>
                         <td class="text-muted">&mdash;</td>
                         <td>6/2017</td>
                     </tr>
                     <tr>
                         <td>Burton</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>25' / $175</td>
+                        <td>25'</td>
                         <td>9</td>
-                        <td>2 spots / $50</td>
+                        <td>2 spots</td>
                         <td>8B, 11B</td>
-                        <td>$325</td>
                         <td>8 hrs</td>
                         <td>1989</td>
                     </tr>
                     <tr>
                         <td>Caldwell</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>24' / $168</td>
+                        <td>24'</td>
                         <td>Pier B</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$468</td>
                         <td class="text-muted">&mdash;</td>
                         <td>8/2016</td>
                     </tr>
                     <tr>
                         <td>Cramer</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>25' / $175</td>
+                        <td>25'</td>
                         <td>4</td>
-                        <td>3 spots / $75</td>
+                        <td>3 spots</td>
                         <td>1A, 2A, 3A</td>
-                        <td>$350</td>
                         <td>2 hrs</td>
                         <td>6/2014</td>
                     </tr>
                     <tr>
                         <td>Davies, Phil</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>21.6' / $147</td>
+                        <td>21.6'</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>2 spots / $50</td>
+                        <td>2 spots</td>
                         <td>2B, 3B</td>
-                        <td>$297</td>
                         <td>7.5 hrs</td>
                         <td>4/12/2021</td>
                     </tr>
                     <tr>
                         <td>Fegan</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>24' / $168</td>
+                        <td>24'</td>
                         <td>1</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$418</td>
                         <td class="text-muted">&mdash;</td>
                         <td>2007</td>
                     </tr>
                     <tr>
                         <td>Gillogly</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>12' / $84</td>
+                        <td>12'</td>
                         <td>11</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$296.50</td>
                         <td>3.5 hrs</td>
                         <td>6/2017</td>
                     </tr>
                     <tr>
                         <td>Goodwin &amp; Miksis</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>20' / $140</td>
+                        <td>20'</td>
                         <td>Pier B</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$240</td>
                         <td>8 hrs</td>
                         <td>7/2020</td>
                     </tr>
                     <tr>
                         <td>Holsey, Greg &amp; Elizabeth</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>23' / $161</td>
+                        <td>23'</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>2 spots / $50</td>
+                        <td>2 spots</td>
                         <td>1B, 4B</td>
-                        <td>$386</td>
                         <td>5 hrs</td>
                         <td>5/8/23</td>
                     </tr>
                     <tr>
                         <td>Marquis, Joe &amp; Lisa</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>21' / $147</td>
+                        <td>21'</td>
                         <td>7</td>
-                        <td>1 spot / $25</td>
+                        <td>1 spot</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$372</td>
                         <td>4 hrs</td>
                         <td>6/7/2020</td>
                     </tr>
                     <tr>
                         <td>Sousa-Paz, Pedro</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>23' / $161</td>
+                        <td>23'</td>
                         <td>14</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$461</td>
                         <td class="text-muted">&mdash;</td>
                         <td>3/4/2021</td>
                     </tr>
                     <tr>
                         <td>Raulin, Don</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>23' / $161</td>
+                        <td>23'</td>
                         <td>2</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$461</td>
                         <td class="text-muted">&mdash;</td>
                         <td>1986</td>
                     </tr>
                     <tr>
                         <td>Roach, Ryan &amp; Julie</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>12' / $84</td>
+                        <td>12'</td>
                         <td>13</td>
-                        <td>2 spots / $50</td>
+                        <td>2 spots</td>
                         <td>13A, 14A</td>
-                        <td>$434</td>
                         <td class="text-muted">&mdash;</td>
                         <td>6/21/2018</td>
                     </tr>
                     <tr>
                         <td>Schulze/Politi</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>19' / $133</td>
+                        <td>19'</td>
                         <td>8</td>
-                        <td>1 spot / $25</td>
+                        <td>1 spot</td>
                         <td>8A, 11A</td>
-                        <td>$433</td>
                         <td>1 hr</td>
                         <td>6/13/2011</td>
                     </tr>
                     <tr>
                         <td>Sokol</td>
-                        <td>$60</td>
-                        <td>$40</td>
-                        <td>18' / $126</td>
+                        <td>18'</td>
                         <td>6</td>
                         <td class="text-muted">&mdash;</td>
                         <td class="text-muted">&mdash;</td>
-                        <td>$426</td>
                         <td class="text-muted">&mdash;</td>
                         <td>6/11/2018</td>
                     </tr>

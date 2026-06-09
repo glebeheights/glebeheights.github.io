@@ -168,6 +168,51 @@
             line-height: 1.6;
         }
 
+        .workhours-form {
+            text-align: left;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .wh-form-row {
+            margin-bottom: 16px;
+        }
+
+        .wh-form-row label {
+            display: block;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .wh-form-row input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: var(--bg);
+            transition: var(--transition);
+        }
+
+        .wh-form-row input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+        }
+
+        .back-members {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .back-members:hover {
+            color: var(--accent);
+        }
+
         .btn-submit {
             display: inline-flex;
             align-items: center;
@@ -282,7 +327,7 @@
     </section>
 
     <div class="page-body">
-        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Community Work Hours</p>
+        <p class="breadcrumb"><a href="members.html" class="back-members">&larr; Back to Members Area</a> &nbsp;|&nbsp; <a href="index.html">Home</a> &rsaquo; Community Work Hours</p>
 
         <div class="requirements-banner">
             <p><strong>Boat slip holders:</strong> 8 hours required per year (June 1 &ndash; May 31).</p>
@@ -472,11 +517,30 @@
 
         <div class="submit-section">
             <h2>Submit Work Hours</h2>
-            <p>Completed some community work? Log your hours by emailing the details to the secretary.</p>
-            <a href="mailto:glebeheights.secretary@gmail.com?subject=Work%20Hours%20Submission&body=Name%3A%20%0ADate%3A%20%0AHours%3A%20%0ATask%20Description%3A%20" class="btn-submit">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                Email Work Hours
-            </a>
+            <p>Completed some community work? Fill out the form below to log your hours.</p>
+
+            <form id="workhours-form" class="workhours-form">
+                <div class="wh-form-row">
+                    <label for="wh-name">Member Name</label>
+                    <input type="text" id="wh-name" required placeholder="Your name">
+                </div>
+                <div class="wh-form-row">
+                    <label for="wh-date">Date of Work</label>
+                    <input type="date" id="wh-date" required>
+                </div>
+                <div class="wh-form-row">
+                    <label for="wh-hours">Hours Worked</label>
+                    <input type="number" id="wh-hours" required min="0.5" step="0.5" placeholder="e.g. 2.5">
+                </div>
+                <div class="wh-form-row">
+                    <label for="wh-task">Task / Description</label>
+                    <input type="text" id="wh-task" required placeholder="e.g. Mowed grass, cleaned beach">
+                </div>
+                <button type="submit" class="btn-submit">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Submit Work Hours
+                </button>
+            </form>
         </div>
     </div>
 
@@ -499,6 +563,31 @@
                 nav.classList.toggle('active');
             });
         }
+
+        document.getElementById('workhours-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('wh-name').value.trim();
+            const date = document.getElementById('wh-date').value;
+            const hours = document.getElementById('wh-hours').value;
+            const task = document.getElementById('wh-task').value.trim();
+
+            if (!name || !date || !hours || !task) return;
+
+            const subject = 'Work Hours Submission - ' + name;
+            let body = 'WORK HOURS SUBMISSION\n';
+            body += '=====================\n\n';
+            body += 'Member Name: ' + name + '\n';
+            body += 'Date of Work: ' + date + '\n';
+            body += 'Hours Worked: ' + hours + '\n';
+            body += 'Task/Description: ' + task + '\n';
+            body += '\n---\nSubmitted via glebeheights.github.io work hours form';
+
+            const mailto = 'mailto:glebeheights.secretary@gmail.com'
+                + '?subject=' + encodeURIComponent(subject)
+                + '&body=' + encodeURIComponent(body);
+
+            window.location.href = mailto;
+        });
     </script>
 </body>
 </html>

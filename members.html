@@ -221,6 +221,92 @@
             color: var(--accent);
         }
 
+        /* Admin Mode */
+        .admin-banner {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 12px rgba(39, 174, 96, 0.3);
+        }
+        .admin-banner .admin-icon {
+            font-size: 1.2rem;
+        }
+        .admin-edit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            border-radius: 4px;
+            color: #27ae60;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-left: 8px;
+        }
+        .admin-edit-btn:hover {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+        .admin-editing .task-card-text {
+            outline: none;
+            border-bottom: 2px dashed #27ae60;
+            padding-bottom: 2px;
+        }
+        .admin-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 14px;
+        }
+        .admin-add-btn:hover {
+            background: #219a52;
+            transform: translateY(-1px);
+        }
+        .admin-remove-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .admin-remove-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+        }
+        .admin-save-notice {
+            font-size: 0.8rem;
+            color: #27ae60;
+            font-style: italic;
+            margin-top: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .admin-save-notice.visible {
+            opacity: 1;
+        }
+
         @media (max-width: 480px) {
             .login-form {
                 flex-direction: column;
@@ -400,6 +486,168 @@
             localStorage.removeItem('ghca_member_email');
             showLogin();
         });
+
+        // Admin Mode
+        const ADMIN_EMAILS = ['glebeheights.secretary@gmail.com', 'sheiilindley99@gmail.com'];
+
+        function isAdmin() {
+            const email = localStorage.getItem('ghca_member_email');
+            return email && ADMIN_EMAILS.includes(email.toLowerCase());
+        }
+
+        function initAdminMode() {
+            if (!isAdmin()) return;
+
+            const welcome = document.querySelector('.members-welcome');
+            const banner = document.createElement('div');
+            banner.className = 'admin-banner';
+            banner.innerHTML = '<span class="admin-icon">🔑</span> Admin Mode Active — You can edit content on this page';
+            welcome.insertAdjacentElement('afterend', banner);
+
+            initTaskEditing();
+        }
+
+        function initTaskEditing() {
+            const taskList = document.querySelector('.task-list');
+            if (!taskList) return;
+
+            const savedTasks = localStorage.getItem('ghca_admin_tasks');
+            if (savedTasks) {
+                try {
+                    const tasks = JSON.parse(savedTasks);
+                    taskList.innerHTML = '';
+                    tasks.forEach(t => {
+                        taskList.appendChild(createTaskCard(t.text, t.status, t.statusClass));
+                    });
+                } catch(e) {}
+            }
+
+            const header = taskList.closest('.open-items').querySelector('h2');
+            const editBtn = document.createElement('button');
+            editBtn.className = 'admin-edit-btn';
+            editBtn.textContent = '✏️ Edit';
+            editBtn.addEventListener('click', toggleTaskEditing);
+            header.appendChild(editBtn);
+        }
+
+        function createTaskCard(text, statusText, statusClass) {
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.innerHTML = `
+                <span class="task-card-text">${text}</span>
+                <span class="task-status ${statusClass}">${statusText}</span>
+            `;
+            return card;
+        }
+
+        function toggleTaskEditing() {
+            const taskList = document.querySelector('.task-list');
+            const isEditing = taskList.classList.toggle('admin-editing');
+
+            if (isEditing) {
+                taskList.querySelectorAll('.task-card').forEach(card => {
+                    const textEl = card.querySelector('.task-card-text');
+                    textEl.contentEditable = true;
+
+                    const statusEl = card.querySelector('.task-status');
+                    const select = document.createElement('select');
+                    select.style.cssText = 'font-size:0.75rem;padding:2px 6px;border-radius:4px;border:1px solid var(--border);';
+                    select.innerHTML = `
+                        <option value="status-volunteer" ${statusEl.classList.contains('status-volunteer') ? 'selected' : ''}>Needs Volunteer</option>
+                        <option value="status-progress" ${statusEl.classList.contains('status-progress') ? 'selected' : ''}>In Progress</option>
+                    `;
+                    select.addEventListener('change', () => {
+                        statusEl.className = 'task-status ' + select.value;
+                        statusEl.textContent = select.value === 'status-volunteer' ? 'Needs Volunteer' : 'In Progress';
+                    });
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'admin-remove-btn';
+                    removeBtn.textContent = '×';
+                    removeBtn.addEventListener('click', () => { card.remove(); saveTasks(); });
+
+                    card.appendChild(select);
+                    card.appendChild(removeBtn);
+                });
+
+                const addBtn = document.createElement('button');
+                addBtn.className = 'admin-add-btn';
+                addBtn.id = 'admin-add-task';
+                addBtn.textContent = '+ Add Task';
+                addBtn.addEventListener('click', () => {
+                    const newCard = createTaskCard('New task', 'Needs Volunteer', 'status-volunteer');
+                    taskList.appendChild(newCard);
+                    const textEl = newCard.querySelector('.task-card-text');
+                    textEl.contentEditable = true;
+                    textEl.focus();
+
+                    const statusEl = newCard.querySelector('.task-status');
+                    const select = document.createElement('select');
+                    select.style.cssText = 'font-size:0.75rem;padding:2px 6px;border-radius:4px;border:1px solid var(--border);';
+                    select.innerHTML = `<option value="status-volunteer" selected>Needs Volunteer</option><option value="status-progress">In Progress</option>`;
+                    select.addEventListener('change', () => {
+                        statusEl.className = 'task-status ' + select.value;
+                        statusEl.textContent = select.value === 'status-volunteer' ? 'Needs Volunteer' : 'In Progress';
+                    });
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'admin-remove-btn';
+                    removeBtn.textContent = '×';
+                    removeBtn.addEventListener('click', () => { newCard.remove(); saveTasks(); });
+                    newCard.appendChild(select);
+                    newCard.appendChild(removeBtn);
+                });
+                taskList.insertAdjacentElement('afterend', addBtn);
+
+            } else {
+                taskList.querySelectorAll('.task-card-text').forEach(el => el.contentEditable = false);
+                taskList.querySelectorAll('.task-card select, .task-card .admin-remove-btn').forEach(el => el.remove());
+                const addBtn = document.getElementById('admin-add-task');
+                if (addBtn) addBtn.remove();
+                saveTasks();
+            }
+        }
+
+        function saveTasks() {
+            const taskList = document.querySelector('.task-list');
+            const tasks = [];
+            taskList.querySelectorAll('.task-card').forEach(card => {
+                const text = card.querySelector('.task-card-text').textContent.trim();
+                const statusEl = card.querySelector('.task-status');
+                tasks.push({
+                    text: text,
+                    status: statusEl.textContent.trim(),
+                    statusClass: statusEl.classList.contains('status-progress') ? 'status-progress' : 'status-volunteer'
+                });
+            });
+            localStorage.setItem('ghca_admin_tasks', JSON.stringify(tasks));
+        }
+
+        // Load saved tasks for all users
+        function loadSavedTasks() {
+            const savedTasks = localStorage.getItem('ghca_admin_tasks');
+            if (!savedTasks) return;
+            try {
+                const tasks = JSON.parse(savedTasks);
+                const taskList = document.querySelector('.task-list');
+                if (!taskList) return;
+                taskList.innerHTML = '';
+                tasks.forEach(t => {
+                    taskList.appendChild(createTaskCard(t.text, t.status, t.statusClass));
+                });
+            } catch(e) {}
+        }
+
+        if (membersContent.classList.contains('visible')) {
+            loadSavedTasks();
+            initAdminMode();
+        }
+
+        const origShowMembers = showMembers;
+        showMembers = function(email) {
+            origShowMembers(email);
+            loadSavedTasks();
+            initAdminMode();
+        };
 
         // Mobile nav toggle
         const toggle = document.getElementById('mobile-toggle');

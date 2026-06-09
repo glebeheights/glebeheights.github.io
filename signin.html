@@ -42,27 +42,156 @@
             color: var(--accent);
         }
 
+        .back-members {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .back-members:hover {
+            color: var(--accent);
+        }
+
         .page-body {
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 24px 80px;
         }
 
-        .meeting-date-field {
-            font-size: 1.15rem;
+        .meeting-controls {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 28px;
             margin-bottom: 32px;
-            color: var(--text);
+            box-shadow: var(--shadow);
         }
 
-        .meeting-date-field span {
+        .meeting-controls h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .control-group input:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+        }
+
+        .btn-new-meeting {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-new-meeting:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px);
+        }
+
+        .meeting-date-display {
+            font-size: 1.15rem;
+            margin-bottom: 24px;
+            color: var(--text);
             font-weight: 600;
         }
 
-        .meeting-date-field .date-line {
-            display: inline-block;
-            border-bottom: 1px solid var(--text);
-            min-width: 250px;
-            margin-left: 8px;
+        .meeting-date-display span {
+            color: var(--primary);
+        }
+
+        .add-attendee-form {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+
+        .add-attendee-form h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .attendee-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .attendee-inputs input {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .attendee-inputs input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+        }
+
+        .btn-add-attendee {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-add-attendee:hover {
+            background: var(--primary-light);
         }
 
         .signin-table {
@@ -90,10 +219,6 @@
             text-align: center;
         }
 
-        .signin-table th:nth-child(2) {
-            width: 40%;
-        }
-
         .signin-table td {
             padding: 10px 16px;
             border-bottom: 1px solid var(--border);
@@ -113,6 +238,38 @@
 
         .signin-table tr:hover td {
             background: var(--bg-alt);
+        }
+
+        .btn-remove-attendee {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .btn-remove-attendee:hover {
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .attendee-count {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .attendee-count strong {
+            color: var(--primary);
         }
 
         .print-bar {
@@ -142,12 +299,23 @@
             box-shadow: 0 4px 20px rgba(26, 82, 118, 0.25);
         }
 
+        @media (max-width: 768px) {
+            .attendee-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
         @media print {
             body.signin-page {
                 padding-top: 0;
             }
 
-            .header, .footer, .print-bar, .breadcrumb {
+            .header, .footer, .print-bar, .breadcrumb, .meeting-controls, .add-attendee-form, .btn-remove-attendee {
                 display: none !important;
             }
 
@@ -212,56 +380,64 @@
     </section>
 
     <div class="page-body">
-        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Meeting Sign-In Sheet</p>
+        <p class="breadcrumb"><a href="members.html" class="back-members">&larr; Back to Members Area</a> &nbsp;|&nbsp; <a href="index.html">Home</a> &rsaquo; Meeting Sign-In Sheet</p>
 
-        <p class="meeting-date-field">
-            <span>Meeting Date:</span>
-            <span class="date-line">&nbsp;</span>
-        </p>
+        <div class="meeting-controls">
+            <h3>Select or Create a Meeting</h3>
+            <div class="controls-row">
+                <div class="control-group">
+                    <label for="meeting-select">View Existing</label>
+                    <select id="meeting-select">
+                        <option value="">-- Select a meeting date --</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="new-meeting-date">New Meeting Date</label>
+                    <input type="date" id="new-meeting-date">
+                </div>
+                <button class="btn-new-meeting" id="btn-new-meeting">Create Meeting</button>
+            </div>
+        </div>
 
-        <table class="signin-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Phone / Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>3</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>4</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>5</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>6</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>7</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>8</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>10</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>11</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>12</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>13</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>14</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>15</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>16</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>17</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>18</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>19</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>20</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>21</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>22</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>23</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>24</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>25</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-            </tbody>
-        </table>
+        <div id="signin-content" style="display:none;">
+            <p class="meeting-date-display">Meeting Date: <span id="current-meeting-date"></span></p>
 
-        <div class="print-bar">
-            <button class="btn-print" onclick="window.print()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                Print Sign-In Sheet
-            </button>
+            <div class="add-attendee-form">
+                <h4>Add Attendee</h4>
+                <div class="attendee-inputs">
+                    <input type="text" id="att-name" placeholder="Name" required>
+                    <input type="text" id="att-address" placeholder="Address">
+                    <input type="text" id="att-contact" placeholder="Phone / Email">
+                </div>
+                <button class="btn-add-attendee" id="btn-add-attendee">Add to Sign-In Sheet</button>
+            </div>
+
+            <p class="attendee-count"><strong id="attendee-count-num">0</strong> attendees signed in</p>
+
+            <table class="signin-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone / Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="signin-tbody">
+                </tbody>
+            </table>
+
+            <div class="print-bar">
+                <button class="btn-print" onclick="window.print()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                    Print Sign-In Sheet
+                </button>
+            </div>
+        </div>
+
+        <div id="signin-empty" class="empty-state">
+            <p>Select an existing meeting or create a new one to get started.</p>
         </div>
     </div>
 
@@ -284,6 +460,147 @@
                 nav.classList.toggle('active');
             });
         }
+
+        const STORAGE_KEY = 'ghca_signin_data';
+        let currentMeetingDate = null;
+
+        function getAllMeetings() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : {};
+        }
+
+        function saveMeetings(meetings) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(meetings));
+        }
+
+        function populateMeetingSelect() {
+            const select = document.getElementById('meeting-select');
+            const meetings = getAllMeetings();
+            const dates = Object.keys(meetings).sort().reverse();
+
+            select.innerHTML = '<option value="">-- Select a meeting date --</option>';
+            dates.forEach(date => {
+                const opt = document.createElement('option');
+                opt.value = date;
+                const d = new Date(date + 'T12:00:00');
+                opt.textContent = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                select.appendChild(opt);
+            });
+        }
+
+        function loadMeeting(date) {
+            currentMeetingDate = date;
+            const meetings = getAllMeetings();
+            const attendees = meetings[date] || [];
+
+            document.getElementById('signin-content').style.display = 'block';
+            document.getElementById('signin-empty').style.display = 'none';
+
+            const d = new Date(date + 'T12:00:00');
+            document.getElementById('current-meeting-date').textContent =
+                d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            renderAttendees(attendees);
+        }
+
+        function renderAttendees(attendees) {
+            const tbody = document.getElementById('signin-tbody');
+            tbody.innerHTML = '';
+            document.getElementById('attendee-count-num').textContent = attendees.length;
+
+            if (attendees.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="5" style="text-align:center;color:var(--text-muted);font-style:italic;padding:24px;">No attendees yet. Add the first one above.</td>';
+                tbody.appendChild(row);
+                return;
+            }
+
+            attendees.forEach((att, idx) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td>${escapeHtml(att.name)}</td>
+                    <td>${escapeHtml(att.address || '')}</td>
+                    <td>${escapeHtml(att.contact || '')}</td>
+                    <td><button class="btn-remove-attendee" data-idx="${idx}" title="Remove">&times;</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            tbody.querySelectorAll('.btn-remove-attendee').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    removeAttendee(parseInt(this.dataset.idx));
+                });
+            });
+        }
+
+        function addAttendee(name, address, contact) {
+            if (!currentMeetingDate || !name) return;
+            const meetings = getAllMeetings();
+            if (!meetings[currentMeetingDate]) meetings[currentMeetingDate] = [];
+            meetings[currentMeetingDate].push({ name, address, contact });
+            saveMeetings(meetings);
+            renderAttendees(meetings[currentMeetingDate]);
+        }
+
+        function removeAttendee(idx) {
+            if (!currentMeetingDate) return;
+            const meetings = getAllMeetings();
+            if (!meetings[currentMeetingDate]) return;
+            meetings[currentMeetingDate].splice(idx, 1);
+            saveMeetings(meetings);
+            renderAttendees(meetings[currentMeetingDate]);
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        document.getElementById('meeting-select').addEventListener('change', function() {
+            if (this.value) {
+                loadMeeting(this.value);
+            }
+        });
+
+        document.getElementById('btn-new-meeting').addEventListener('click', function() {
+            const dateInput = document.getElementById('new-meeting-date');
+            const date = dateInput.value;
+            if (!date) { dateInput.focus(); return; }
+
+            const meetings = getAllMeetings();
+            if (!meetings[date]) meetings[date] = [];
+            saveMeetings(meetings);
+            populateMeetingSelect();
+            document.getElementById('meeting-select').value = date;
+            loadMeeting(date);
+            dateInput.value = '';
+        });
+
+        document.getElementById('btn-add-attendee').addEventListener('click', function() {
+            const name = document.getElementById('att-name').value.trim();
+            const address = document.getElementById('att-address').value.trim();
+            const contact = document.getElementById('att-contact').value.trim();
+            if (!name) { document.getElementById('att-name').focus(); return; }
+
+            addAttendee(name, address, contact);
+            document.getElementById('att-name').value = '';
+            document.getElementById('att-address').value = '';
+            document.getElementById('att-contact').value = '';
+            document.getElementById('att-name').focus();
+        });
+
+        document.querySelectorAll('.attendee-inputs input').forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    document.getElementById('btn-add-attendee').click();
+                }
+            });
+        });
+
+        populateMeetingSelect();
     </script>
 </body>
 </html>
