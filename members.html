@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members Area | Glebe Heights Community Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-header {
+            background: var(--bg-dark);
+            padding: 120px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 8px;
+        }
+        .page-header p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        .page-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Login Form */
+        .login-container {
+            max-width: 440px;
+            margin: 80px auto;
+            text-align: center;
+        }
+        .login-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+        .login-container p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+        .login-form {
+            display: flex;
+            gap: 10px;
+        }
+        .login-form input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+        }
+        .login-form input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1);
+        }
+        .login-form button {
+            padding: 14px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .login-form button:hover {
+            background: var(--primary-light);
+        }
+        .login-error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            display: none;
+        }
+        .login-error.visible {
+            display: block;
+        }
+
+        /* Members Content */
+        .members-content {
+            display: none;
+        }
+        .members-content.visible {
+            display: block;
+        }
+        .members-welcome {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .members-welcome p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        .btn-logout {
+            padding: 8px 18px;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn-logout:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        /* Link cards */
+        .member-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .member-link-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 22px 24px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        .member-link-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+        .member-link-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Open Items */
+        .open-items h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+        .open-items > p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .task-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px 22px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+        }
+        .task-card-text {
+            font-weight: 500;
+            color: var(--text);
+        }
+        .task-status {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+        .status-volunteer {
+            background: rgba(230, 126, 34, 0.1);
+            color: var(--accent);
+        }
+        .status-progress {
+            background: rgba(41, 128, 185, 0.1);
+            color: var(--primary-light);
+        }
+        .task-note {
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: var(--bg-alt);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .task-note a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .task-note a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 480px) {
+            .login-form {
+                flex-direction: column;
+            }
+            .members-welcome {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚓</span>
+                <span class="logo-text">Glebe Heights</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#events" class="nav-link">Events</a>
+                <a href="index.html#reservations" class="nav-link">Reservations</a>
+                <a href="membership.html" class="nav-link">Membership</a>
+            </nav>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Members Area</h1>
+            <p>Resources and information for GHCA members</p>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <!-- Login Form -->
+        <div class="login-container" id="login-section">
+            <h2>Member Access</h2>
+            <p>Enter your member email to access this area.</p>
+            <form class="login-form" id="login-form">
+                <input type="email" id="email-input" placeholder="your@email.com" required autocomplete="email">
+                <button type="submit">Access</button>
+            </form>
+            <p class="login-error" id="login-error">Email not found. Access is limited to current GHCA members. Contact <a href="mailto:glebeheights.secretary@gmail.com">glebeheights.secretary@gmail.com</a> if you believe this is an error.</p>
+        </div>
+
+        <!-- Members Content (hidden until authenticated) -->
+        <div class="members-content" id="members-content">
+            <div class="members-welcome">
+                <p>Signed in as <strong id="member-email-display"></strong></p>
+                <button class="btn-logout" id="btn-logout">Log Out</button>
+            </div>
+
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 20px;">Member Resources</h2>
+
+            <div class="member-links">
+                <a href="minutes.html" class="member-link-card">
+                    <span class="member-link-icon">📋</span>
+                    Meeting Minutes
+                </a>
+                <a href="boatslips.html" class="member-link-card">
+                    <span class="member-link-icon">⛵</span>
+                    Boat Slips
+                </a>
+                <a href="workhours.html" class="member-link-card">
+                    <span class="member-link-icon">⏰</span>
+                    Work Hours
+                </a>
+                <a href="signin.html" class="member-link-card">
+                    <span class="member-link-icon">✍️</span>
+                    Sign-In Sheet
+                </a>
+                <a href="bylaws.html" class="member-link-card">
+                    <span class="member-link-icon">📜</span>
+                    By-Laws
+                </a>
+                <a href="membership.html" class="member-link-card">
+                    <span class="member-link-icon">📝</span>
+                    Membership Application
+                </a>
+            </div>
+
+            <div class="open-items">
+                <h2>Open Items / Tasks Needed</h2>
+                <p>Current tasks that need volunteers or attention</p>
+
+                <div class="task-list">
+                    <div class="task-card">
+                        <span class="task-card-text">Fix gate rope</span>
+                        <span class="task-status status-volunteer">Needs Volunteer</span>
+                    </div>
+                    <div class="task-card">
+                        <span class="task-card-text">Replace ramp chain/lock</span>
+                        <span class="task-status status-volunteer">Needs Volunteer</span>
+                    </div>
+                    <div class="task-card">
+                        <span class="task-card-text">Get estimates for new automated gate system</span>
+                        <span class="task-status status-progress">In Progress</span>
+                    </div>
+                    <div class="task-card">
+                        <span class="task-card-text">Get estimates for boat ramp fix</span>
+                        <span class="task-status status-progress">In Progress</span>
+                    </div>
+                    <div class="task-card">
+                        <span class="task-card-text">Take down nets and determine if we want to buy new ones</span>
+                        <span class="task-status status-volunteer">Needs Volunteer</span>
+                    </div>
+                </div>
+
+                <div class="task-note">
+                    Interested in helping with any of these? Email <a href="mailto:glebeheights.secretary@gmail.com">glebeheights.secretary@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">⚓</span>
+                <span>Glebe Heights Community Association</span>
+            </div>
+            <p class="footer-copy">&copy; 2026 Glebe Heights Community Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const memberEmails = [
+            "750cecil@gmail.com","84dangelo@gmail.com","admyers87@comcast.net","ajsloans@gmail.com","alicia.brogden@hotmail.com","annettedavies25@aol.com","ari.isaacman@gmail.com","babycig13@gmail.com","bahall74@gmail.com","bburton@stolarconstruction.com","billels70@gmail.com","billonearth787@gmail.com","brandieleesteve@gmail.com","brian@yourarealender.com","brucewashko@gmail.com","cfegan12@aol.com","chris.davidson87@yahoo.com","chriscanton80@gmail.com","dalemaynard@comcast.net","danicecily@me.com","dcdrjohnson@msn.com","denaro1016@gmail.com","denarofamily07@gmail.com","dpennington306@gmail.com","earleolson@verizon.net","ednumtwo@yahoo.com","estorres1210@gmail.com","foxleebrittany@gmail.com","george.caldwell@zoho.com","georgeheinlein@verizon.net","gholsey@rocketmail.com","gt63959@aol.com","jkbacci3@gmail.com","jlindsey638@gmail.com","jm_marquis@hotmail.com","joe@stangerinsurancegroup.com","johngillogly@msn.com","jtja@hotmail.com","kbacci1@verizon.net","kbladybug63@aol.com","kt63357@gmail.com","l.marquis@comcast.net","larrywelch55@gmail.com","lena.jm@gmail.com","lmhugg@yahoo.com","lornacunningham@comcast.net","markcunningham21@gmail.com","markkragan@yahoo.com","meandlp14@gmail.com","melaniedixon@4gtechsolutions.com","mpdavis2@aol.com","nicoli7800@gmail.com","olsoninpa@verizon.net","p.fegan2018@gmail.com","pedropaz123@gmail.com","ptinsley10@yahoo.com","rcbrown@me.com","rick.potocek@gmail.com","rmroach20@gmail.com","ryan13xc@gmail.com","sheiilindley99@gmail.com","slynch0117@yahoo.com","stephenmc920@yahoo.com","talitha-vierling@outlook.com","tbull52@gmail.com","tlmiksis@hotmail.com","willboock@yahoo.com"
+        ];
+
+        const loginSection = document.getElementById('login-section');
+        const membersContent = document.getElementById('members-content');
+        const loginForm = document.getElementById('login-form');
+        const emailInput = document.getElementById('email-input');
+        const loginError = document.getElementById('login-error');
+        const memberEmailDisplay = document.getElementById('member-email-display');
+        const btnLogout = document.getElementById('btn-logout');
+
+        function showMembers(email) {
+            loginSection.style.display = 'none';
+            membersContent.classList.add('visible');
+            memberEmailDisplay.textContent = email;
+        }
+
+        function showLogin() {
+            loginSection.style.display = '';
+            membersContent.classList.remove('visible');
+            loginError.classList.remove('visible');
+            emailInput.value = '';
+        }
+
+        // Check if already authenticated
+        const storedEmail = localStorage.getItem('ghca_member_email');
+        if (storedEmail && memberEmails.includes(storedEmail)) {
+            showMembers(storedEmail);
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = emailInput.value.trim().toLowerCase();
+            if (memberEmails.includes(email)) {
+                localStorage.setItem('ghca_member_email', email);
+                showMembers(email);
+            } else {
+                loginError.classList.add('visible');
+            }
+        });
+
+        btnLogout.addEventListener('click', () => {
+            localStorage.removeItem('ghca_member_email');
+            showLogin();
+        });
+
+        // Mobile nav toggle
+        const toggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('nav');
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

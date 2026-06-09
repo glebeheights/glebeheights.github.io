@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Minutes | Glebe Heights Community Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-header {
+            background: var(--bg-dark);
+            padding: 120px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 8px;
+        }
+        .page-header p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        .breadcrumbs {
+            padding: 16px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .breadcrumbs a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+        .breadcrumbs a:hover {
+            color: var(--accent);
+        }
+        .minutes-index {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 32px;
+            margin-bottom: 40px;
+        }
+        .minutes-index h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+        .minutes-index ul {
+            list-style: none;
+        }
+        .minutes-index li {
+            margin-bottom: 8px;
+        }
+        .minutes-index a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .minutes-index a:hover {
+            color: var(--accent);
+        }
+        .minutes-entry {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        .minutes-entry h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+        .minutes-entry .minutes-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+        .minutes-entry h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 24px 0 10px;
+        }
+        .minutes-entry p {
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        .minutes-entry ul {
+            margin: 8px 0 8px 20px;
+            color: var(--text-light);
+        }
+        .minutes-entry li {
+            margin-bottom: 6px;
+        }
+        .treasury-table {
+            width: 100%;
+            max-width: 400px;
+            border-collapse: collapse;
+            margin: 12px 0;
+        }
+        .treasury-table td {
+            padding: 6px 12px;
+            color: var(--text-light);
+        }
+        .treasury-table td:last-child {
+            text-align: right;
+            font-family: 'Inter', monospace;
+            font-weight: 500;
+        }
+        .treasury-table tr:last-child td {
+            border-top: 2px solid var(--border);
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 30px;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: var(--accent);
+        }
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        @media print {
+            .page-header { padding: 20px 0; background: none; color: var(--text); }
+            .breadcrumbs, .back-link { display: none; }
+            .minutes-entry { box-shadow: none; border: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚓</span>
+                <span class="logo-text">Glebe Heights</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#events" class="nav-link">Events</a>
+                <a href="index.html#reservations" class="nav-link">Reservations</a>
+                <a href="members.html" class="nav-link">Members</a>
+            </nav>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Meeting Minutes</h1>
+            <p>Official records of GHCA monthly meetings</p>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a> &rsaquo; <a href="members.html">Members</a> &rsaquo; Meeting Minutes
+        </div>
+
+        <div class="minutes-index">
+            <h2>Available Minutes</h2>
+            <ul>
+                <li><a href="#minutes-2026-06-08">June 8, 2026 — Monthly Meeting</a></li>
+            </ul>
+        </div>
+
+        <div class="minutes-entry" id="minutes-2026-06-08">
+            <h2>GHCA Monthly Meeting</h2>
+            <div class="minutes-meta">June 8, 2026 &bull; 6:30 PM &bull; Beach Fire Pit Area</div>
+
+            <p>Minutes from May meeting read and approved.</p>
+            <p><strong>Presiding over meeting:</strong> Patrick Feagan</p>
+
+            <h3>Treasury Report</h3>
+            <table class="treasury-table">
+                <tr><td>Previous Balance</td><td>$25,694.80</td></tr>
+                <tr><td>Deposits</td><td>+$1,319.00</td></tr>
+                <tr><td>BGE</td><td>-$54.83</td></tr>
+                <tr><td>Statewide</td><td>-$1,390.06</td></tr>
+                <tr><td>New Balance</td><td>$25,568.91</td></tr>
+            </table>
+
+            <h3>Old Business</h3>
+            <ul>
+                <li>Nets unable to be fixed due to broken pole and nothing to support cable anymore. Work party scheduled to remove.</li>
+            </ul>
+
+            <h3>New Business</h3>
+            <ul>
+                <li>July 4 Party — July 5 at 2:00 PM</li>
+                <li>Work Party — June 12 at 5:30 PM</li>
+            </ul>
+
+            <h3>Board Elections</h3>
+            <ul>
+                <li><strong>President:</strong> Pedro Paz</li>
+                <li><strong>Vice President:</strong> Patrick Fegan</li>
+                <li><strong>Treasurer:</strong> Greg Tanner</li>
+                <li><strong>Secretary:</strong> Sheii Lindley</li>
+                <li><strong>Roads:</strong> Ryan Roach</li>
+                <li><strong>Beaches:</strong> Joe Stanger</li>
+                <li><strong>Ways and Means:</strong> Vacant</li>
+            </ul>
+
+            <p style="margin-top: 24px; font-style: italic;">Meeting adjourned.</p>
+        </div>
+
+        <a href="members.html" class="back-link">&larr; Back to Members</a>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">⚓</span>
+                <span>Glebe Heights Community Association</span>
+            </div>
+            <p class="footer-copy">&copy; 2026 Glebe Heights Community Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('nav');
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

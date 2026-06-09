@@ -12,6 +12,34 @@ document.addEventListener('DOMContentLoaded', () => {
         { date: '2026-07-25', name: 'Lavezzo' },
     ];
 
+    // Monthly meetings — 2nd Monday, April–October
+    const meetings = [
+        { date: '2025-04-14', name: 'Monthly Meeting' },
+        { date: '2025-05-12', name: 'Monthly Meeting' },
+        { date: '2025-06-09', name: 'Monthly Meeting' },
+        { date: '2025-07-14', name: 'Monthly Meeting' },
+        { date: '2025-08-11', name: 'Monthly Meeting' },
+        { date: '2025-09-08', name: 'Monthly Meeting' },
+        { date: '2025-10-13', name: 'Monthly Meeting' },
+        { date: '2026-04-13', name: 'Monthly Meeting' },
+        { date: '2026-05-11', name: 'Monthly Meeting' },
+        { date: '2026-06-08', name: 'Monthly Meeting' },
+        { date: '2026-07-13', name: 'Monthly Meeting' },
+        { date: '2026-08-10', name: 'Monthly Meeting' },
+        { date: '2026-09-14', name: 'Monthly Meeting' },
+        { date: '2026-10-12', name: 'Monthly Meeting' },
+    ];
+
+    // Special community events
+    const events = [
+        { date: '2025-04-05', name: 'Spring Cleanup' },
+        { date: '2025-11-01', name: 'Fall Closeup' },
+        { date: '2026-04-04', name: 'Spring Cleanup' },
+        { date: '2026-06-12', name: 'Work Party 5:30PM' },
+        { date: '2026-07-05', name: 'Independence Day Party 2PM' },
+        { date: '2026-11-07', name: 'Fall Closeup' },
+    ];
+
     const calDays = document.getElementById('cal-days');
     const calLabel = document.getElementById('cal-month-label');
     const calPrev = document.getElementById('cal-prev');
@@ -41,16 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let day = 1; day <= daysInMonth; day++) {
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const reservation = reservations.find(r => r.date === dateStr);
+                const meeting = meetings.find(m => m.date === dateStr);
+                const event = events.find(e => e.date === dateStr);
                 const isToday = (day === today.getDate() && month === today.getMonth() && year === today.getFullYear());
 
                 const dayEl = document.createElement('div');
                 dayEl.className = 'cal-day';
                 if (reservation) dayEl.classList.add('cal-reserved');
+                if (meeting) dayEl.classList.add('cal-meeting');
+                if (event) dayEl.classList.add('cal-event');
                 if (isToday) dayEl.classList.add('cal-today');
 
                 dayEl.innerHTML = `<span class="cal-day-num">${day}</span>`;
                 if (reservation) {
                     dayEl.innerHTML += `<span class="cal-reservation-name">${reservation.name}</span>`;
+                } else if (meeting) {
+                    dayEl.innerHTML += `<span class="cal-meeting-name">${meeting.name}</span>`;
+                } else if (event) {
+                    dayEl.innerHTML += `<span class="cal-event-name">${event.name}</span>`;
                 }
                 calDays.appendChild(dayEl);
             }

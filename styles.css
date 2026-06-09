@@ -586,6 +586,19 @@ body {
     font-size: 0.95rem;
 }
 
+.update-card p + p {
+    margin-top: 8px;
+}
+
+.update-urgent {
+    border-left: 4px solid #e74c3c;
+    background: #fef9f8;
+}
+
+.update-urgent .update-date {
+    color: #e74c3c;
+}
+
 .updates-cta {
     text-align: center;
 }
@@ -795,6 +808,77 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.cal-meeting {
+    background: #0891b2;
+    border-radius: var(--radius-sm);
+}
+
+.cal-meeting .cal-day-num {
+    color: white;
+    font-weight: 700;
+}
+
+.cal-meeting-name {
+    font-size: 0.55rem;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cal-event {
+    background: #27ae60;
+    border-radius: var(--radius-sm);
+}
+
+.cal-event .cal-day-num {
+    color: white;
+    font-weight: 700;
+}
+
+.cal-event-name {
+    font-size: 0.55rem;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.legend-dot-reservation { background: var(--accent); }
+.legend-dot-meeting { background: #0891b2; }
+.legend-dot-event { background: #27ae60; }
 
 @media (max-width: 480px) {
     .calendar-container {
