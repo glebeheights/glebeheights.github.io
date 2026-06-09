@@ -526,6 +526,55 @@
             box-shadow: 0 4px 20px rgba(26, 82, 118, 0.25);
         }
 
+        .form-actions {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(211, 84, 0, 0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-status {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-status.success {
+            color: #27ae60;
+        }
+
+        .form-status.error {
+            color: #e74c3c;
+        }
+
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -744,7 +793,7 @@
         <p>Questions? Email us at <a href="mailto:glebeheights.secretary@gmail.com" style="color: var(--primary-light); text-decoration: none; font-weight: 500;">glebeheights.secretary@gmail.com</a></p>
 
         <h2>Registration Form</h2>
-        <div class="reg-form">
+        <form id="membership-form" class="reg-form" onsubmit="return submitForm(event)">
             <h3>2026 Membership Application</h3>
 
             <div class="form-row">
@@ -774,7 +823,7 @@
                 <h4>Select Membership Type &amp; Add-Ons</h4>
 
                 <div class="option-item">
-                    <input type="checkbox" id="opt-beach" onchange="calculateTotal()">
+                    <input type="checkbox" id="opt-beach" name="membership_beach" value="Beach Only - $60" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Beach / Membership Only</span>
                         <span class="option-detail">Includes gate key for beach and pier access</span>
@@ -783,7 +832,7 @@
                 </div>
 
                 <div class="option-item">
-                    <input type="checkbox" id="opt-boat-ramp" onchange="calculateTotal()">
+                    <input type="checkbox" id="opt-boat-ramp" name="membership_boat_ramp" value="Beach + Boat Ramp - $100" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Beach / Membership + Boat Ramp</span>
                         <span class="option-detail">Includes gate key + boat ramp key</span>
@@ -792,7 +841,7 @@
                 </div>
 
                 <div class="option-item">
-                    <input type="checkbox" id="opt-kayak" onchange="calculateTotal()">
+                    <input type="checkbox" id="opt-kayak" name="membership_kayak" value="Kayak Rack - $25" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Kayak Rack Fee</span>
                     </div>
@@ -800,13 +849,13 @@
                 </div>
 
                 <div class="option-item">
-                    <input type="checkbox" id="opt-slip" onchange="calculateTotal()">
+                    <input type="checkbox" id="opt-slip" name="membership_boat_slip" value="Boat Slip" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Boat Slip</span>
                         <span class="option-detail">$7 per foot &bull; Requires 4 service hours</span>
                         <div class="option-calc">
                             <label for="slip-length">Boat length:</label>
-                            <input type="number" id="slip-length" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
+                            <input type="number" id="slip-length" name="boat_length_ft" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
                             <span>ft &times; $7 =</span>
                             <span class="calc-result" id="slip-total">$0</span>
                         </div>
@@ -814,13 +863,13 @@
                 </div>
 
                 <div class="option-item">
-                    <input type="checkbox" id="opt-service" onchange="calculateTotal()">
+                    <input type="checkbox" id="opt-service" name="service_hour_payment" value="Service Hours" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Service Hour Payment</span>
                         <span class="option-detail">Pay in lieu of volunteer service hours ($20/hr)</span>
                         <div class="option-calc">
                             <label for="service-hours">Hours:</label>
-                            <input type="number" id="service-hours" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
+                            <input type="number" id="service-hours" name="service_hours_qty" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
                             <span>hrs &times; $20 =</span>
                             <span class="calc-result" id="service-total">$0</span>
                         </div>
@@ -832,12 +881,24 @@
                 <span class="total-label">Total Fees Due</span>
                 <span class="total-amount" id="grand-total">$0</span>
             </div>
-        </div>
+            <input type="hidden" id="total-hidden" name="total_fees_due" value="$0">
+
+            <div class="form-row" style="margin-top: 20px;">
+                <label for="reg-notes">Additional Notes</label>
+                <textarea id="reg-notes" name="notes" rows="2" placeholder="Boat registration #, special requests, etc."></textarea>
+            </div>
+
+            <div class="form-actions no-print">
+                <button type="submit" class="btn-submit" id="submit-btn">Submit Application Online</button>
+                <div id="form-status" class="form-status"></div>
+            </div>
+        </form>
 
         <div class="return-info">
             <h4>How to Submit</h4>
-            <p>Email completed form to <a href="mailto:glebeheights.secretary@gmail.com">glebeheights.secretary@gmail.com</a> or drop off at any monthly meeting.</p>
-            <p>Make checks payable to <strong>"Glebe Heights Community Association"</strong>.</p>
+            <p><strong>Online:</strong> Fill out the form above and click "Submit Application Online" — your application will be sent directly to the secretary.</p>
+            <p><strong>In person:</strong> Print this form and drop it off at any monthly meeting.</p>
+            <p>Make checks or Zelle payments payable to <strong>"Glebe Heights Community Association"</strong>.</p>
         </div>
 
         <h2>Payment via Zelle</h2>
@@ -947,6 +1008,67 @@
             total += serviceCost;
 
             document.getElementById('grand-total').textContent = '$' + total;
+            document.getElementById('total-hidden').value = '$' + total;
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const address = document.getElementById('reg-address').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const family = document.getElementById('reg-family').value.trim();
+            const notes = document.getElementById('reg-notes').value.trim();
+            const total = document.getElementById('grand-total').textContent;
+
+            if (!name || !email) {
+                const status = document.getElementById('form-status');
+                status.textContent = 'Please fill in at least your name and email.';
+                status.className = 'form-status error';
+                return false;
+            }
+
+            let memberships = [];
+            if (document.getElementById('opt-beach').checked) memberships.push('Beach / Membership Only ($60)');
+            if (document.getElementById('opt-boat-ramp').checked) memberships.push('Beach + Boat Ramp ($100)');
+            if (document.getElementById('opt-kayak').checked) memberships.push('Kayak Rack ($25)');
+            if (document.getElementById('opt-slip').checked) {
+                const len = document.getElementById('slip-length').value;
+                memberships.push('Boat Slip (' + len + ' ft = ' + document.getElementById('slip-total').textContent + ')');
+            }
+            if (document.getElementById('opt-service').checked) {
+                const hrs = document.getElementById('service-hours').value;
+                memberships.push('Service Hour Payment (' + hrs + ' hrs = ' + document.getElementById('service-total').textContent + ')');
+            }
+
+            const subject = '2026 GHCA Membership Application - ' + name;
+            let body = '2026 GHCA MEMBERSHIP APPLICATION\n';
+            body += '================================\n\n';
+            body += 'Name: ' + name + '\n';
+            body += 'Address: ' + address + '\n';
+            body += 'Phone: ' + phone + '\n';
+            body += 'Email: ' + email + '\n';
+            if (family) body += 'Family Members: ' + family + '\n';
+            body += '\nMembership Selections:\n';
+            if (memberships.length > 0) {
+                memberships.forEach(function(m) { body += '  - ' + m + '\n'; });
+            } else {
+                body += '  (none selected)\n';
+            }
+            body += '\nTotal Fees Due: ' + total + '\n';
+            if (notes) body += '\nAdditional Notes: ' + notes + '\n';
+            body += '\n---\nSubmitted via glebeheights.github.io membership form';
+
+            const mailto = 'mailto:glebeheights.secretary@gmail.com'
+                + '?subject=' + encodeURIComponent(subject)
+                + '&body=' + encodeURIComponent(body);
+
+            window.location.href = mailto;
+
+            const status = document.getElementById('form-status');
+            status.textContent = 'Your email client should open with the application. Send it to complete your submission!';
+            status.className = 'form-status success';
+            return false;
         }
     </script>
 </body>
