@@ -1773,3 +1773,19 @@ body.admin-mode-active .cal-day:not(.cal-empty):hover {
         top: 100px;
     }
 }
+
+/* Gallery members-only note */
+.gallery-members-note {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+.gallery-members-note a {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 500;
+}
+.gallery-members-note a:hover {
+    color: var(--accent);
+}

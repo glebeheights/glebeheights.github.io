@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 calDays.appendChild(empty);
             }
 
+            const isMemberLoggedIn = !!localStorage.getItem('ghca_member_email');
+
             for (let day = 1; day <= daysInMonth; day++) {
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const reservation = reservations.find(r => r.date === dateStr);
@@ -94,9 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 dayEl.innerHTML = `<span class="cal-day-num">${day}</span>`;
                 if (adminReservation) {
-                    dayEl.innerHTML += `<span class="cal-admin-name">${adminReservation.name}</span>`;
+                    dayEl.innerHTML += `<span class="cal-admin-name">${isMemberLoggedIn ? adminReservation.name : 'Reserved'}</span>`;
                 } else if (reservation) {
-                    dayEl.innerHTML += `<span class="cal-reservation-name">${reservation.name}</span>`;
+                    dayEl.innerHTML += `<span class="cal-reservation-name">${isMemberLoggedIn ? reservation.name : 'Reserved'}</span>`;
                 } else if (meeting) {
                     dayEl.innerHTML += `<span class="cal-meeting-name">${meeting.name}</span>`;
                 } else if (event) {

@@ -508,11 +508,106 @@
     window.GHCAAdmin.createAdminToolbar = createAdminToolbar;
     window.GHCAAdmin.saveAllEdits = saveAllEdits;
 
+    function initPublicGalleryAdmin() {
+        const gallery = document.getElementById('public-gallery');
+        if (!gallery || !GHCAAdmin.isAdmin()) return;
+
+        const section = gallery.closest('.section');
+        const controls = document.createElement('div');
+        controls.className = 'admin-gallery-controls';
+        controls.style.cssText = 'display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap;';
+        controls.innerHTML = `
+            <button class="admin-add-btn" id="admin-add-public-photo" style="margin-top:0;">+ Add Photo</button>
+            <button class="admin-add-btn" id="admin-remove-public-photo" style="margin-top:0;background:#e74c3c;">Remove Photos</button>
+        `;
+        gallery.insertAdjacentElement('afterend', controls);
+
+        document.getElementById('admin-add-public-photo').addEventListener('click', function() {
+            const url = prompt('Enter image path (e.g. images/newphoto.jpg):');
+            if (!url) return;
+            const alt = prompt('Enter description:') || 'Community photo';
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = alt;
+            img.className = 'collage-grid-img';
+            gallery.appendChild(img);
+            savePublicGallery();
+        });
+
+        document.getElementById('admin-remove-public-photo').addEventListener('click', function() {
+            const imgs = gallery.querySelectorAll('.collage-grid-img');
+            const isRemoving = this.textContent.includes('Remove');
+            if (isRemoving) {
+                this.textContent = 'Done Removing';
+                this.style.background = '#27ae60';
+                imgs.forEach(img => {
+                    img.style.cursor = 'pointer';
+                    img.style.outline = '3px solid #e74c3c';
+                    img._removeHandler = function() {
+                        if (confirm('Remove this photo from the public gallery?')) {
+                            img.remove();
+                            savePublicGallery();
+                        }
+                    };
+                    img.addEventListener('click', img._removeHandler);
+                });
+            } else {
+                this.textContent = 'Remove Photos';
+                this.style.background = '#e74c3c';
+                imgs.forEach(img => {
+                    img.style.cursor = '';
+                    img.style.outline = '';
+                    if (img._removeHandler) {
+                        img.removeEventListener('click', img._removeHandler);
+                        delete img._removeHandler;
+                    }
+                });
+            }
+        });
+    }
+
+    function savePublicGallery() {
+        const gallery = document.getElementById('public-gallery');
+        if (!gallery) return;
+        const photos = [];
+        gallery.querySelectorAll('.collage-grid-img').forEach(img => {
+            photos.push({ src: img.getAttribute('src'), alt: img.alt });
+        });
+        const edits = GHCAAdmin.getSavedEdits();
+        const page = 'index.html';
+        edits[page] = edits[page] || {};
+        edits[page]['public-gallery'] = photos;
+        localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
+        GHCAAdmin.showNotification('Gallery saved!', 'success');
+    }
+
+    function loadPublicGallery() {
+        const gallery = document.getElementById('public-gallery');
+        if (!gallery) return;
+        const edits = GHCAAdmin.getSavedEdits();
+        const photos = edits['index.html'] && edits['index.html']['public-gallery'];
+        if (!photos) return;
+        gallery.innerHTML = '';
+        photos.forEach(p => {
+            const img = document.createElement('img');
+            img.src = p.src;
+            img.alt = p.alt;
+            img.className = 'collage-grid-img';
+            gallery.appendChild(img);
+        });
+    }
+
+    window.GHCAAdmin.initPublicGalleryAdmin = initPublicGalleryAdmin;
+    window.GHCAAdmin.loadPublicGallery = loadPublicGallery;
+
     document.addEventListener('DOMContentLoaded', function() {
         createAdminFooterLink();
 
+        loadPublicGallery();
+
         if (GHCAAdmin.isAdmin()) {
             createAdminToolbar();
+            initPublicGalleryAdmin();
         }
     });
 })();

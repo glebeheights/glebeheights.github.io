@@ -307,6 +307,32 @@
             opacity: 1;
         }
 
+        /* Members Photo Gallery */
+        .members-collage {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+        .members-collage .collage-grid-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .members-collage .collage-grid-img:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Reservation detail list */
+        .reservation-detail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         @media (max-width: 480px) {
             .login-form {
                 flex-direction: column;
@@ -315,6 +341,9 @@
                 flex-direction: column;
                 gap: 12px;
                 align-items: flex-start;
+            }
+            .members-collage {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             }
         }
     </style>
@@ -395,7 +424,35 @@
                 </a>
             </div>
 
-            <div class="open-items">
+            <!-- Members-Only Photo Gallery -->
+            <div class="members-photo-gallery" id="members-gallery-section">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 8px;">Community Photos</h2>
+                <p style="color: var(--text-light); margin-bottom: 20px;">Photos from our events and gatherings — for members only</p>
+                <div class="collage-grid members-collage" id="members-photo-grid">
+                    <img src="images/gh23.jpg" alt="4th of July party at the community beach" class="collage-grid-img" data-people="true">
+                    <img src="images/gh25.jpg" alt="Labor Day gathering at the waterfront" class="collage-grid-img" data-people="true">
+                    <img src="images/gh19.jpg" alt="Neighbors gathered around the fire pit" class="collage-grid-img" data-people="true">
+                    <img src="images/gh24.jpg" alt="Pumpkin carving by the water" class="collage-grid-img" data-people="true">
+                    <img src="images/gh15.jpg" alt="Kids in a sack race" class="collage-grid-img" data-people="true">
+                    <img src="images/gh11.jpg" alt="4th of July celebration at the beach" class="collage-grid-img" data-people="true">
+                    <img src="images/gh21.jpg" alt="Cookout at the community area" class="collage-grid-img" data-people="true">
+                    <img src="images/gh16.jpg" alt="Kids relaxing by the kayaks" class="collage-grid-img" data-people="true">
+                    <img src="images/gh18.jpg" alt="Kids in Halloween costumes" class="collage-grid-img" data-people="true">
+                    <img src="images/gh26.jpg" alt="Girls watching the fire" class="collage-grid-img" data-people="true">
+                    <img src="images/gh17.jpg" alt="Kids carving pumpkins" class="collage-grid-img" data-people="true">
+                    <img src="images/gh10.jpg" alt="Kids fishing off the community dock" class="collage-grid-img" data-people="true">
+                    <img src="images/gh12.jpg" alt="Kids with lanterns at sunset" class="collage-grid-img" data-people="true">
+                </div>
+            </div>
+
+            <!-- Members-Only Reservation Details -->
+            <div class="members-reservations" id="members-reservations-section" style="margin-top: 50px;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 8px;">Beach Reservations</h2>
+                <p style="color: var(--text-light); margin-bottom: 20px;">Upcoming and past beach reservations with full details</p>
+                <div class="reservation-detail-list" id="reservation-detail-list"></div>
+            </div>
+
+            <div class="open-items" style="margin-top: 50px;">
                 <h2>Open Items / Tasks Needed</h2>
                 <p>Current tasks that need volunteers or attention</p>
 
@@ -637,17 +694,167 @@
             } catch(e) {}
         }
 
+        // Reservation data (same as public calendar but shown with full names here)
+        const reservationData = [
+            { date: '2025-05-24', name: 'Louis Lavezzo' },
+            { date: '2025-05-31', name: 'Patrick Bacci' },
+            { date: '2025-07-18', name: 'Brian Goodwin' },
+            { date: '2025-08-16', name: 'Lavezzo' },
+            { date: '2025-09-07', name: 'Davidson' },
+            { date: '2025-11-01', name: 'Denaro' },
+            { date: '2026-05-02', name: 'Katie Williams' },
+            { date: '2026-06-05', name: 'Denaro' },
+            { date: '2026-07-25', name: 'Lavezzo' },
+        ];
+
+        function renderReservationDetails() {
+            const list = document.getElementById('reservation-detail-list');
+            if (!list) return;
+            const today = new Date().toISOString().split('T')[0];
+            const upcoming = reservationData.filter(r => r.date >= today).sort((a,b) => a.date.localeCompare(b.date));
+            const past = reservationData.filter(r => r.date < today).sort((a,b) => b.date.localeCompare(a.date));
+
+            let html = '';
+            if (upcoming.length) {
+                html += '<h3 style="font-size:1.1rem;margin-bottom:12px;color:var(--primary-dark);">Upcoming</h3>';
+                upcoming.forEach(r => {
+                    const d = new Date(r.date + 'T12:00:00');
+                    const formatted = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                    html += `<div class="task-card"><span class="task-card-text">${formatted}</span><span class="task-status status-progress">${r.name}</span></div>`;
+                });
+            }
+            if (past.length) {
+                html += '<h3 style="font-size:1.1rem;margin:24px 0 12px;color:var(--text-light);">Past</h3>';
+                past.forEach(r => {
+                    const d = new Date(r.date + 'T12:00:00');
+                    const formatted = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                    html += `<div class="task-card" style="opacity:0.7;"><span class="task-card-text">${formatted}</span><span class="task-status status-volunteer">${r.name}</span></div>`;
+                });
+            }
+            list.innerHTML = html;
+        }
+
+        // Admin photo gallery management
+        function initAdminGallery() {
+            if (!isAdmin()) return;
+            const gallerySection = document.getElementById('members-gallery-section');
+            if (!gallerySection) return;
+
+            const controls = document.createElement('div');
+            controls.style.cssText = 'margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;';
+            controls.innerHTML = `
+                <button class="admin-add-btn" id="admin-add-photo">+ Add Photo URL</button>
+                <button class="admin-add-btn" id="admin-remove-photo-mode" style="background:#e74c3c;">Remove Photos</button>
+            `;
+            gallerySection.appendChild(controls);
+
+            document.getElementById('admin-add-photo').addEventListener('click', function() {
+                const url = prompt('Enter image URL (e.g. images/newphoto.jpg):');
+                if (!url) return;
+                const alt = prompt('Enter a description for this photo:') || 'Community photo';
+                const grid = document.getElementById('members-photo-grid');
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = alt;
+                img.className = 'collage-grid-img';
+                img.dataset.people = 'true';
+                grid.appendChild(img);
+                saveGalleryState();
+            });
+
+            document.getElementById('admin-remove-photo-mode').addEventListener('click', function() {
+                const grid = document.getElementById('members-photo-grid');
+                const imgs = grid.querySelectorAll('.collage-grid-img');
+                const isRemoving = this.textContent.includes('Remove');
+                if (isRemoving) {
+                    this.textContent = 'Done Removing';
+                    this.style.background = '#27ae60';
+                    imgs.forEach(img => {
+                        img.style.cursor = 'pointer';
+                        img.style.outline = '3px solid #e74c3c';
+                        img.addEventListener('click', removePhotoHandler);
+                    });
+                } else {
+                    this.textContent = 'Remove Photos';
+                    this.style.background = '#e74c3c';
+                    imgs.forEach(img => {
+                        img.style.cursor = '';
+                        img.style.outline = '';
+                        img.removeEventListener('click', removePhotoHandler);
+                    });
+                }
+            });
+        }
+
+        function removePhotoHandler(e) {
+            if (confirm('Remove this photo?')) {
+                e.target.remove();
+                saveGalleryState();
+            }
+        }
+
+        function saveGalleryState() {
+            const grid = document.getElementById('members-photo-grid');
+            if (!grid) return;
+            const photos = [];
+            grid.querySelectorAll('.collage-grid-img').forEach(img => {
+                photos.push({ src: img.src.replace(location.origin + '/', '').replace(location.pathname.replace(/[^/]*$/, ''), ''), alt: img.alt });
+            });
+            localStorage.setItem('ghca_members_gallery', JSON.stringify(photos));
+        }
+
+        function loadGalleryState() {
+            const saved = localStorage.getItem('ghca_members_gallery');
+            if (!saved) return;
+            try {
+                const photos = JSON.parse(saved);
+                const grid = document.getElementById('members-photo-grid');
+                if (!grid) return;
+                grid.innerHTML = '';
+                photos.forEach(p => {
+                    const img = document.createElement('img');
+                    img.src = p.src;
+                    img.alt = p.alt;
+                    img.className = 'collage-grid-img';
+                    img.dataset.people = 'true';
+                    grid.appendChild(img);
+                });
+            } catch(e) {}
+        }
+
         if (membersContent.classList.contains('visible')) {
             loadSavedTasks();
+            loadGalleryState();
+            renderReservationDetails();
             initAdminMode();
+            initAdminGallery();
+            initMembersLightbox();
         }
 
         const origShowMembers = showMembers;
         showMembers = function(email) {
             origShowMembers(email);
             loadSavedTasks();
+            loadGalleryState();
+            renderReservationDetails();
             initAdminMode();
+            initAdminGallery();
+            initMembersLightbox();
         };
+
+        // Lightbox for members gallery
+        function initMembersLightbox() {
+            document.querySelectorAll('#members-photo-grid .collage-grid-img').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    if (img.style.outline) return; // skip if in remove mode
+                    const lightbox = document.createElement('div');
+                    lightbox.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+                    lightbox.innerHTML = `<img src="${img.src}" alt="${img.alt}" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;">`;
+                    document.body.appendChild(lightbox);
+                    lightbox.addEventListener('click', () => lightbox.remove());
+                });
+            });
+        }
 
         // Mobile nav toggle
         const toggle = document.getElementById('mobile-toggle');
