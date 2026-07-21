@@ -280,6 +280,9 @@
 
     // ============ MINUTES EDITING ============
 
+    let minutesToolbar = null;
+    let currentMinutesEntry = null;
+
     function initMinutesAdmin() {
         if (!isAdmin()) {
             loadMinutesData();
@@ -288,28 +291,8 @@
 
         loadMinutesData();
 
-        const entries = document.querySelectorAll('.minutes-entry');
-        entries.forEach(entry => {
-            entry.style.position = 'relative';
-
-            const editBtn = document.createElement('button');
-            editBtn.className = 'admin-content-edit-btn';
-            editBtn.textContent = '✏️ Edit';
-            editBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (entry.contentEditable === 'true') {
-                    entry.contentEditable = false;
-                    entry.classList.remove('admin-content-editing');
-                    editBtn.textContent = '✏️ Edit';
-                    saveMinutesState();
-                    showNotice('Minutes saved!');
-                } else {
-                    entry.contentEditable = true;
-                    entry.classList.add('admin-content-editing');
-                    editBtn.textContent = '✓ Done';
-                }
-            });
-            entry.appendChild(editBtn);
+        document.querySelectorAll('.minutes-entry').forEach(entry => {
+            attachMinutesEditor(entry);
         });
 
         // Add new minutes entry button
@@ -330,14 +313,114 @@
         }
     }
 
+    function attachMinutesEditor(entry, startEditing) {
+        entry.style.position = 'relative';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'admin-content-edit-btn';
+        editBtn.textContent = startEditing ? '✓ Done' : '✏️ Edit';
+        editBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (entry.contentEditable === 'true') {
+                exitMinutesEdit(entry, editBtn);
+            } else {
+                enterMinutesEdit(entry, editBtn);
+            }
+        });
+        entry.appendChild(editBtn);
+
+        // Tab / Shift+Tab nests / un-nests the current bullet
+        entry.addEventListener('keydown', function(e) {
+            if (e.key !== 'Tab' || entry.contentEditable !== 'true') return;
+            if (!getSelectionListItem()) return;
+            e.preventDefault();
+            document.execCommand(e.shiftKey ? 'outdent' : 'indent');
+        });
+
+        if (startEditing) enterMinutesEdit(entry, editBtn);
+    }
+
+    function enterMinutesEdit(entry, editBtn) {
+        entry.contentEditable = true;
+        entry.classList.add('admin-content-editing');
+        editBtn.textContent = '✓ Done';
+        currentMinutesEntry = entry;
+        showMinutesToolbar();
+        entry.focus();
+    }
+
+    function exitMinutesEdit(entry, editBtn) {
+        entry.contentEditable = false;
+        entry.classList.remove('admin-content-editing');
+        editBtn.textContent = '✏️ Edit';
+        if (currentMinutesEntry === entry) {
+            currentMinutesEntry = null;
+            hideMinutesToolbar();
+        }
+        saveMinutesState();
+        showNotice('Minutes saved!');
+    }
+
+    function getSelectionListItem() {
+        const sel = window.getSelection();
+        if (!sel || !sel.anchorNode) return null;
+        let node = sel.anchorNode;
+        while (node && node !== document.body) {
+            if (node.nodeType === 1 && node.tagName === 'LI') return node;
+            node = node.parentNode;
+        }
+        return null;
+    }
+
+    const MINUTES_TOOLBAR_BUTTONS = [
+        { label: 'B', title: 'Bold', style: 'font-weight:700;', cmd: () => document.execCommand('bold') },
+        { label: 'H', title: 'Section heading', style: 'font-weight:700;', cmd: () => document.execCommand('formatBlock', false, 'h3') },
+        { label: '¶', title: 'Normal text', cmd: () => document.execCommand('formatBlock', false, 'p') },
+        { label: '• List', title: 'Bulleted list', cmd: () => document.execCommand('insertUnorderedList') },
+        { label: '⇥ Nest', title: 'Indent / nest bullet (Tab)', cmd: () => document.execCommand('indent') },
+        { label: '⇤ Un-nest', title: 'Outdent bullet (Shift+Tab)', cmd: () => document.execCommand('outdent') },
+        { label: '⌫ Clear', title: 'Clear formatting on the selected text', cmd: () => document.execCommand('removeFormat') },
+    ];
+
+    function showMinutesToolbar() {
+        if (!minutesToolbar) {
+            minutesToolbar = document.createElement('div');
+            minutesToolbar.className = 'admin-format-toolbar';
+            const hint = document.createElement('span');
+            hint.className = 'admin-fmt-hint';
+            hint.textContent = 'Format:';
+            minutesToolbar.appendChild(hint);
+            MINUTES_TOOLBAR_BUTTONS.forEach(btn => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'admin-fmt-btn';
+                b.textContent = btn.label;
+                b.title = btn.title;
+                if (btn.style) b.setAttribute('style', btn.style);
+                // Prevent the button from stealing the text selection
+                b.addEventListener('mousedown', e => e.preventDefault());
+                b.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (currentMinutesEntry) currentMinutesEntry.focus();
+                    btn.cmd();
+                });
+                minutesToolbar.appendChild(b);
+            });
+            document.body.appendChild(minutesToolbar);
+        }
+        minutesToolbar.classList.add('visible');
+    }
+
+    function hideMinutesToolbar() {
+        if (minutesToolbar) minutesToolbar.classList.remove('visible');
+    }
+
     function addNewMinutesEntry() {
         const today = new Date();
         const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
         const entry = document.createElement('div');
         entry.className = 'minutes-entry';
-        entry.contentEditable = true;
-        entry.classList.add('admin-content-editing');
         entry.innerHTML = `
             <h2>GHCA Monthly Meeting</h2>
             <div class="minutes-meta">${dateStr} &bull; 6:30 PM &bull; Beach Fire Pit Area</div>
@@ -351,25 +434,6 @@
             <p style="margin-top: 24px; font-style: italic;">Meeting adjourned.</p>
         `;
 
-        const editBtn = document.createElement('button');
-        editBtn.className = 'admin-content-edit-btn';
-        editBtn.textContent = '✓ Done';
-        editBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (entry.contentEditable === 'true') {
-                entry.contentEditable = false;
-                entry.classList.remove('admin-content-editing');
-                editBtn.textContent = '✏️ Edit';
-                saveMinutesState();
-                showNotice('Minutes saved!');
-            } else {
-                entry.contentEditable = true;
-                entry.classList.add('admin-content-editing');
-                editBtn.textContent = '✓ Done';
-            }
-        });
-        entry.appendChild(editBtn);
-
         const container = document.querySelector('.page-content') || document.querySelector('.page-body');
         const index = container.querySelector('.minutes-index');
         if (index) {
@@ -378,7 +442,7 @@
             container.appendChild(entry);
         }
 
-        entry.focus();
+        attachMinutesEditor(entry, true);
     }
 
     function saveMinutesState() {
@@ -515,6 +579,52 @@
                 outline: 2px dashed #27ae60 !important;
                 outline-offset: 4px;
                 min-height: 100px;
+            }
+            .admin-format-toolbar {
+                position: fixed;
+                top: 72px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-12px);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 92vw;
+                padding: 8px 12px;
+                background: #1f2d3d;
+                border-radius: 10px;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+                z-index: 99998;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+            }
+            .admin-format-toolbar.visible {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateX(-50%) translateY(0);
+            }
+            .admin-fmt-hint {
+                color: rgba(255,255,255,0.7);
+                font-size: 0.8rem;
+                font-weight: 600;
+                margin-right: 2px;
+            }
+            .admin-fmt-btn {
+                background: #fff;
+                color: #1f2d3d;
+                border: none;
+                border-radius: 6px;
+                padding: 6px 10px;
+                font-size: 0.85rem;
+                line-height: 1;
+                cursor: pointer;
+                transition: 0.15s;
+            }
+            .admin-fmt-btn:hover {
+                background: #27ae60;
+                color: #fff;
             }
         `;
         document.head.appendChild(style);
