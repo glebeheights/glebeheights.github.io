@@ -1,0 +1,163 @@
+{
+  "version": 1784668083648,
+  "updatedBy": "sheiilindley99@gmail.com",
+  "adminEdits": {
+    "index.html": {
+      "public-gallery": [
+        {
+          "src": "images/sunset1.jpg",
+          "alt": "Waterfront sunset"
+        },
+        {
+          "src": "images/sunset2.jpg",
+          "alt": "Evening at the dock"
+        },
+        {
+          "src": "images/sunset3.jpg",
+          "alt": "Sunset over the bay"
+        },
+        {
+          "src": "images/sunset5.jpg",
+          "alt": "Golden hour at the beach"
+        },
+        {
+          "src": "images/gh12.jpg",
+          "alt": "halloween party"
+        },
+        {
+          "src": "images/sunset4.jpg",
+          "alt": "sunset"
+        },
+        {
+          "src": "images/carving pumpkins.jpg",
+          "alt": "Carving pumpkins"
+        },
+        {
+          "src": "images/labor day.jpg",
+          "alt": "labor day"
+        },
+        {
+          "src": "images/summer.jpg",
+          "alt": "summer"
+        },
+        {
+          "src": "images/laborday.jpg",
+          "alt": "labor day"
+        }
+      ],
+      "about-text-0": "<p class=\"lead\">We are a close-knit residential community nestled along the shores of the Chesapeake Bay in Edgewater, Maryland.</p>\n                    <p>The Glebe Heights Community Association brings together neighbors who share a love for waterfront living. Our community enjoys a private beach, dock, and gathering spaces where families connect, kids play, and lifelong friendships are forged.</p>\n                    <p>Whether you're new to the neighborhood or a longtime resident, there's always something happening in Glebe Heights. From holiday celebrations to summer cookouts at the fire pit, our community is what we make it together.</p>",
+      "highlight-0": "<span class=\"highlight-icon\">🏖️</span>\n                        <h3>Private Beach</h3>\n                        <p>Sandy shoreline exclusively for residents</p>",
+      "highlight-1": "<span class=\"highlight-icon\">🔥</span>\n                        <h3>Fire Pit</h3>\n                        <p>Gather around for community events and s'mores</p>",
+      "highlight-2": "<span class=\"highlight-icon\">⛵</span>\n                        <h3>Community Dock</h3>\n                        <p>Enjoy waterfront access year-round</p>",
+      "highlight-3": "<span class=\"highlight-icon\">🤝</span>\n                        <h3>Great Neighbors</h3>\n                        <p>A welcoming community that looks out for each other</p>",
+      "amenity-0": "<div class=\"amenity-icon\">🏖️</div>\n                    <h3>Beach Area</h3>\n                    <p>Our sandy community beach is the heart of Glebe Heights. Perfect for swimming, sunbathing, or just watching the sunset over the water. Beach chairs are available for all residents.</p>",
+      "amenity-1": "<div class=\"amenity-icon\">🚢</div>\n                    <h3>Community Dock</h3>\n                    <p>Our shared dock provides water access for fishing, kayaking, paddle boarding, and enjoying the Chesapeake Bay right from our neighborhood.</p>",
+      "amenity-2": "<div class=\"amenity-icon\">🔥</div>\n                    <h3>Fire Pit Area</h3>\n                    <p>The fire pit is our primary gathering spot. It hosts our monthly meetings, holiday parties, and spontaneous neighborhood hangouts. Bring your own marshmallows!</p>",
+      "amenity-3": "<div class=\"amenity-icon\">🪑</div>\n                    <h3>Seating &amp; Chairs</h3>\n                    <p>Comfortable seating is provided throughout the beach area. Relax, read a book, or catch up with neighbors in our shared outdoor space.</p>",
+      "contact-0": "<h3>📧 Email Us</h3>\n                    <p><a href=\"mailto:glebeheights.secretary@gmail.com\">glebeheights.secretary@gmail.com</a></p>",
+      "contact-1": "<h3>📱 Facebook Group</h3>\n                    <p><a href=\"https://www.facebook.com/groups/2401248880153425\" target=\"_blank\" rel=\"noopener\">Glebe Heights Community</a></p>",
+      "contact-2": "<h3>📍 Location</h3>\n                    <p>Glebe Heights<br>Edgewater, Maryland</p>",
+      "contact-3": "<h3>📅 Meetings</h3>\n                    <p>2nd Monday of Every Month<br>Beach Fire Pit Area</p>",
+      "updates-cards": [
+        {
+          "category": "announcements",
+          "urgent": true,
+          "date": "Action Needed",
+          "title": "Work Party — Wednesday, June 29th",
+          "content": [
+            "Help is needed at the beach next Wednesday, June 29th from 5:00–8:30 PM (or whenever we get done).",
+            "Tasks: Fix pier boards, lose planks, etc. ",
+            "Please bring: Carpentry tools and gloves"
+          ]
+        },
+        {
+          "category": "meetings",
+          "urgent": false,
+          "date": "Monthly",
+          "title": "Next Meeting: Monday, August 10th",
+          "content": [
+            "Community meetings are the 2nd Monday of every month (April–October) at 6:30 PM at the beach fire pit area. Come share your ideas and stay in the loop."
+          ]
+        },
+        {
+          "category": "announcements",
+          "urgent": false,
+          "date": "June 2026",
+          "title": "Summer Season is Here!",
+          "content": [
+            "The beach area is open and ready for the season. Chairs have been set out and the dock has been inspected. Enjoy the water safely!"
+          ]
+        },
+        {
+          "category": "events",
+          "urgent": false,
+          "date": "Seasonal",
+          "title": "Holiday Parties & Events",
+          "content": [
+            "We celebrate together! From summer cookouts to fall bonfires and winter holiday gatherings, there's always a reason to get together at the community beach."
+          ]
+        },
+        {
+          "category": "announcements",
+          "urgent": false,
+          "date": "Ongoing",
+          "title": "Volunteer Opportunities",
+          "content": [
+            "Help keep our community spaces beautiful! We're always looking for volunteers for beach cleanups, event setup, and general maintenance. Reach out if you'd like to get involved."
+          ]
+        }
+      ]
+    },
+    "minutes.html": {}
+  },
+  "pageEdits": {
+    "workhours.html": {
+      "workhours-table": {
+        "headers": [
+          "Member",
+          "Date",
+          "Hours",
+          "Task"
+        ],
+        "rows": [
+          [
+            "Denaro",
+            "4/14/2026",
+            "1",
+            "Tree"
+          ],
+          [
+            "Denaro",
+            "4/24/2026",
+            "2",
+            "Work party"
+          ],
+          [
+            "Gillogly",
+            "5/8/2026",
+            "1",
+            "Grass"
+          ],
+          [
+            "Lavezzo",
+            "4/24/2026",
+            "1.5",
+            "Grass"
+          ],
+          [
+            "Gillogly",
+            "5/30/2026",
+            "2",
+            "Grass"
+          ],
+          [
+            "Denaro",
+            "6/5/2026",
+            "1",
+            "Weed Wacking<br>"
+          ]
+        ]
+      }
+    }
+  }
+}
