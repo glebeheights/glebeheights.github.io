@@ -332,6 +332,7 @@
     function loadSavedUpdates(cardsData) {
         const grid = document.querySelector('.updates-grid');
         if (!grid || !cardsData) return;
+        const admin = GHCAAdmin.isAdmin();
         grid.innerHTML = '';
         cardsData.forEach(card => {
             const article = document.createElement('article');
@@ -341,6 +342,8 @@
             card.content.forEach(p => { html += `<p>${p}</p>`; });
             article.innerHTML = html;
             grid.appendChild(article);
+            // Re-attach edit/remove controls so saved cards stay editable for admins.
+            if (admin) addCardAdminControls(article);
         });
     }
 

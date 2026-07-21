@@ -1706,6 +1706,10 @@ body.admin-mode-active .admin-inline-edit-btn {
     transition: opacity 0.2s ease;
 }
 
+body.admin-mode-active .admin-card-controls {
+    opacity: 0.55;
+}
+
 body.admin-mode-active .update-card:hover .admin-card-controls,
 body.admin-mode-active .update-card .admin-card-controls:focus-within {
     opacity: 1;
