@@ -107,6 +107,17 @@
         .minutes-entry ul ul ul {
             list-style: square;
         }
+        .minutes-entry li.ghca-task {
+            list-style: none;
+            margin-left: -18px;
+            padding-left: 4px;
+        }
+        .minutes-entry li.ghca-task::before {
+            content: '\2611';
+            color: #27ae60;
+            font-weight: 700;
+            margin-right: 6px;
+        }
         .treasury-table {
             width: 100%;
             max-width: 400px;

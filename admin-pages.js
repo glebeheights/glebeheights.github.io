@@ -381,8 +381,26 @@
         { label: '• List', title: 'Bulleted list', cmd: () => document.execCommand('insertUnorderedList') },
         { label: '⇥ Nest', title: 'Indent / nest bullet (Tab)', cmd: () => document.execCommand('indent') },
         { label: '⇤ Un-nest', title: 'Outdent bullet (Shift+Tab)', cmd: () => document.execCommand('outdent') },
+        { label: '☑ Task', title: 'Flag this bullet as a task for the Members task list (click again to unflag)', cmd: () => toggleMinutesTask() },
         { label: '⌫ Clear', title: 'Clear formatting on the selected text', cmd: () => document.execCommand('removeFormat') },
     ];
+
+    function toggleMinutesTask() {
+        const li = getSelectionListItem();
+        if (!li) {
+            alert('Put your cursor on a bullet line first, then click Task.');
+            return;
+        }
+        if (li.classList.contains('ghca-task')) {
+            li.classList.remove('ghca-task');
+            li.removeAttribute('data-task-id');
+        } else {
+            li.classList.add('ghca-task');
+            if (!li.getAttribute('data-task-id')) {
+                li.setAttribute('data-task-id', 't-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6));
+            }
+        }
+    }
 
     function showMinutesToolbar() {
         if (!minutesToolbar) {

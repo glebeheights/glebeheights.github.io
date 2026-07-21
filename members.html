@@ -204,6 +204,76 @@
             background: rgba(41, 128, 185, 0.1);
             color: var(--primary-light);
         }
+        .status-done {
+            background: rgba(39, 174, 96, 0.12);
+            color: #27ae60;
+        }
+        .task-main {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+        }
+        .task-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .task-meeting {
+            font-size: 0.72rem;
+            color: var(--text-light);
+        }
+        .task-card.task-done .task-card-text {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+        .task-completed-wrap {
+            margin-top: 28px;
+        }
+        .task-completed-title {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .task-completed .task-card {
+            background: var(--bg-alt);
+            box-shadow: none;
+            opacity: 0.85;
+        }
+        .ghca-task-select {
+            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+        }
+        .ghca-editable {
+            outline: none;
+            border-bottom: 2px dashed #27ae60;
+        }
+        .ghca-tasks-admin {
+            display: inline-flex;
+            gap: 8px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .ghca-tasks-publish {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border-color: #27ae60;
+        }
+        .ghca-tasks-publish:hover {
+            background: #219150;
+            color: white;
+        }
+        .ghca-tasks-empty {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
         .task-note {
             margin-top: 20px;
             padding: 16px 20px;
@@ -456,28 +526,7 @@
                 <h2>Open Items / Tasks Needed</h2>
                 <p>Current tasks that need volunteers or attention</p>
 
-                <div class="task-list">
-                    <div class="task-card">
-                        <span class="task-card-text">Fix gate rope</span>
-                        <span class="task-status status-volunteer">Needs Volunteer</span>
-                    </div>
-                    <div class="task-card">
-                        <span class="task-card-text">Replace ramp chain/lock</span>
-                        <span class="task-status status-volunteer">Needs Volunteer</span>
-                    </div>
-                    <div class="task-card">
-                        <span class="task-card-text">Get estimates for new automated gate system</span>
-                        <span class="task-status status-progress">In Progress</span>
-                    </div>
-                    <div class="task-card">
-                        <span class="task-card-text">Get estimates for boat ramp fix</span>
-                        <span class="task-status status-progress">In Progress</span>
-                    </div>
-                    <div class="task-card">
-                        <span class="task-card-text">Take down nets and determine if we want to buy new ones</span>
-                        <span class="task-status status-volunteer">Needs Volunteer</span>
-                    </div>
-                </div>
+                <div class="task-list"></div>
 
                 <div class="task-note">
                     Interested in helping with any of these? Email <a href="mailto:glebeheights.secretary@gmail.com">glebeheights.secretary@gmail.com</a>
@@ -496,6 +545,8 @@
         </div>
     </footer>
 
+    <script src="github-publish.js"></script>
+    <script src="tasks.js"></script>
     <script>
         const memberEmails = [
             "750cecil@gmail.com","84dangelo@gmail.com","admyers87@comcast.net","ajsloans@gmail.com","alicia.brogden@hotmail.com","annettedavies25@aol.com","ari.isaacman@gmail.com","babycig13@gmail.com","bahall74@gmail.com","bburton@stolarconstruction.com","billels70@gmail.com","billonearth787@gmail.com","brandieleesteve@gmail.com","brian@yourarealender.com","brucewashko@gmail.com","cfegan12@aol.com","chris.davidson87@yahoo.com","chriscanton80@gmail.com","dalemaynard@comcast.net","danicecily@me.com","dcdrjohnson@msn.com","denaro1016@gmail.com","denarofamily07@gmail.com","dpennington306@gmail.com","earleolson@verizon.net","ednumtwo@yahoo.com","estorres1210@gmail.com","foxleebrittany@gmail.com","george.caldwell@zoho.com","georgeheinlein@verizon.net","gholsey@rocketmail.com","gt63959@aol.com","jkbacci3@gmail.com","jlindsey638@gmail.com","jm_marquis@hotmail.com","joe@stangerinsurancegroup.com","johngillogly@msn.com","jtja@hotmail.com","kbacci1@verizon.net","kbladybug63@aol.com","kt63357@gmail.com","l.marquis@comcast.net","larrywelch55@gmail.com","lena.jm@gmail.com","lmhugg@yahoo.com","lornacunningham@comcast.net","markcunningham21@gmail.com","markkragan@yahoo.com","meandlp14@gmail.com","melaniedixon@4gtechsolutions.com","mpdavis2@aol.com","nicoli7800@gmail.com","olsoninpa@verizon.net","p.fegan2018@gmail.com","pedropaz123@gmail.com","ptinsley10@yahoo.com","rcbrown@me.com","rick.potocek@gmail.com","rmroach20@gmail.com","ryan13xc@gmail.com","sheiilindley99@gmail.com","slynch0117@yahoo.com","stephenmc920@yahoo.com","talitha-vierling@outlook.com","tbull52@gmail.com","tlmiksis@hotmail.com","willboock@yahoo.com"
@@ -560,8 +611,6 @@
             banner.className = 'admin-banner';
             banner.innerHTML = '<span class="admin-icon">🔑</span> Admin Mode Active — You can edit content on this page';
             welcome.insertAdjacentElement('afterend', banner);
-
-            initTaskEditing();
         }
 
         function initTaskEditing() {
@@ -823,7 +872,7 @@
         }
 
         if (membersContent.classList.contains('visible')) {
-            loadSavedTasks();
+            if (window.GHCATasks) GHCATasks.init();
             loadGalleryState();
             renderReservationDetails();
             initAdminMode();
@@ -834,7 +883,7 @@
         const origShowMembers = showMembers;
         showMembers = function(email) {
             origShowMembers(email);
-            loadSavedTasks();
+            if (window.GHCATasks) GHCATasks.init();
             loadGalleryState();
             renderReservationDetails();
             initAdminMode();
