@@ -359,6 +359,7 @@
             hideMinutesToolbar();
         }
         saveMinutesState();
+        rebuildMinutesIndex();
         showNotice('Draft saved. Click "Publish Live" (top bar) to update the website.');
     }
 
@@ -444,6 +445,7 @@
         }
 
         attachMinutesEditor(entry, true);
+        rebuildMinutesIndex();
     }
 
     function saveMinutesState() {
@@ -463,27 +465,53 @@
 
     function loadMinutesData() {
         const data = getSavedPageData();
-        if (!data || !data['minutes-entries']) return;
-
         const container = document.querySelector('.page-content') || document.querySelector('.page-body');
-        if (!container) return;
 
-        // Remove existing entries
-        container.querySelectorAll('.minutes-entry').forEach(e => e.remove());
+        if (container && data && data['minutes-entries']) {
+            // Remove existing entries
+            container.querySelectorAll('.minutes-entry').forEach(e => e.remove());
 
-        // Re-insert saved entries
-        const index = container.querySelector('.minutes-index');
-        const insertPoint = index || container.querySelector('.breadcrumbs');
+            // Re-insert saved entries, preserving their stored (newest-first) order
+            const index = container.querySelector('.minutes-index');
+            let anchor = index || container.querySelector('.breadcrumbs');
 
-        data['minutes-entries'].forEach(html => {
-            const entry = document.createElement('div');
-            entry.className = 'minutes-entry';
-            entry.innerHTML = html;
-            if (insertPoint) {
-                insertPoint.insertAdjacentElement('afterend', entry);
-            } else {
-                container.appendChild(entry);
+            data['minutes-entries'].forEach(html => {
+                const entry = document.createElement('div');
+                entry.className = 'minutes-entry';
+                entry.innerHTML = html;
+                if (anchor) {
+                    anchor.insertAdjacentElement('afterend', entry);
+                    anchor = entry;
+                } else {
+                    container.appendChild(entry);
+                }
+            });
+        }
+
+        rebuildMinutesIndex();
+    }
+
+    function rebuildMinutesIndex() {
+        const indexList = document.querySelector('.minutes-index ul');
+        if (!indexList) return;
+        const entries = document.querySelectorAll('.minutes-entry');
+        indexList.innerHTML = '';
+        entries.forEach(function(entry) {
+            const meta = entry.querySelector('.minutes-meta');
+            const metaText = meta ? meta.textContent.trim() : '';
+            const datePart = (metaText.split('\u2022')[0] || '').trim();
+            let id = entry.id;
+            if (!id) {
+                id = 'minutes-' + (datePart.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+                    || Math.random().toString(36).slice(2, 8));
+                entry.id = id;
             }
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#' + id;
+            a.textContent = (datePart || 'Meeting') + ' \u2014 Monthly Meeting';
+            li.appendChild(a);
+            indexList.appendChild(li);
         });
     }
 
