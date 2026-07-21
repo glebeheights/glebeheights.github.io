@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function ghcaInitIndex() {
     const isAdmin = window.GHCAAdmin && window.GHCAAdmin.isAdmin();
 
     // Beach Reservation Calendar
@@ -315,4 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Non-admin: still load saved content so visitors see admin edits
         GHCAAdmin.loadSavedEdits();
     }
-});
+}
+
+if (window.GHCA_ready) {
+    window.GHCA_ready(ghcaInitIndex);
+} else {
+    document.addEventListener('DOMContentLoaded', ghcaInitIndex);
+}

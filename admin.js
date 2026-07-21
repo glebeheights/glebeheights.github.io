@@ -48,6 +48,7 @@
             const current = this.getSavedEdits();
             Object.assign(current, edits);
             localStorage.setItem(EDITS_KEY, JSON.stringify(current));
+            if (window.GHCAPublish) GHCAPublish.markDirty();
         },
 
         resetEdits: function() {
@@ -79,7 +80,9 @@
                 <span class="admin-toolbar-label">🔑 Admin Mode</span>
                 <span class="admin-toolbar-email">${GHCAAdmin.getAdminEmail()}</span>
                 <div class="admin-toolbar-actions">
-                    <button class="admin-toolbar-btn admin-toolbar-save" id="admin-save-btn">Save Changes</button>
+                    <button class="admin-toolbar-btn admin-toolbar-save" id="admin-save-btn">Save Draft</button>
+                    <button class="admin-toolbar-btn admin-toolbar-publish" id="admin-publish-btn">Publish Live</button>
+                    <button class="admin-toolbar-btn admin-toolbar-token" id="admin-token-btn" title="GitHub connection">GitHub</button>
                     <button class="admin-toolbar-btn admin-toolbar-reset" id="admin-reset-btn">Reset to Default</button>
                     <button class="admin-toolbar-btn admin-toolbar-logout" id="admin-logout-btn">Logout</button>
                 </div>
@@ -97,6 +100,16 @@
         document.getElementById('admin-logout-btn').addEventListener('click', function() {
             GHCAAdmin.adminLogout();
         });
+
+        const publishBtn = document.getElementById('admin-publish-btn');
+        if (publishBtn && window.GHCAPublish) {
+            publishBtn.addEventListener('click', function() { GHCAPublish.publish(); });
+        }
+        const tokenBtn = document.getElementById('admin-token-btn');
+        if (tokenBtn && window.GHCAPublish) {
+            tokenBtn.addEventListener('click', function() { GHCAPublish.showTokenModal(); });
+        }
+        if (window.GHCAPublish && GHCAPublish.refreshButton) GHCAPublish.refreshButton();
     }
 
     function createAdminFooterLink() {
@@ -223,7 +236,8 @@
         if (calData) edits[page]['calendar-reservations'] = calData;
 
         localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
-        GHCAAdmin.showNotification('Changes saved successfully!', 'success');
+        if (window.GHCAPublish) GHCAPublish.markDirty();
+        GHCAAdmin.showNotification('Draft saved. Click "Publish Live" to update the website for everyone.', 'success');
     }
 
     function collectUpdatesData() {
@@ -486,6 +500,7 @@
         edits[page]['calendar-reservations'] = edits[page]['calendar-reservations'] || [];
         edits[page]['calendar-reservations'].push({ date: dateStr, name: name });
         localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
+        if (window.GHCAPublish) GHCAPublish.markDirty();
         window.ghcaAdminReservations = edits[page]['calendar-reservations'];
     }
 
@@ -495,6 +510,7 @@
         if (!edits[page] || !edits[page]['calendar-reservations']) return;
         edits[page]['calendar-reservations'] = edits[page]['calendar-reservations'].filter(r => r.date !== dateStr);
         localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
+        if (window.GHCAPublish) GHCAPublish.markDirty();
         window.ghcaAdminReservations = edits[page]['calendar-reservations'];
     }
 
@@ -578,7 +594,8 @@
         edits[page] = edits[page] || {};
         edits[page]['public-gallery'] = photos;
         localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
-        GHCAAdmin.showNotification('Gallery saved!', 'success');
+        if (window.GHCAPublish) GHCAPublish.markDirty();
+        GHCAAdmin.showNotification('Gallery draft saved. Click "Publish Live" to update the website.', 'success');
     }
 
     function loadPublicGallery() {
@@ -600,7 +617,7 @@
     window.GHCAAdmin.initPublicGalleryAdmin = initPublicGalleryAdmin;
     window.GHCAAdmin.loadPublicGallery = loadPublicGallery;
 
-    document.addEventListener('DOMContentLoaded', function() {
+    function ghcaInitAdmin() {
         createAdminFooterLink();
 
         loadPublicGallery();
@@ -609,5 +626,11 @@
             createAdminToolbar();
             initPublicGalleryAdmin();
         }
-    });
+    }
+
+    if (window.GHCA_ready) {
+        window.GHCA_ready(ghcaInitAdmin);
+    } else {
+        document.addEventListener('DOMContentLoaded', ghcaInitAdmin);
+    }
 })();

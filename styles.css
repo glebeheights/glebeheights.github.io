@@ -1373,6 +1373,75 @@ body {
     background: rgba(243, 156, 18, 0.15);
 }
 
+.admin-toolbar-publish {
+    background: #2980b9;
+    border-color: #2980b9;
+}
+
+.admin-toolbar-publish:hover {
+    background: #3498db;
+    border-color: #3498db;
+}
+
+.admin-toolbar-publish:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.admin-toolbar-publish-dirty {
+    background: #e67e22;
+    border-color: #e67e22;
+    animation: ghca-pulse 1.8s ease-in-out infinite;
+}
+
+.admin-toolbar-publish-dirty:hover {
+    background: #f39c12;
+    border-color: #f39c12;
+}
+
+@keyframes ghca-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.5); }
+    50% { box-shadow: 0 0 0 5px rgba(230, 126, 34, 0); }
+}
+
+.admin-toolbar-token {
+    border-color: rgba(255,255,255,0.3);
+}
+
+.ghca-token-steps {
+    margin: 8px 0 16px 18px;
+    padding: 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.ghca-token-steps li {
+    margin-bottom: 8px;
+}
+
+.ghca-token-steps a {
+    color: var(--primary-light);
+    font-weight: 600;
+}
+
+.ghca-token-disconnect {
+    margin-top: 12px;
+    background: none;
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.ghca-token-disconnect:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
 .admin-toolbar-logout {
     border-color: #e74c3c;
     color: #e74c3c;
@@ -1535,6 +1604,7 @@ body.admin-mode-active .admin-inline-edit-btn {
 
 .admin-modal input[type="email"],
 .admin-modal input[type="text"],
+.admin-modal input[type="password"],
 .admin-modal textarea,
 .admin-modal select {
     padding: 12px 16px;

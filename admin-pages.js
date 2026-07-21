@@ -29,6 +29,7 @@
             const all = JSON.parse(localStorage.getItem(PAGE_EDITS_KEY)) || {};
             all[getPageKey()] = data;
             localStorage.setItem(PAGE_EDITS_KEY, JSON.stringify(all));
+            if (window.GHCAPublish) GHCAPublish.markDirty();
         } catch(e) {}
     }
 
@@ -83,7 +84,7 @@
         // Save handler
         document.getElementById(`admin-save-tbl-${storageField}`).addEventListener('click', function() {
             saveTableState(table, storageField);
-            showNotice('Table saved!');
+            showNotice('Draft saved. Click "Publish Live" (top bar) to update the website.');
         });
     }
 
@@ -239,7 +240,7 @@
                     el.classList.remove('admin-content-editing');
                     editBtn.textContent = '✏️ Edit';
                     saveContentState(selector, storageField);
-                    showNotice('Content saved!');
+                    showNotice('Draft saved. Click "Publish Live" (top bar) to update the website.');
                 } else {
                     el.contentEditable = true;
                     el.classList.add('admin-content-editing');
@@ -358,7 +359,7 @@
             hideMinutesToolbar();
         }
         saveMinutesState();
-        showNotice('Minutes saved!');
+        showNotice('Draft saved. Click "Publish Live" (top bar) to update the website.');
     }
 
     function getSelectionListItem() {
@@ -664,7 +665,9 @@
         }
     }
 
-    if (document.readyState === 'loading') {
+    if (window.GHCA_ready) {
+        window.GHCA_ready(init);
+    } else if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
