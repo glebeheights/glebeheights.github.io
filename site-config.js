@@ -15,7 +15,7 @@
  */
 window.GHCA_CONFIG = {
   // Apps Script web app URL, e.g. "https://script.google.com/macros/s/AKfyc.../exec"
-  webAppUrl: "",
+  webAppUrl: "https://script.google.com/macros/s/AKfycbysjWXoOfK3Kz5sAAgWt6UYpBOtAdRsUUVL8CjyRDZ9xAHN25ljn3-wCtnMeS_55QWfKg/exec",
 
   // Fallback email used if the backend isn't connected yet (matches the site).
   reservationEmail: "glebeheights.secretary@gmail.com",
