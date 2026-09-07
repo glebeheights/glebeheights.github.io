@@ -198,7 +198,10 @@ function ghcaInitIndex() {
         }).join('');
     }
 
-    // ---------- load the feed, then paint both views ----------
+    // ---------- paint the calendar grid immediately, then fill in events ----------
+    // Render right away so the month grid never sits blank while the (sometimes slow,
+    // cold-starting) Google feed loads; re-render once events arrive.
+    renderCalendar(currentMonth, currentYear);
     fetchFeed().then(events => {
         byDate = eventsByDate(events);
         renderCalendar(currentMonth, currentYear);
