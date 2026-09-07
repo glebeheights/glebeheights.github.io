@@ -2036,3 +2036,73 @@ body.admin-mode-active .cal-day:not(.cal-empty):hover {
 @media (max-width: 480px) {
     .events-feed-grid { grid-template-columns: 1fr; }
 }
+
+/* Calendar day-detail popover */
+.cal-day.cal-has-events { cursor: pointer; }
+.cal-day.cal-has-events:focus-visible { outline: 2px solid var(--primary-light); outline-offset: 2px; }
+.cal-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(14, 47, 68, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.cal-modal-overlay.visible { opacity: 1; }
+.cal-modal {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 24px 24px 26px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    transform: translateY(8px);
+    transition: transform 0.2s ease;
+}
+.cal-modal-overlay.visible .cal-modal { transform: translateY(0); }
+.cal-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: var(--text-light);
+    cursor: pointer;
+}
+.cal-modal-close:hover { color: var(--primary-dark); }
+.cal-modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--primary-dark);
+    margin: 0 0 16px;
+    padding-right: 24px;
+}
+.cal-detail-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.cal-detail-item { display: flex; gap: 12px; align-items: flex-start; }
+.cal-detail-badge {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    margin-top: 2px;
+}
+.cal-detail-text { display: flex; flex-direction: column; color: var(--primary-dark); line-height: 1.35; }
+.cal-detail-meta { font-size: 0.85rem; color: var(--text-light); margin-top: 3px; }

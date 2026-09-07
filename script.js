@@ -141,6 +141,12 @@ function ghcaInitIndex() {
                 dayEl.setAttribute('title', dayEvents
                     .map(e => e.title + (e.timeRange ? ' (' + e.timeRange + ')' : ''))
                     .join('\n'));
+                dayEl.setAttribute('role', 'button');
+                dayEl.setAttribute('tabindex', '0');
+                dayEl.addEventListener('click', () => showDayDetails(dateStr, dayEvents));
+                dayEl.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDayDetails(dateStr, dayEvents); }
+                });
             }
             calDays.appendChild(dayEl);
         }
@@ -165,8 +171,11 @@ function ghcaInitIndex() {
         if (!list) return;
 
         const todayStr = ymd(new Date());
+        const seenIds = new Set();
         const upcoming = events
             .filter(e => (e.endDate || e.date) >= todayStr)
+            // Collapse recurring series (e.g. an annual party) to its next occurrence.
+            .filter(e => { if (seenIds.has(e.id)) return false; seenIds.add(e.id); return true; })
             .slice(0, UPCOMING_LIMIT);
 
         if (!upcoming.length) {
@@ -196,6 +205,42 @@ function ghcaInitIndex() {
                     </div>
                 </article>`;
         }).join('');
+    }
+
+    // ---------- day-detail popover (click a calendar day that has events) ----------
+    function showDayDetails(dateStr, dayEvents) {
+        const existing = document.getElementById('cal-detail-modal');
+        if (existing) existing.remove();
+
+        const d = new Date(dateStr + 'T00:00:00');
+        const heading = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+        const items = dayEvents.map(ev => {
+            const when = ev.timeRange ? ev.timeRange : (ev.allDay ? 'All day' : '');
+            const bits = [];
+            if (when) bits.push(escapeHtml(when));
+            if (ev.location) bits.push(escapeHtml(ev.location));
+            return `<li class="cal-detail-item">
+                <span class="cal-detail-badge event-badge-${ev.type}">${TYPE_LABEL[ev.type] || 'Event'}</span>
+                <div class="cal-detail-text"><strong>${escapeHtml(ev.title)}</strong>${bits.length ? `<span class="cal-detail-meta">${bits.join(' \u00b7 ')}</span>` : ''}</div>
+            </li>`;
+        }).join('');
+
+        const overlay = document.createElement('div');
+        overlay.id = 'cal-detail-modal';
+        overlay.className = 'cal-modal-overlay';
+        overlay.innerHTML = `<div class="cal-modal" role="dialog" aria-modal="true" aria-label="Events on ${heading}">
+            <button class="cal-modal-close" type="button" aria-label="Close">&times;</button>
+            <h4 class="cal-modal-title">${heading}</h4>
+            <ul class="cal-detail-list">${items}</ul>
+        </div>`;
+        document.body.appendChild(overlay);
+        requestAnimationFrame(() => overlay.classList.add('visible'));
+
+        function close() { overlay.classList.remove('visible'); setTimeout(() => overlay.remove(), 200); }
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+        overlay.querySelector('.cal-modal-close').addEventListener('click', close);
+        document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc); } });
     }
 
     // ---------- paint the calendar grid immediately, then fill in events ----------
