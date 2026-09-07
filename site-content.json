@@ -1,5 +1,5 @@
 {
-  "version": 1788636214976,
+  "version": 1788810376488,
   "updatedBy": "sheiilindley99@gmail.com",
   "adminEdits": {
     "index.html": {
@@ -69,40 +69,27 @@
           ]
         },
         {
-          "category": "announcements",
-          "urgent": false,
-          "date": "June 2026",
-          "title": "Summer Season is Here!",
-          "content": [
-            "The beach area is open and ready for the season. Chairs have been set out and the dock has been inspected. Enjoy the water safely!"
-          ]
-        },
-        {
           "category": "events",
           "urgent": false,
-          "date": "Seasonal",
-          "title": "Holiday Parties & Events",
+          "date": "Saturday, October 24th, 2026",
+          "title": "Halloween Party",
           "content": [
-            "We celebrate together! From summer cookouts to fall bonfires and winter holiday gatherings, there's always a reason to get together at the community beach."
+            "🎃 Join us for the Glebe Heights Community Association Halloween party!"
           ]
+        }
+      ],
+      "calendar-reservations": [
+        {
+          "date": "2026-09-06",
+          "name": "LABOR DAY PARTY"
         },
         {
-          "category": "announcements",
-          "urgent": false,
-          "date": "Ongoing",
-          "title": "Volunteer Opportunities",
-          "content": [
-            "Help keep our community spaces beautiful! We're always looking for volunteers for beach cleanups, event setup, and general maintenance. Reach out if you'd like to get involved."
-          ]
+          "date": "2026-09-07",
+          "name": "Chris Davidson - Party Reservation 10AM -12 PM"
         },
         {
-          "category": "events",
-          "urgent": false,
-          "date": "Sunday, September 6th, 2026 at 2PM ET",
-          "title": "Labor Day Party",
-          "content": [
-            "🎆 Join us for the Glebe Heights Community Association Labor Day party!"
-          ]
+          "date": "2026-10-24",
+          "name": "Halloween Party (Glebe Heights Community)"
         }
       ]
     },
