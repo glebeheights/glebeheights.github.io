@@ -12,18 +12,22 @@ own. One **Google Calendar** is the single source of truth; this script:
 ## One-time setup (~15 min)
 
 1. **Sign in** to the shared community Google account (e.g. `glebeheights.secretary@gmail.com`).
-2. **Create the calendar:** Google Calendar → *+ → Create new calendar* → name it
-   **"Glebe Heights Events"** → Create. Then open its **Settings** and:
-   - Under *Access permissions*, tick **Make available to public** → *See all event details*.
-   - Copy the **Calendar ID** (Integrate calendar → *Calendar ID*, looks like
-     `...@group.calendar.google.com`).
+2. **Choose the calendar.** Either use the account's **primary calendar** (its Calendar ID
+   is just the account email, e.g. `glebeheights.secretary@gmail.com`) if that account is
+   used only for community events — this is what `CALENDAR_ID` is preset to — **or** create
+   a dedicated one: *+ → Create new calendar* → name it **"Glebe Heights Events"** → Create,
+   then copy its **Calendar ID** from *Settings → Integrate calendar* (looks like
+   `...@group.calendar.google.com`).
+   - **Public sharing is optional** — the script reads the calendar while running as this
+     account, so it works even if the calendar is private. Only make it public if you want
+     residents to subscribe to it in their own Google Calendar.
 3. **Create the script:** go to <https://script.google.com> → *New project*. In the
    left panel, paste the contents of `Code.gs` over the default file, and (via
    *Project Settings → Show "appsscript.json"*) paste `appsscript.json`.
    > Prefer the CLI? `npm i -g @google/clasp`, `clasp login`, then from this folder
    > `clasp create --type webapp` and `clasp push`.
 4. **Edit `CONFIG`** at the top of `Code.gs`:
-   - `CALENDAR_ID` → the ID you copied.
+   - `CALENDAR_ID` → already set to `glebeheights.secretary@gmail.com` (the primary calendar); change it only if you use a different calendar.
    - `ADMIN_EMAIL` → who approves requests.
    - `MAILING_LIST` → who gets the monthly email (use a **Google Group** address for
      lists over ~50 people so it counts as one recipient).

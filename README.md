@@ -92,7 +92,7 @@ These need a person with the shared Google account and repo access. Full walkthr
 in [`apps-script/README.md`](apps-script/README.md).
 
 - [ ] Sign in to the shared community **Google account** (e.g. `glebeheights.secretary@gmail.com`).
-- [ ] Create a **public** Google Calendar named **"Glebe Heights Events"**; copy its **Calendar ID**.
+- [ ] Pick the calendar: the account's **primary** calendar (ID = the account email, already preset) or a dedicated **"Glebe Heights Events"** calendar. Public sharing is **optional** (the script reads it as the account).
 - [ ] Create the Apps Script project, paste in `Code.gs` + `appsscript.json`, and fill in `CONFIG`
       (`CALENDAR_ID`, `ADMIN_EMAIL`, `MAILING_LIST`, `APPROVAL_SECRET`).
 - [ ] Run **`setup()`** once (creates the *Glebe Heights Reservations* sheet + schedules the email).

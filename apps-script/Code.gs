@@ -34,10 +34,11 @@
 /*************************  CONFIG — EDIT THESE  *****************************/
 var CONFIG = {
   // The Google Calendar that is the single source of truth.
-  // Calendar Settings > "Integrate calendar" > Calendar ID (looks like
-  // "....@group.calendar.google.com", or the Google account email for its
-  // primary calendar). REQUIRED.
-  CALENDAR_ID: 'REPLACE_WITH_CALENDAR_ID',
+  // Set to the community account's PRIMARY calendar (its Calendar ID is simply the
+  // account email). The calendar does NOT need to be public — this script reads it
+  // while running as the account. To use a different calendar instead, paste its ID
+  // from Calendar Settings > "Integrate calendar" (like "...@group.calendar.google.com").
+  CALENDAR_ID: 'glebeheights.secretary@gmail.com',
 
   // Where reservation requests are logged. Leave blank to have setup() create a
   // spreadsheet named "Glebe Heights Reservations" automatically (recommended).
