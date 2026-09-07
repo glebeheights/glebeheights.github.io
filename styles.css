@@ -1866,3 +1866,173 @@ body.admin-mode-active .cal-day:not(.cal-empty):hover {
 .gallery-members-note a:hover {
     color: var(--accent);
 }
+
+/* ============================================================
+   Events feed + reservation form additions (calendar/events hub)
+   ============================================================ */
+
+/* Honeypot: visually hidden & off-screen; not announced to screen readers */
+.hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Space/Area dropdown matches the other form fields */
+.reservation-form select {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text);
+    background-color: var(--bg);
+    transition: var(--transition);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235d6d7e' d='M6 8 0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+.reservation-form select:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+}
+
+/* Calendar: "+N more" note when a day has several events */
+.cal-more {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 1px;
+}
+
+/* Upcoming Events feed */
+.events-feed {
+    margin-bottom: 44px;
+}
+.events-feed-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.events-feed-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+.events-feed-link {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.events-feed-link:hover { color: var(--accent-light); }
+
+.events-feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+.event-feed-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+.event-feed-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+.event-feed-card.event-type-reservation { border-left-color: var(--accent); }
+.event-feed-card.event-type-meeting { border-left-color: var(--primary-light); }
+.event-feed-card.event-type-event { border-left-color: #27ae60; }
+
+.event-feed-date {
+    flex-shrink: 0;
+    width: 54px;
+    text-align: center;
+    background: var(--bg-alt);
+    border-radius: var(--radius-sm);
+    padding: 8px 4px;
+    line-height: 1.1;
+}
+.event-feed-mon {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+}
+.event-feed-day {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+.event-feed-body { min-width: 0; }
+.event-feed-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+}
+.event-badge-reservation { background: rgba(230, 126, 34, 0.14); color: #ca6510; }
+.event-badge-meeting { background: rgba(41, 128, 185, 0.14); color: var(--primary); }
+.event-badge-event { background: rgba(39, 174, 96, 0.14); color: #1e8449; }
+.event-feed-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin: 0 0 4px;
+    line-height: 1.25;
+}
+.event-feed-meta {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin: 0;
+}
+.events-feed-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-light);
+    background: var(--bg-alt);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 28px;
+}
+
+.updates-subhead {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin: 0 0 20px;
+}
+
+@media (max-width: 480px) {
+    .events-feed-grid { grid-template-columns: 1fr; }
+}
