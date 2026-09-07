@@ -50,7 +50,7 @@ var CONFIG = {
   // Who receives the monthly events email. For lists > ~50 people, use a Google
   // Group address (e.g. glebeheights-residents@googlegroups.com) so it counts as
   // a single recipient against the daily send quota. Comma-separate multiple.
-  MAILING_LIST: 'glebeheights.secretary@gmail.com',
+  MAILING_LIST: 'glebe-heights-community-association@googlegroups.com',
 
   // Display name on outgoing email.
   FROM_NAME: 'Glebe Heights Community Association',
