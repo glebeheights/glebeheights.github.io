@@ -1,5 +1,5 @@
 {
-  "version": 1789432910957,
+  "version": 1789433245758,
   "updatedBy": "sheiilindley99@gmail.com",
   "adminEdits": {
     "index.html": {
@@ -89,7 +89,7 @@
       ]
     },
     "minutes.html": {},
-    "boatslips.html": {}
+    "workhours.html": {}
   },
   "pageEdits": {
     "workhours.html": {
@@ -117,25 +117,49 @@
             "Gillogly",
             "5/8/2026",
             "1",
-            "Grass"
+            "Grass Cutting"
           ],
           [
             "Lavezzo",
             "4/24/2026",
             "1.5",
-            "Grass"
+            "Grass Cutting"
           ],
           [
             "Gillogly",
             "5/30/2026",
             "2",
-            "Grass"
+            "Grass Cutting"
           ],
           [
             "Denaro",
             "6/5/2026",
             "1",
             "Weed Wacking<br>"
+          ],
+          [
+            "Gillogly",
+            "9/27/2026",
+            "2",
+            "Grass Cutting"
+          ],
+          [
+            "Matthews",
+            "7/24/2026",
+            "4",
+            "Nets"
+          ],
+          [
+            "Lindley",
+            "7/7/2026",
+            "4",
+            "Website + Sign"
+          ],
+          [
+            "Moreno",
+            "8/7/2026",
+            "2",
+            "Sign + Garbage Pickup&nbsp;"
           ]
         ]
       }
