@@ -321,6 +321,34 @@
         }
         .print-only { display: none; }
 
+        /* Manage members (admin) */
+        .members-admin {
+            background: #f4faf6;
+            border: 1px solid #cdeed7;
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin-bottom: 28px;
+        }
+        .members-admin .roster-head { margin-bottom: 8px; }
+        .members-admin-badge {
+            font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            background: #27ae60; color: #fff; padding: 2px 8px; border-radius: 10px;
+            vertical-align: middle; margin-left: 6px;
+        }
+        .members-add-row { grid-template-columns: 1fr 1fr auto !important; align-items: center; }
+        .members-edit-table th { font-size: 0.7rem; }
+        .members-edit-table td { padding: 6px 10px; }
+        .members-edit-table input {
+            width: 100%; padding: 7px 10px; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.88rem; color: var(--text);
+        }
+        .members-edit-table input:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(41,128,185,0.12); }
+        .members-col-x { width: 40px; text-align: center; }
+        .members-admin-actions { margin-top: 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .members-save { background: #27ae60; }
+        .members-save:hover { background: #219150; }
+        .members-save-note { font-size: 0.82rem; color: #1e8449; font-style: italic; }
+
         .print-bar {
             text-align: center;
             margin: 40px 0 20px;
@@ -449,6 +477,35 @@
                     <input type="date" id="new-meeting-date">
                 </div>
                 <button class="btn-new-meeting" id="btn-new-meeting">Create Meeting</button>
+            </div>
+        </div>
+
+        <div id="members-admin" class="no-print members-admin" style="display:none;">
+            <div class="roster-head">
+                <h3>Manage members <span class="members-admin-badge">Admin</span></h3>
+                <button type="button" id="btn-toggle-members" class="btn-roster-edit">Hide</button>
+            </div>
+            <div id="members-admin-body">
+                <p class="signin-help">Add, edit, or remove members below. Changes save as a draft on this device &mdash; then click <strong>Publish Live</strong> in the top bar to update the site for everyone. Members you add here also appear on the check-in list and can sign in to the Members Area.</p>
+                <div class="attendee-inputs members-add-row">
+                    <input type="text" id="new-mem-name" placeholder="Full name (e.g. Jane Smith)">
+                    <input type="email" id="new-mem-email" placeholder="Email (for Members Area login)">
+                    <button class="btn-add-attendee" id="btn-add-member">+ Add member</button>
+                </div>
+                <table class="signin-table members-edit-table">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Email</th>
+                            <th class="members-col-x"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="members-edit-tbody"></tbody>
+                </table>
+                <div class="members-admin-actions">
+                    <button class="btn-add-attendee members-save" id="btn-save-members">Save member list</button>
+                    <span id="members-save-note" class="members-save-note"></span>
+                </div>
             </div>
         </div>
 
@@ -614,7 +671,21 @@
         ];
 
         const STORAGE_KEY = 'ghca_signin_data';
+        const MEMBERS_KEY = 'ghca_members_roster';
         let currentMeetingDate = null;
+
+        // Current member list = published/local managed roster if present, else the seed above.
+        function getRoster() {
+            try {
+                const pub = window.__ghcaPublished && window.__ghcaPublished.membersRoster;
+                if (Array.isArray(pub) && pub.length) return pub;
+            } catch (e) {}
+            try {
+                const local = JSON.parse(localStorage.getItem(MEMBERS_KEY));
+                if (Array.isArray(local) && local.length) return local;
+            } catch (e) {}
+            return ROSTER_SEED.slice();
+        }
 
         function escapeHtml(str) {
             const div = document.createElement('div');
@@ -683,7 +754,7 @@
             const present = new Set(meeting.present);
             tbody.innerHTML = '';
 
-            const sorted = ROSTER_SEED.slice().sort((a, b) => a.n.localeCompare(b.n));
+            const sorted = getRoster().slice().sort((a, b) => a.n.localeCompare(b.n));
             sorted.forEach(m => {
                 if (filter && !(m.n.toLowerCase().includes(filter) || (m.e || '').toLowerCase().includes(filter))) return;
                 const isHere = present.has(m.n);
@@ -761,8 +832,92 @@
         function updateCounts() {
             const meeting = getMeeting(currentMeetingDate);
             document.getElementById('present-count-num').textContent = meeting.present.length;
-            document.getElementById('roster-total').textContent = ROSTER_SEED.length;
+            document.getElementById('roster-total').textContent = getRoster().length;
             document.getElementById('guest-count-num').textContent = meeting.guests.length;
+        }
+
+        // ---- manage members (admin only) ----
+        let membersDraft = null;
+
+        function renderMembersEditor() {
+            const tbody = document.getElementById('members-edit-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            membersDraft.forEach(function (m, idx) {
+                const tr = document.createElement('tr');
+                tr.innerHTML =
+                    '<td><input type="text" class="mem-name" data-idx="' + idx + '" value="' + escapeHtml(m.n) + '"></td>' +
+                    '<td><input type="email" class="mem-email" data-idx="' + idx + '" value="' + escapeHtml(m.e) + '"></td>' +
+                    '<td class="members-col-x"><button class="btn-remove-attendee mem-del" data-idx="' + idx + '" title="Remove member">&times;</button></td>';
+                tbody.appendChild(tr);
+            });
+            tbody.querySelectorAll('.mem-name').forEach(function (inp) {
+                inp.addEventListener('input', function () { membersDraft[+this.dataset.idx].n = this.value; });
+            });
+            tbody.querySelectorAll('.mem-email').forEach(function (inp) {
+                inp.addEventListener('input', function () { membersDraft[+this.dataset.idx].e = this.value; });
+            });
+            tbody.querySelectorAll('.mem-del').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    membersDraft.splice(+this.dataset.idx, 1);
+                    renderMembersEditor();
+                });
+            });
+            document.getElementById('members-save-note').textContent = membersDraft.length + ' members';
+        }
+
+        function initMembersAdmin() {
+            const panel = document.getElementById('members-admin');
+            if (!panel) return;
+            const admin = window.GHCAAdmin && GHCAAdmin.isAdmin && GHCAAdmin.isAdmin();
+            if (!admin) { panel.style.display = 'none'; return; }
+            panel.style.display = 'block';
+
+            // start the editor from the current roster (published / local / seed)
+            membersDraft = getRoster().map(function (m) { return { n: m.n || '', e: m.e || '' }; });
+            renderMembersEditor();
+
+            function addMember() {
+                const nameEl = document.getElementById('new-mem-name');
+                const emailEl = document.getElementById('new-mem-email');
+                const name = nameEl.value.trim();
+                const email = emailEl.value.trim();
+                if (!name) { nameEl.focus(); return; }
+                membersDraft.push({ n: name, e: email });
+                nameEl.value = ''; emailEl.value = '';
+                renderMembersEditor();
+                nameEl.focus();
+            }
+
+            document.getElementById('btn-add-member').addEventListener('click', addMember);
+            ['new-mem-name', 'new-mem-email'].forEach(function (id) {
+                document.getElementById(id).addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') { e.preventDefault(); addMember(); }
+                });
+            });
+
+            document.getElementById('btn-save-members').addEventListener('click', function () {
+                const cleaned = membersDraft
+                    .map(function (m) { return { n: (m.n || '').trim(), e: (m.e || '').trim().toLowerCase() }; })
+                    .filter(function (m) { return m.n || m.e; });
+                localStorage.setItem(MEMBERS_KEY, JSON.stringify(cleaned));
+                if (window.GHCAPublish && GHCAPublish.markDirty) GHCAPublish.markDirty();
+                membersDraft = cleaned.map(function (m) { return { n: m.n, e: m.e }; });
+                renderMembersEditor();
+                if (currentMeetingDate) { renderRoster(); updateCounts(); }
+                document.getElementById('members-save-note').textContent =
+                    'Saved (' + cleaned.length + ' members). Click "Publish Live" up top to go live.';
+                if (window.GHCAAdmin && GHCAAdmin.showNotification) {
+                    GHCAAdmin.showNotification('Member list saved. Click "Publish Live" to update the site for everyone.', 'success');
+                }
+            });
+
+            document.getElementById('btn-toggle-members').addEventListener('click', function () {
+                const body = document.getElementById('members-admin-body');
+                const hidden = body.style.display === 'none';
+                body.style.display = hidden ? 'block' : 'none';
+                this.textContent = hidden ? 'Hide' : 'Show';
+            });
         }
 
         // ---- events ----
@@ -806,6 +961,10 @@
         });
 
         populateMeetingSelect();
+
+        // Show the admin member manager once published content + DOM are ready.
+        if (window.GHCA_ready) window.GHCA_ready(initMembersAdmin);
+        else document.addEventListener('DOMContentLoaded', initMembersAdmin);
     </script>
 </body>
 </html>

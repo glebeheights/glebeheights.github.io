@@ -19,6 +19,7 @@
     const TOKEN_KEY = 'ghca_gh_token';
     const ADMIN_EDITS_KEY = 'ghca-admin-edits';   // written by admin.js
     const PAGE_EDITS_KEY = 'ghca_page_edits';      // written by admin-pages.js
+    const MEMBERS_KEY = 'ghca_members_roster';     // shared member list (signin.html)
     const PUB_VERSION_KEY = 'ghca_pub_version';    // last published version applied locally
     const DIRTY_KEY = 'ghca_draft_dirty';          // admin has unpublished local edits
 
@@ -40,18 +41,24 @@
         try { return JSON.parse(localStorage.getItem(key)) || {}; } catch (e) { return {}; }
     }
 
+    function readArray(key) {
+        try { const v = JSON.parse(localStorage.getItem(key)); return Array.isArray(v) ? v : null; } catch (e) { return null; }
+    }
+
     function collectBundle() {
         return {
             version: Date.now(),
             updatedBy: localStorage.getItem('ghca_member_email') || 'admin',
             adminEdits: readJSON(ADMIN_EDITS_KEY),
-            pageEdits: readJSON(PAGE_EDITS_KEY)
+            pageEdits: readJSON(PAGE_EDITS_KEY),
+            membersRoster: readArray(MEMBERS_KEY)
         };
     }
 
     function applyBundleToLocal(bundle) {
         if (bundle.adminEdits) localStorage.setItem(ADMIN_EDITS_KEY, JSON.stringify(bundle.adminEdits));
         if (bundle.pageEdits) localStorage.setItem(PAGE_EDITS_KEY, JSON.stringify(bundle.pageEdits));
+        if (Array.isArray(bundle.membersRoster)) localStorage.setItem(MEMBERS_KEY, JSON.stringify(bundle.membersRoster));
     }
 
     // ---------------- UTF-8 safe base64 ----------------

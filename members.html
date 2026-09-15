@@ -552,6 +552,21 @@
             "750cecil@gmail.com","84dangelo@gmail.com","admyers87@comcast.net","ajsloans@gmail.com","alicia.brogden@hotmail.com","annettedavies25@aol.com","ari.isaacman@gmail.com","babycig13@gmail.com","bahall74@gmail.com","bburton@stolarconstruction.com","billels70@gmail.com","billonearth787@gmail.com","brandieleesteve@gmail.com","brian@yourarealender.com","brucewashko@gmail.com","cfegan12@aol.com","chris.davidson87@yahoo.com","chriscanton80@gmail.com","dalemaynard@comcast.net","danicecily@me.com","dcdrjohnson@msn.com","denaro1016@gmail.com","denarofamily07@gmail.com","dpennington306@gmail.com","earleolson@verizon.net","ednumtwo@yahoo.com","estorres1210@gmail.com","foxleebrittany@gmail.com","george.caldwell@zoho.com","georgeheinlein@verizon.net","gholsey@rocketmail.com","gt63959@aol.com","jkbacci3@gmail.com","jlindsey638@gmail.com","jm_marquis@hotmail.com","joe@stangerinsurancegroup.com","johngillogly@msn.com","jtja@hotmail.com","kbacci1@verizon.net","kbladybug63@aol.com","kt63357@gmail.com","l.marquis@comcast.net","larrywelch55@gmail.com","lena.jm@gmail.com","lmhugg@yahoo.com","lornacunningham@comcast.net","markcunningham21@gmail.com","markkragan@yahoo.com","meandlp14@gmail.com","melaniedixon@4gtechsolutions.com","mpdavis2@aol.com","nicoli7800@gmail.com","olsoninpa@verizon.net","p.fegan2018@gmail.com","pedropaz123@gmail.com","ptinsley10@yahoo.com","rcbrown@me.com","rick.potocek@gmail.com","rmroach20@gmail.com","ryan13xc@gmail.com","sheiilindley99@gmail.com","slynch0117@yahoo.com","stephenmc920@yahoo.com","talitha-vierling@outlook.com","tbull52@gmail.com","tlmiksis@hotmail.com","willboock@yahoo.com"
         ];
 
+        // Members added via the sign-in page "Manage members" tool (published/local roster).
+        function rosterEmails() {
+            let list = [];
+            try {
+                const pub = window.__ghcaPublished && window.__ghcaPublished.membersRoster;
+                if (Array.isArray(pub)) list = pub;
+                else { const l = JSON.parse(localStorage.getItem('ghca_members_roster')); if (Array.isArray(l)) list = l; }
+            } catch (e) {}
+            return list.map(function (m) { return (m && m.e) ? String(m.e).toLowerCase() : ''; }).filter(Boolean);
+        }
+        function isMemberEmail(email) {
+            email = (email || '').trim().toLowerCase();
+            return memberEmails.includes(email) || rosterEmails().includes(email);
+        }
+
         const loginSection = document.getElementById('login-section');
         const membersContent = document.getElementById('members-content');
         const loginForm = document.getElementById('login-form');
@@ -575,14 +590,24 @@
 
         // Check if already authenticated
         const storedEmail = localStorage.getItem('ghca_member_email');
-        if (storedEmail && memberEmails.includes(storedEmail)) {
+        if (storedEmail && isMemberEmail(storedEmail)) {
             showMembers(storedEmail);
+        }
+
+        // Re-check once the published roster has synced (covers newly-added members).
+        if (window.GHCA_ready) {
+            window.GHCA_ready(function () {
+                const e = localStorage.getItem('ghca_member_email');
+                if (e && isMemberEmail(e) && !membersContent.classList.contains('visible')) {
+                    showMembers(e);
+                }
+            });
         }
 
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const email = emailInput.value.trim().toLowerCase();
-            if (memberEmails.includes(email)) {
+            if (isMemberEmail(email)) {
                 localStorage.setItem('ghca_member_email', email);
                 showMembers(email);
             } else {
