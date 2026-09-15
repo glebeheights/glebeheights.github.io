@@ -1,5 +1,5 @@
 {
-  "version": 1789433947411,
+  "version": 1789440369723,
   "updatedBy": "sheiilindley99@gmail.com",
   "adminEdits": {
     "index.html": {
@@ -89,7 +89,8 @@
       ]
     },
     "minutes.html": {},
-    "workhours.html": {}
+    "workhours.html": {},
+    "boatslips.html": {}
   },
   "pageEdits": {
     "workhours.html": {
@@ -160,39 +161,139 @@
             "8/7/2026",
             "2",
             "Sign + Garbage Pickup&nbsp;"
-          ],
-          [
-            "Matthews",
-            "8/12/2026",
-            "2",
-            "Work Party"
-          ],
-          [
-            "Stanger",
-            "5/24, 7/6, 9/7",
-            "8",
-            "Party Setup +"
-          ],
-          [
-            "Dixon",
-            "6/12",
-            "1.25",
-            "Work Party"
-          ],
-          [
-            "Scoville",
-            "4/6, 5/1, 6/3",
-            "17",
-            "Board Position Work + Sign Repair"
           ]
         ]
       }
     },
     "minutes.html": {
       "minutes-entries": [
+        "<h2>GHCA Monthly Meeting</h2>\n            <div class=\"minutes-meta\">September 14, 2026 • 6:30 PM • Beach Fire Pit Area</div>\n            <p>Minutes from previous meeting read and approved.</p>\n            <h3>Treasury Report</h3><table class=\"treasury-table\" style=\"width: 400px;\"><tbody><tr><td style=\"color: rgb(93, 109, 126);\">Previous Balance</td><td style=\"color: rgb(93, 109, 126);\">$25,875</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">Deposits</td><td style=\"color: rgb(93, 109, 126);\">+$110.35</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">BGE</td><td style=\"color: rgb(93, 109, 126);\">-$41.87 (18.50 + 23.37)</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">Statewide</td><td style=\"color: rgb(93, 109, 126);\">-$1,440 (Due for full year - address now corrected)</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">Service Charge</td><td style=\"color: rgb(93, 109, 126);\">-$0.85&nbsp;</td></tr><tr><td style=\"color: rgb(14, 47, 68); border-top: 2px solid rgb(232, 237, 242);\">New Balance</td><td style=\"color: rgb(14, 47, 68); border-top: 2px solid rgb(232, 237, 242);\">$24,503.48</td></tr></tbody></table><p><font color=\"#1a5276\"><span style=\"font-size: 17.6px;\"><b><br></b></span></font></p><p><font color=\"#1a5276\"><span style=\"font-size: 17.6px;\"><b>Facilities &amp; Maintenance</b></span></font></p><span style=\"color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\"><ul style=\"\"><li style=\"\"><b style=\"font-weight: bold; color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Porta-potty:</b><span style=\"color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\"> Being picked up in November; no charge for November as a result.</span></li><li style=\"\"><b style=\"font-weight: bold; color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Dock / Pier: </b><span style=\"color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">The whole pier needs a once-over; additional dock work required. Proposal to add dock de-icers (\"ice eaters\") for winter protection — see capital estimates in Section 4A. Patrick is arranging an on-site assessment and a price this month.</span></li><li style=\"\"><b style=\"font-weight: bold; color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Work party:</b><span style=\"color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\"> Last one had only 2 attendees; need more engagement. Schedule another work party to close out the season (general cleanup, dock prep, winterization). A written close-out checklist will be used to give the party structure<b> and drive participation.&nbsp;</b></span></li><ul style=\"\"><li class=\"\" style=\"font-weight: bold;\"><b>Tentative Date: </b>Oct 28th</li><li class=\"\" style=\"font-weight: bold;\"><b>Dock &amp; pier:</b></li><ul style=\"\"><li class=\"\" style=\"\">Decide on De-icer purchase + controller/thermostat + timer — ice eaters draw power continuously, so a thermostat controller keeps your BGE bill down (only runs when needed). Budget for the winter electricity bump.</li><li class=\"\" style=\"\">Haul out &amp; store any items that cannot be left out</li><li class=\"\" style=\"\"><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Inspect &amp; repair loose boards, screws, and pilings; tighten hardware before the freeze.</span></li><li class=\"\" style=\"\">Winterize shore-power pedestals / GFCI outlets (inspect, cover).</li><li class=\"\" style=\"\">Discuss a boat/watercraft haul-out deadline for slip holders</li></ul><li class=\"\" style=\"font-weight: bold;\"><b>Beach &amp; swim area</b></li><ul style=\"\"><li class=\"\" style=\"\">Store/prepare: beach chairs, nets, etc.</li><li class=\"\" style=\"\">Rake debris/seaweed; check for and address shoreline erosion (sandbags / re-grade; plan spring sand replenishment).</li><li class=\"\" style=\"\">Secure or store picnic tables and trash cans; adjust/pause trash pickup for the season.</li></ul><li class=\"\" style=\"font-weight: bold;\"><b>Firepit</b></li><ul style=\"\"><li class=\"\" style=\"\">Weatherproof firepit&nbsp;</li><li class=\"\" style=\"\">Clean out ashes; inspect stone/mortar for cracks.</li><li class=\"\" style=\"\">Store or cover surrounding benches / Adirondack chairs.</li></ul><li class=\"\" style=\"font-weight: bold;\"><b>Grill area</b></li><ul style=\"\"><li class=\"\" style=\"\">Deep-clean grills (grease removal) — critical for pest/rodent control and rust prevention.</li><li class=\"\" style=\"\">Store grill tools, prep/condiment tables.</li></ul><li class=\"\" style=\"font-weight: bold;\"><b>Porta-potty removal is handled ✔&nbsp;</b></li><li class=\"\" style=\"font-weight: bold;\"><b>Snow, ice &amp; access</b></li><ul style=\"\"><li class=\"\" style=\"\">Ice melt (pet-/plant-safe, concrete- and metal-safe), sand, shovels, and a snow-removal plan (volunteer or contracted) for parking and walkways.</li></ul><li class=\"\" style=\"font-weight: bold;\"><b>Review insurance</b> for the low-use winter season and updated hazards (open water).</li><li class=\"\" style=\"\"><span style=\"font-weight: bold;\"><b>Final landscaping:</b> </span>leaf removal, trim dead tree limbs (storm prep)</li></ul></ul></span><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 17.6px; color: rgb(26, 82, 118);\"><div><b style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 17.6px; color: rgb(26, 82, 118);\"><br></b></div><b>Upcoming Events</b></span><div><ul style=\"\"><li class=\"\" style=\"\"><b>Halloween Party (Saturday, October 24):</b><font face=\"Inter, -apple-system, BlinkMacSystemFont, sans-serif\">&nbsp;Planning&nbsp;</font>pumpkin decoration · hayride (TBD) · Family friendly spooky movie screening · s'mores · pet costume contest</li><ul><li class=\"\" style=\"\">Finalize planning</li></ul><li class=\"\" style=\"\"><b>October Community Meeting:</b> 10/12/2026 at 6:30 PM</li><li class=\"\" style=\"\"><b>Gauging interest:</b></li><ul><li class=\"\">Kid's/Family Fishing tournament | possibly October, with a prize for winners</li><li class=\"\" style=\"\">Football viewing parties at the beach</li><li class=\"\" style=\"\">Pancake Breakfast</li><li class=\"\" style=\"\">Holiday golf cart/Bike/Stroller parade (decorate your moving item and gather at the community beach for prizes, games, and treats after the parade).&nbsp;</li><li class=\"\">Dog costume contest (Halloween)</li><li class=\"\">Craft nights/movie nights</li></ul></ul><div><p><font color=\"#1a5276\"><span style=\"font-size: 17.6px;\"><b><br></b></span></font></p><p><font color=\"#1a5276\"><span style=\"font-size: 17.6px;\"><b>Capital Planning | Estimates &amp; Options</b></span></font></p><ul style=\"\"><li class=\"\" style=\"\"><font style=\"\"><b>Dock De-Icers (\"Ice Eaters\"):</b><font face=\"Inter, -apple-system, BlinkMacSystemFont, sans-serif\">&nbsp;Proposal to purchase </font></font>Ice eaters to reduce dock damage (currently we are dealing with some issues related to this from last winter's ice storms). Ice eaters pull warmer subsurface water to the surface to keep a circle of water open, protecting pilings and the dock from ice damage.&nbsp;</li><ul><li class=\"\">Recommendation:&nbsp;</li><ul><li class=\"\">Ice Eater P750 (x2) = $2,080 – $3,080</li><li class=\"\">Thermostat/timer controller (x2) = $260 – $340</li><li class=\"\">Mounting hardware (optional) $0 – $500</li></ul><li><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Equipment total (one-time) =&nbsp;</span>~$2,340 – $3,920</li><li>Operating cost (recurring, hits the BGE line): ~ $300 – $650/season for two units, controller-dependent. Controllers usually pay for themselves the first winter.&nbsp;</li></ul><li class=\"\"><b>Swim-Area Net:&nbsp;</b>~$3,200–$5,000 for a smaller, but more portable net pool options with tighter weave and floats to ensure movement with the tide. Full proposal and options to come in separate communication for review.&nbsp;</li><li class=\"\"><b style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Boat Ramp Replacement </b><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">(a</span>greed to tackle with next year's fees)</li><ul style=\"color: rgb(93, 109, 126);\"><li>Pedro to get new estimates from Jim Hatley (originally $16K)</li></ul><ul><li>Pedro working on updated quotes/reconnection</li></ul></ul><ul style=\"\"><li class=\"\"><b>Proposed Fee Structure Increase: </b>Operating costs are rising (BGE, insurance, etc.) and several capital needs are now on the table (boat ramp replacement (largest), dock de-icers, pier repairs, and a swim-area net) with no dedicated reserve currently funding them. Proposing a flat $100 per household. Pending vote.&nbsp;</li><li class=\"\"><b style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Gate Arm Upgrade:</b><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\"> </span><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Previously approved gate arm $8K&nbsp; - includes back-up batter in case power goes out. Proposing $75 initiation fee/family, $25 for a new car pass (goes on license plate, registered to car and gate opens when approached, sensor prevents damage when car is going in or out).</span></li><ul style=\"color: rgb(93, 109, 126);\"><ul style=\"color: rgb(93, 109, 126); list-style: circle;\"><li>Pedro to ask additional questions including:&nbsp;</li><ul style=\"color: rgb(93, 109, 126);\"><li>How to handle entry/exit for guest, events, contractors, etc.</li><li>Electrician estimate for power hookups</li><li>Wait period for installation</li><li>Emergency override procedures</li></ul></ul></ul><li class=\"\"><b style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Retaining Wall Fix: </b><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Need new estimates and established timeline. To discuss at next meeting.&nbsp;</span></li></ul><div><b style=\"color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\"><font color=\"#1a5276\"><span style=\"font-size: 17.6px;\"><br></span></font></b></div><div><b style=\"color: rgb(93, 109, 126); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\"><font color=\"#1a5276\"><span style=\"font-size: 17.6px;\">Action Items:</span></font></b></div><div><ul><li class=\"ghca-task\" data-task-id=\"t-mu22izu5-h6tw\">Complete on-site dock/pier assessment and bring a repair price (Patrick/contact)</li><li class=\"ghca-task\" data-task-id=\"t-mu22j1kn-3i2y\">Get updated boat-ramp estimates from Jim Hatley (orig. ~$16K); continue quote/reconnection work (Pedro)</li><li class=\"ghca-task\" data-task-id=\"t-mu22j33p-3zal\">Gate arm: Get answers on: guest/event/contractor entry &amp; exit, electrician estimate for power hookups, installation lead time, and emergency-override procedures (Pedro)</li><li class=\"ghca-task\" data-task-id=\"t-mu22j4kr-f783\">Hold vote on the flat $100/household fee increase</li><li class=\"ghca-task\" data-task-id=\"t-mu22j657-m7nu\">Approve de-icer purchase: 2× Ice Eater P750 + thermostat controllers (~$2,340–$3,920 one-time; ~$300–$650/season)</li><li class=\"ghca-task\" data-task-id=\"t-mu22j7mp-qkh7\">Finalize/vote gate-arm fee structure ($75 initiation/family, $25 per car pass) — pending Pedro's Q&amp;A</li><li class=\"ghca-task\" data-task-id=\"t-mu22jfwi-skn6\">Get new retaining-wall estimates + timeline - for discussion at next meeting</li><li class=\"ghca-task\" data-task-id=\"t-mu22jico-nlze\">Schedule &amp; staff winter close-out work party - tentative Oct 28</li><ul><li><span style=\"font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;\">Confirm the date and participation</span></li><li>Create the written close-out checklist (dock, beach, firepit, grill, landscaping tasks)</li><li>Set &amp; communicate a boat/watercraft haul-out deadline for slip holders</li><li>Establish a snow-removal plan (volunteer vs. contracted) + buy ice melt/sand/shovels</li><li>Review insurance for the winter season (low use + open-water hazard)</li><li>Adjust/pause trash pickup for the season</li></ul><li class=\"ghca-task\" data-task-id=\"t-mu22jk1c-m8yh\">Finalize Halloween Party plans (Sat Oct 24): pumpkins, hayride (TBD), spooky movie, s'mores, pet costume contest</li><li class=\"ghca-task\" data-task-id=\"t-mu22jlik-gh96\">Circulate the swim-area net proposal/options for review (~$3,200–$5,000)</li><li class=\"ghca-task\" data-task-id=\"t-mu22ix02-9tf0\">Gauge interest in: Family fishing tournament, beach football viewing parties, pancake breakfast, holiday golf-cart/bike/stroller parade, dog costume contest, craft/movie nights</li></ul></div>\n            <p style=\"margin-top: 24px; font-style: italic;\">Meeting adjourned.</p>\n        </div></div>",
         "<h2>GHCA Monthly Meeting</h2>\n            <div class=\"minutes-meta\">July 13, 2026 • 6:30 PM • Beach Fire Pit Area</div>\n            <p>Minutes from previous meeting read and approved.</p>\n            <h3>Treasury Report</h3>\n            <table class=\"treasury-table\" style=\"width: 400px;\"><tbody><tr><td style=\"color: rgb(93, 109, 126);\">Previous Balance</td><td style=\"color: rgb(93, 109, 126);\">$25,568.91</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">Deposits</td><td style=\"color: rgb(93, 109, 126);\">+$360</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">BGE</td><td style=\"color: rgb(93, 109, 126);\">-$7.34</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">Statewide</td><td style=\"color: rgb(93, 109, 126);\">-$0 (Greg follow up)</td></tr><tr><td style=\"color: rgb(93, 109, 126);\">Service Charge</td><td style=\"color: rgb(93, 109, 126);\">-$46.57 (reconcile with Greg)</td></tr><tr><td style=\"color: rgb(14, 47, 68); border-top: 2px solid rgb(232, 237, 242);\">New Balance</td><td style=\"color: rgb(14, 47, 68); border-top: 2px solid rgb(232, 237, 242);\">$25,875</td></tr></tbody></table>\n            <h3>Old Business</h3>\n            <ul><li class=\"ghca-task\" data-task-id=\"t-mrv71whx-7jcw\"><b>Jelly Fish Nets: </b>Officially taken out of the water, rolled up, and weights removed.&nbsp;</li><ul><li>Need to store weights and decide on next steps. Nets need repair, cables need to be redone, and two poles need to be reconnected. Nets are not very effective due to lose weave and lack of float with high tide.&nbsp;</li><li>Sheii to follow-up with quotes for new nets and repairs before the next meeting.&nbsp;</li></ul><li class=\"ghca-task\" data-task-id=\"t-mrv71ybb-9xkx\"><b>Gate Rope and Ramp Chain/Lock:</b> Need fixing, Pedro to fix by next work party (July 29th). Ramp lock to be cut off and replaced along with gate rope.&nbsp;</li><li class=\"ghca-task\" data-task-id=\"t-mrv71zs6-ioj1\"><b>Gate Arm Upgrade:</b> Previously approved gate arm at $8K (originally $7.5K without backup battery) - includes back-up batter in case power goes out. Proposing $75 initiation fee/family, $25 for a new car pass (goes on license plate, registered to car and gate opens when approached, sensor prevents damage when car is going in or out).</li><ul><li>Pedro to ask additional questions including:&nbsp;</li><ul><li>How to handle entry/exit for guest, events, contractors, etc.</li><li>Electrician estimate for power hookups</li><li>Wait period for installation</li><li>Emergency override procedures</li></ul></ul><li class=\"ghca-task\" data-task-id=\"t-mrv721sv-9hhq\"><b>Boat Ramp Fix: </b>Agreed to tackle with next year's fees.&nbsp;</li><ul><li>Pedro to get new estimates from Jim Hatley (originally $16K)</li></ul><li class=\"ghca-task\" data-task-id=\"t-mrv72366-p3cq\"><b>Retaining Wall Fix: </b>Need new estimates and established timeline. To discuss at next meeting.&nbsp;</li></ul>\n            <h3>New Business</h3>\n            <ul><li>Proposal to raise yearly dues to $100/family</li><li class=\"ghca-task\" data-task-id=\"t-mrv725pq-ssae\">Scheduled next work party for pier and platform fixes for Wednesday, 7/29 at 5PM EST.</li><ul><li>Need volunteers with woodworking/carpentry experience for pier repairs.&nbsp;</li></ul></ul>\n            <p style=\"margin-top: 24px; font-style: italic;\">Meeting adjourned.</p>",
         "<h2>GHCA Monthly Meeting</h2>\n            <div class=\"minutes-meta\">June 8, 2026 • 6:30 PM • Beach Fire Pit Area</div>\n\n            <p>Minutes from May meeting read and approved.</p>\n            <p><strong>Presiding over meeting:</strong> Patrick Feagan</p>\n\n            <h3>Treasury Report</h3>\n            <table class=\"treasury-table\">\n                <tbody><tr><td>Previous Balance</td><td>$25,694.80</td></tr>\n                <tr><td>Deposits</td><td>+$1,319.00</td></tr>\n                <tr><td>BGE</td><td>-$54.83</td></tr>\n                <tr><td>Statewide</td><td>-$1,390.06</td></tr>\n                <tr><td>New Balance</td><td>$25,568.91</td></tr>\n            </tbody></table>\n\n            <h3>Old Business</h3>\n            <ul>\n                <li>Nets unable to be fixed due to broken pole and nothing to support cable anymore. Work party scheduled to remove.</li>\n            </ul>\n\n            <h3>New Business</h3>\n            <ul>\n                <li>July 4 Party — July 5 at 2:00 PM</li>\n                <li>Work Party — June 12 at 5:30 PM</li>\n            </ul>\n\n            <h3>Board Elections</h3>\n            <ul>\n                <li><strong>President:</strong> Pedro Paz</li>\n                <li><strong>Vice President:</strong> Patrick Fegan</li>\n                <li><strong>Treasurer:</strong> Greg Tanner</li>\n                <li><strong>Secretary:</strong> Sheii Lindley</li>\n                <li><strong>Roads:</strong> Ryan Roach</li>\n                <li><strong>Beaches:</strong> Joe Stanger</li>\n                <li><strong>Ways and Means:</strong> Vacant</li>\n            </ul>\n\n            <p style=\"margin-top: 24px; font-style: italic;\">Meeting adjourned.</p>"
       ]
+    },
+    "boatslips.html": {
+      "boatslips-table": {
+        "headers": [
+          "Member",
+          "Boat Size",
+          "Slip #",
+          "Kayak Rack",
+          "Rack #",
+          "Hours",
+          "Seniority"
+        ],
+        "rows": [
+          [
+            "Bacci",
+            "12'",
+            "5",
+            "—",
+            "—",
+            "—",
+            "6/2017"
+          ],
+          [
+            "Burton",
+            "25'",
+            "9",
+            "2 spots",
+            "8B, 11B",
+            "8 hrs",
+            "1989"
+          ],
+          [
+            "Caldwell",
+            "24'",
+            "Pier B",
+            "—",
+            "—",
+            "—",
+            "8/2016"
+          ],
+          [
+            "Fegan",
+            "24'",
+            "1",
+            "—",
+            "—",
+            "—",
+            "2007"
+          ],
+          [
+            "Gillogly",
+            "12'",
+            "11",
+            "—",
+            "—",
+            "3.5 hrs",
+            "6/2017"
+          ],
+          [
+            "Goodwin &amp; Miksis",
+            "20'",
+            "Pier B",
+            "—",
+            "—",
+            "8 hrs",
+            "7/2020"
+          ],
+          [
+            "Holsey, Greg &amp; Elizabeth",
+            "23'",
+            "3",
+            "2 spots",
+            "1B, 4B",
+            "5 hrs",
+            "5/8/23"
+          ],
+          [
+            "Marquis, Joe &amp; Lisa",
+            "21'",
+            "7",
+            "1 spot",
+            "—",
+            "4 hrs",
+            "6/7/2020"
+          ],
+          [
+            "Sousa-Paz, Pedro",
+            "23'",
+            "14",
+            "—",
+            "—",
+            "—",
+            "3/4/2021"
+          ],
+          [
+            "Raulin, Don",
+            "23'",
+            "2",
+            "—",
+            "—",
+            "—",
+            "1986"
+          ],
+          [
+            "Roach, Ryan &amp; Julie",
+            "12'",
+            "13",
+            "2 spots",
+            "13A, 14A",
+            "—",
+            "6/21/2018"
+          ],
+          [
+            "Sokol",
+            "18'",
+            "6",
+            "—",
+            "—",
+            "—",
+            "6/11/2018"
+          ]
+        ]
+      }
     }
   }
 }
