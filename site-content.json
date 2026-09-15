@@ -1,5 +1,5 @@
 {
-  "version": 1788811373119,
+  "version": 1789431690195,
   "updatedBy": "sheiilindley99@gmail.com",
   "adminEdits": {
     "index.html": {
@@ -63,7 +63,7 @@
           "category": "meetings",
           "urgent": false,
           "date": "Monthly",
-          "title": "Next Meeting: Monday, September 14th",
+          "title": "Next Meeting: Monday, October 12th",
           "content": [
             "Community meetings are the 2nd Monday of every month (April–October) at 6:30 PM at the beach fire pit area. Come share your ideas and stay in the loop."
           ]
@@ -71,25 +71,20 @@
         {
           "category": "events",
           "urgent": false,
-          "date": "Saturday, October 24th, 2026",
-          "title": "Halloween Party",
+          "date": "Seasonal",
+          "title": "Holiday Parties & Events",
           "content": [
-            "🎃 Join us for the Glebe Heights Community Association Halloween party!"
+            "We celebrate together! From summer cookouts to fall bonfires and winter holiday gatherings, there's always a reason to get together at the community beach."
           ]
-        }
-      ],
-      "calendar-reservations": [
-        {
-          "date": "2026-09-06",
-          "name": "LABOR DAY PARTY"
         },
         {
-          "date": "2026-09-07",
-          "name": "Chris Davidson - Party Reservation 10AM -12 PM"
-        },
-        {
-          "date": "2026-10-24",
-          "name": "Halloween Party (Glebe Heights Community)"
+          "category": "announcements",
+          "urgent": false,
+          "date": "Ongoing",
+          "title": "Volunteer Opportunities",
+          "content": [
+            "Help keep our community spaces beautiful! We're always looking for volunteers for beach cleanups, event setup, and general maintenance. Reach out if you'd like to get involved."
+          ]
         }
       ]
     },
