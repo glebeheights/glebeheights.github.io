@@ -272,6 +272,55 @@
             color: var(--primary);
         }
 
+        /* Member roster */
+        .roster-section { margin-bottom: 28px; }
+        .roster-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .roster-head h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+            margin: 0;
+        }
+        .roster-filter {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            min-width: 200px;
+        }
+        .roster-filter:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.12);
+        }
+        .roster-table .col-check { width: 56px; text-align: center; }
+        .roster-table td.col-check { text-align: center; }
+        .roster-table .col-sig { width: 34%; }
+        .roster-check { width: 20px; height: 20px; accent-color: #27ae60; cursor: pointer; }
+        .roster-table tr.present td { background: rgba(39, 174, 96, 0.09); }
+        .roster-table tr.present .member-name { font-weight: 600; color: var(--primary-dark); }
+        .sig-cell { border-bottom: 1px solid #b0b7c0; height: 20px; }
+        .guest-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+            margin: 28px 0 12px;
+        }
+        .signin-help {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 18px;
+        }
+        .print-only { display: none; }
+
         .print-bar {
             text-align: center;
             margin: 40px 0 20px;
@@ -315,9 +364,13 @@
                 padding-top: 0;
             }
 
-            .header, .footer, .print-bar, .breadcrumb, .meeting-controls, .add-attendee-form, .btn-remove-attendee {
+            .header, .footer, .print-bar, .breadcrumb, .meeting-controls, .add-attendee-form, .btn-remove-attendee, .no-print {
                 display: none !important;
             }
+
+            .print-only { display: table-row !important; }
+            .roster-table .sig-cell, .signin-table td { border-bottom: 1px solid #999; }
+            .roster-check { -webkit-appearance: auto; appearance: auto; }
 
             .page-hero {
                 background: none !important;
@@ -402,8 +455,28 @@
         <div id="signin-content" style="display:none;">
             <p class="meeting-date-display">Meeting Date: <span id="current-meeting-date"></span></p>
 
-            <div class="add-attendee-form">
-                <h4>Add Attendee</h4>
+            <p class="attendee-count"><strong id="present-count-num">0</strong> of <span id="roster-total">0</span> members checked in &nbsp;&bull;&nbsp; <strong id="guest-count-num">0</strong> new / guests</p>
+            <p class="signin-help no-print">Tick each member as they arrive. Anyone not on the list can be added under <strong>New folks &amp; guests</strong>. When you're done, use <strong>Print Sign-In Sheet</strong> to save or file the record.</p>
+
+            <div class="roster-section">
+                <div class="roster-head">
+                    <h3>Members &mdash; check off who's here</h3>
+                    <input type="search" id="roster-filter" class="roster-filter no-print" placeholder="Filter members&hellip;">
+                </div>
+                <table class="signin-table roster-table">
+                    <thead>
+                        <tr>
+                            <th class="col-check">Here</th>
+                            <th>Member</th>
+                            <th class="col-sig">Signature</th>
+                        </tr>
+                    </thead>
+                    <tbody id="roster-tbody"></tbody>
+                </table>
+            </div>
+
+            <div class="add-attendee-form no-print">
+                <h4>Add a new person or guest</h4>
                 <div class="attendee-inputs">
                     <input type="text" id="att-name" placeholder="Name" required>
                     <input type="text" id="att-address" placeholder="Address">
@@ -412,8 +485,7 @@
                 <button class="btn-add-attendee" id="btn-add-attendee">Add to Sign-In Sheet</button>
             </div>
 
-            <p class="attendee-count"><strong id="attendee-count-num">0</strong> attendees signed in</p>
-
+            <h4 class="guest-heading">New folks &amp; guests</h4>
             <table class="signin-table">
                 <thead>
                     <tr>
@@ -421,7 +493,7 @@
                         <th>Name</th>
                         <th>Address</th>
                         <th>Phone / Email</th>
-                        <th></th>
+                        <th class="no-print"></th>
                     </tr>
                 </thead>
                 <tbody id="signin-tbody">
@@ -464,130 +536,260 @@
             });
         }
 
+        /* ------------------------------------------------------------------
+           MEMBER ROSTER  (source of truth)
+           Names are best-effort from member emails and can be corrected here.
+           Edit this list and re-publish signin.html to update the shared
+           roster for everyone. Entries near the bottom still need real names.
+           ------------------------------------------------------------------ */
+        const ROSTER_SEED = [
+            { n: "Alicia Brogden",   e: "alicia.brogden@hotmail.com" },
+            { n: "Annette Davies",   e: "annettedavies25@aol.com" },
+            { n: "Ari Isaacman",     e: "ari.isaacman@gmail.com" },
+            { n: "Bruce Washko",     e: "brucewashko@gmail.com" },
+            { n: "Chris Canton",     e: "chriscanton80@gmail.com" },
+            { n: "Chris Davidson",   e: "chris.davidson87@yahoo.com" },
+            { n: "Dale Maynard",     e: "dalemaynard@comcast.net" },
+            { n: "Denaro",           e: "denaro1016@gmail.com" },
+            { n: "Denaro (family)",  e: "denarofamily07@gmail.com" },
+            { n: "Earle Olson",      e: "earleolson@verizon.net" },
+            { n: "George Caldwell",  e: "george.caldwell@zoho.com" },
+            { n: "George Heinlein",  e: "georgeheinlein@verizon.net" },
+            { n: "John Gillogly",    e: "johngillogly@msn.com" },
+            { n: "Larry Welch",      e: "larrywelch55@gmail.com" },
+            { n: "Lorna Cunningham", e: "lornacunningham@comcast.net" },
+            { n: "Mark Cunningham",  e: "markcunningham21@gmail.com" },
+            { n: "Mark Kragan",      e: "markkragan@yahoo.com" },
+            { n: "Melanie Dixon",    e: "melaniedixon@4gtechsolutions.com" },
+            { n: "Pedro Paz",        e: "pedropaz123@gmail.com" },
+            { n: "Rick Potocek",     e: "rick.potocek@gmail.com" },
+            { n: "Sheii Lindley",    e: "sheiilindley99@gmail.com" },
+            { n: "Talitha Vierling", e: "talitha-vierling@outlook.com" },
+            { n: "Will Boock",       e: "willboock@yahoo.com" },
+            { n: "AJ Sloan",         e: "ajsloans@gmail.com" },
+            { n: "Bill Els",         e: "billels70@gmail.com" },
+            { n: "Brandie & Steve",  e: "brandieleesteve@gmail.com" },
+            { n: "Brian",            e: "brian@yourarealender.com" },
+            { n: "Burton",           e: "bburton@stolarconstruction.com" },
+            { n: "Fegan (C.)",       e: "cfegan12@aol.com" },
+            { n: "D'Angelo",         e: "84dangelo@gmail.com" },
+            { n: "Johnson",          e: "dcdrjohnson@msn.com" },
+            { n: "Torres",           e: "estorres1210@gmail.com" },
+            { n: "Holsey",           e: "gholsey@rocketmail.com" },
+            { n: "Bacci (J.)",       e: "jkbacci3@gmail.com" },
+            { n: "Lindsey",          e: "jlindsey638@gmail.com" },
+            { n: "Marquis (J.)",     e: "jm_marquis@hotmail.com" },
+            { n: "Joe Stanger",      e: "joe@stangerinsurancegroup.com" },
+            { n: "Bacci (K.)",       e: "kbacci1@verizon.net" },
+            { n: "Hugg",             e: "lmhugg@yahoo.com" },
+            { n: "Marquis (L.)",     e: "l.marquis@comcast.net" },
+            { n: "Davis",            e: "mpdavis2@aol.com" },
+            { n: "Myers",            e: "admyers87@comcast.net" },
+            { n: "Olson (PA)",       e: "olsoninpa@verizon.net" },
+            { n: "Fegan (P.)",       e: "p.fegan2018@gmail.com" },
+            { n: "Tinsley",          e: "ptinsley10@yahoo.com" },
+            { n: "Brown",            e: "rcbrown@me.com" },
+            { n: "Roach",            e: "rmroach20@gmail.com" },
+            { n: "Lynch",            e: "slynch0117@yahoo.com" },
+            { n: "Stephen M.",       e: "stephenmc920@yahoo.com" },
+            { n: "Bull",             e: "tbull52@gmail.com" },
+            { n: "Miksis",           e: "tlmiksis@hotmail.com" },
+            { n: "Hall",             e: "bahall74@gmail.com" },
+            { n: "Pennington",       e: "dpennington306@gmail.com" },
+            { n: "Brittany Foxlee",  e: "foxleebrittany@gmail.com" },
+            { n: "Lena",             e: "lena.jm@gmail.com" },
+            { n: "Nicoli",           e: "nicoli7800@gmail.com" },
+            { n: "Ryan",             e: "ryan13xc@gmail.com" },
+            { n: "Dani",             e: "danicecily@me.com" },
+            // ---- Names below need confirming (email handle shown as placeholder) ----
+            { n: "750cecil",         e: "750cecil@gmail.com" },
+            { n: "babycig13",        e: "babycig13@gmail.com" },
+            { n: "billonearth787",   e: "billonearth787@gmail.com" },
+            { n: "ednumtwo",         e: "ednumtwo@yahoo.com" },
+            { n: "gt63959",          e: "gt63959@aol.com" },
+            { n: "jtja",             e: "jtja@hotmail.com" },
+            { n: "kbladybug63",      e: "kbladybug63@aol.com" },
+            { n: "kt63357",          e: "kt63357@gmail.com" },
+            { n: "meandlp14",        e: "meandlp14@gmail.com" }
+        ];
+
         const STORAGE_KEY = 'ghca_signin_data';
         let currentMeetingDate = null;
 
-        function getAllMeetings() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : {};
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = (str == null ? '' : str);
+            return div.innerHTML;
         }
 
+        function fmtDate(date) {
+            const d = new Date(date + 'T12:00:00');
+            return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        // ---- storage ----
+        function getAllMeetings() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+            catch (e) { return {}; }
+        }
         function saveMeetings(meetings) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(meetings));
         }
+        function normalizeMeeting(entry) {
+            // migrate legacy format (plain array of attendees) -> { present, guests }
+            if (Array.isArray(entry)) return { present: [], guests: entry };
+            if (!entry || typeof entry !== 'object') return { present: [], guests: [] };
+            return {
+                present: Array.isArray(entry.present) ? entry.present : [],
+                guests: Array.isArray(entry.guests) ? entry.guests : []
+            };
+        }
+        function getMeeting(date) { return normalizeMeeting(getAllMeetings()[date]); }
+        function setMeeting(date, data) {
+            const all = getAllMeetings();
+            all[date] = data;
+            saveMeetings(all);
+        }
 
+        // ---- meeting select / create ----
         function populateMeetingSelect() {
             const select = document.getElementById('meeting-select');
             const meetings = getAllMeetings();
             const dates = Object.keys(meetings).sort().reverse();
-
             select.innerHTML = '<option value="">-- Select a meeting date --</option>';
             dates.forEach(date => {
                 const opt = document.createElement('option');
                 opt.value = date;
-                const d = new Date(date + 'T12:00:00');
-                opt.textContent = d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                opt.textContent = fmtDate(date);
                 select.appendChild(opt);
             });
         }
 
         function loadMeeting(date) {
             currentMeetingDate = date;
-            const meetings = getAllMeetings();
-            const attendees = meetings[date] || [];
-
             document.getElementById('signin-content').style.display = 'block';
             document.getElementById('signin-empty').style.display = 'none';
-
-            const d = new Date(date + 'T12:00:00');
-            document.getElementById('current-meeting-date').textContent =
-                d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-            renderAttendees(attendees);
+            document.getElementById('current-meeting-date').textContent = fmtDate(date);
+            renderRoster();
+            renderGuests();
+            updateCounts();
         }
 
-        function renderAttendees(attendees) {
-            const tbody = document.getElementById('signin-tbody');
+        // ---- member roster ----
+        function renderRoster() {
+            const tbody = document.getElementById('roster-tbody');
+            const filter = (document.getElementById('roster-filter').value || '').toLowerCase();
+            const meeting = getMeeting(currentMeetingDate);
+            const present = new Set(meeting.present);
             tbody.innerHTML = '';
-            document.getElementById('attendee-count-num').textContent = attendees.length;
 
-            if (attendees.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="5" style="text-align:center;color:var(--text-muted);font-style:italic;padding:24px;">No attendees yet. Add the first one above.</td>';
-                tbody.appendChild(row);
-                return;
-            }
-
-            attendees.forEach((att, idx) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${idx + 1}</td>
-                    <td>${escapeHtml(att.name)}</td>
-                    <td>${escapeHtml(att.address || '')}</td>
-                    <td>${escapeHtml(att.contact || '')}</td>
-                    <td><button class="btn-remove-attendee" data-idx="${idx}" title="Remove">&times;</button></td>
-                `;
-                tbody.appendChild(row);
+            const sorted = ROSTER_SEED.slice().sort((a, b) => a.n.localeCompare(b.n));
+            sorted.forEach(m => {
+                if (filter && !(m.n.toLowerCase().includes(filter) || (m.e || '').toLowerCase().includes(filter))) return;
+                const isHere = present.has(m.n);
+                const tr = document.createElement('tr');
+                if (isHere) tr.className = 'present';
+                tr.innerHTML =
+                    '<td class="col-check"><input type="checkbox" class="roster-check" data-name="' + escapeHtml(m.n) + '"' + (isHere ? ' checked' : '') + '></td>' +
+                    '<td class="member-name">' + escapeHtml(m.n) + '</td>' +
+                    '<td class="col-sig"><div class="sig-cell"></div></td>';
+                tbody.appendChild(tr);
             });
 
-            tbody.querySelectorAll('.btn-remove-attendee').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    removeAttendee(parseInt(this.dataset.idx));
-                });
+            tbody.querySelectorAll('.roster-check').forEach(cb => {
+                cb.addEventListener('change', function () { togglePresent(this.dataset.name, this.checked); });
             });
         }
 
-        function addAttendee(name, address, contact) {
-            if (!currentMeetingDate || !name) return;
-            const meetings = getAllMeetings();
-            if (!meetings[currentMeetingDate]) meetings[currentMeetingDate] = [];
-            meetings[currentMeetingDate].push({ name, address, contact });
-            saveMeetings(meetings);
-            renderAttendees(meetings[currentMeetingDate]);
-        }
-
-        function removeAttendee(idx) {
+        function togglePresent(name, isPresent) {
             if (!currentMeetingDate) return;
-            const meetings = getAllMeetings();
-            if (!meetings[currentMeetingDate]) return;
-            meetings[currentMeetingDate].splice(idx, 1);
-            saveMeetings(meetings);
-            renderAttendees(meetings[currentMeetingDate]);
+            const meeting = getMeeting(currentMeetingDate);
+            const set = new Set(meeting.present);
+            if (isPresent) set.add(name); else set.delete(name);
+            meeting.present = Array.from(set);
+            setMeeting(currentMeetingDate, meeting);
+            const cb = document.querySelector('.roster-check[data-name="' + (window.CSS && CSS.escape ? CSS.escape(name) : name) + '"]');
+            if (cb) cb.closest('tr').classList.toggle('present', isPresent);
+            updateCounts();
         }
 
-        function escapeHtml(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        document.getElementById('meeting-select').addEventListener('change', function() {
-            if (this.value) {
-                loadMeeting(this.value);
+        // ---- guests / new folks ----
+        function renderGuests() {
+            const tbody = document.getElementById('signin-tbody');
+            const meeting = getMeeting(currentMeetingDate);
+            tbody.innerHTML = '';
+            meeting.guests.forEach((g, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML =
+                    '<td>' + (idx + 1) + '</td>' +
+                    '<td>' + escapeHtml(g.name) + '</td>' +
+                    '<td>' + escapeHtml(g.address || '') + '</td>' +
+                    '<td>' + escapeHtml(g.contact || '') + '</td>' +
+                    '<td class="no-print"><button class="btn-remove-attendee" data-idx="' + idx + '" title="Remove">&times;</button></td>';
+                tbody.appendChild(tr);
+            });
+            // blank write-in rows for the printed sheet
+            const blanks = Math.max(3, 8 - meeting.guests.length);
+            for (let i = 0; i < blanks; i++) {
+                const tr = document.createElement('tr');
+                tr.className = 'print-only';
+                tr.innerHTML = '<td>&nbsp;</td><td></td><td></td><td></td><td class="no-print"></td>';
+                tbody.appendChild(tr);
             }
+            tbody.querySelectorAll('.btn-remove-attendee').forEach(btn => {
+                btn.addEventListener('click', function () { removeGuest(parseInt(this.dataset.idx)); });
+            });
+        }
+
+        function addGuest(name, address, contact) {
+            if (!currentMeetingDate || !name) return;
+            const meeting = getMeeting(currentMeetingDate);
+            meeting.guests.push({ name, address, contact });
+            setMeeting(currentMeetingDate, meeting);
+            renderGuests();
+            updateCounts();
+        }
+        function removeGuest(idx) {
+            if (!currentMeetingDate) return;
+            const meeting = getMeeting(currentMeetingDate);
+            meeting.guests.splice(idx, 1);
+            setMeeting(currentMeetingDate, meeting);
+            renderGuests();
+            updateCounts();
+        }
+
+        function updateCounts() {
+            const meeting = getMeeting(currentMeetingDate);
+            document.getElementById('present-count-num').textContent = meeting.present.length;
+            document.getElementById('roster-total').textContent = ROSTER_SEED.length;
+            document.getElementById('guest-count-num').textContent = meeting.guests.length;
+        }
+
+        // ---- events ----
+        document.getElementById('meeting-select').addEventListener('change', function () {
+            if (this.value) loadMeeting(this.value);
         });
 
-        document.getElementById('btn-new-meeting').addEventListener('click', function() {
+        document.getElementById('btn-new-meeting').addEventListener('click', function () {
             const dateInput = document.getElementById('new-meeting-date');
             const date = dateInput.value;
             if (!date) { dateInput.focus(); return; }
-
-            const meetings = getAllMeetings();
-            if (!meetings[date]) meetings[date] = [];
-            saveMeetings(meetings);
+            const all = getAllMeetings();
+            if (!all[date]) { all[date] = { present: [], guests: [] }; saveMeetings(all); }
             populateMeetingSelect();
             document.getElementById('meeting-select').value = date;
             loadMeeting(date);
             dateInput.value = '';
         });
 
-        document.getElementById('btn-add-attendee').addEventListener('click', function() {
+        document.getElementById('roster-filter').addEventListener('input', renderRoster);
+
+        document.getElementById('btn-add-attendee').addEventListener('click', function () {
             const name = document.getElementById('att-name').value.trim();
             const address = document.getElementById('att-address').value.trim();
             const contact = document.getElementById('att-contact').value.trim();
             if (!name) { document.getElementById('att-name').focus(); return; }
-
-            addAttendee(name, address, contact);
+            addGuest(name, address, contact);
             document.getElementById('att-name').value = '';
             document.getElementById('att-address').value = '';
             document.getElementById('att-contact').value = '';
@@ -595,7 +797,7 @@
         });
 
         document.querySelectorAll('.attendee-inputs input').forEach(input => {
-            input.addEventListener('keydown', function(e) {
+            input.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     document.getElementById('btn-add-attendee').click();

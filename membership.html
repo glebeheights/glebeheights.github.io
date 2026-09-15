@@ -748,9 +748,18 @@
         <a href="members.html" class="back-link">&larr; Back to Members Area</a>
         <a href="index.html" class="back-link">&larr; Back to Main Site</a>
 
+        <div class="no-print" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0 4px;padding:14px 18px;background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-sm);">
+            <span style="font-weight:600;color:var(--primary-dark);">Get the full form:</span>
+            <a href="forms/2026-GHCA-Membership-Form.docx" download style="color:var(--primary-light);text-decoration:none;font-weight:500;">&#8681; Download Word form</a>
+            <span style="color:var(--text-muted);">&bull;</span>
+            <a href="#" onclick="window.print();return false;" style="color:var(--primary-light);text-decoration:none;font-weight:500;">&#128424; Print / Save as PDF</a>
+            <span style="color:var(--text-muted);font-size:0.85rem;">Includes the application and full Terms of Use with signature line.</span>
+        </div>
+
         <h2>Membership Information</h2>
-        <p>Ownership or residence in the Glebe Heights community makes you eligible to participate in the Glebe Heights Community Association. However, <strong>membership in the association is required</strong> for access to the beach and pier facilities.</p>
-        <p>Your annual dues support the maintenance and improvement of our shared waterfront spaces, community events, and neighborhood infrastructure.</p>
+        <p>By virtue of your home ownership or residence here in the Glebe Heights community, you are eligible and encouraged to join our Community Association. Membership grants you access and use of the Beach / Picnic / Pier area, as well as boat ramp and slip access for additional fees.</p>
+        <p><strong>Residing in the community does NOT automatically permit access</strong> to the community association property or beach areas (e.g. pier, tables, grill, porta potti, etc.). Membership in the association is required.</p>
+        <p>Contact information and a list of current family members must be provided. The <strong>Terms of Use Agreement below must be completed and signed</strong> and returned with this application.</p>
 
         <h2>2026 Fee Schedule</h2>
         <table class="fee-table">
@@ -770,11 +779,11 @@
                     <td>$100</td>
                 </tr>
                 <tr>
-                    <td>Kayak Rack Fee</td>
+                    <td>Kayak Rack Fee <span style="color: var(--text-muted); font-size: 0.85rem;">(requires 4 hours of service)</span></td>
                     <td>$25</td>
                 </tr>
                 <tr>
-                    <td>Boat Slip Fee <span style="color: var(--text-muted); font-size: 0.85rem;">(requires 4 hours of service)</span></td>
+                    <td>Boat Slip Fee <span style="color: var(--text-muted); font-size: 0.85rem;">(requires 8 hours of service)</span></td>
                     <td>$7 / foot</td>
                 </tr>
             </tbody>
@@ -845,6 +854,11 @@
                     <input type="checkbox" id="opt-kayak" name="membership_kayak" value="Kayak Rack - $25" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Kayak Rack Fee</span>
+                        <span class="option-detail">Requires 4 hours of service per year</span>
+                        <div class="option-calc">
+                            <label for="kayak-slip">My kayak slip number is:</label>
+                            <input type="text" id="kayak-slip" name="kayak_slip_number" maxlength="10" style="width:110px;text-align:center;">
+                        </div>
                     </div>
                     <span class="option-price">$25</span>
                 </div>
@@ -853,7 +867,7 @@
                     <input type="checkbox" id="opt-slip" name="membership_boat_slip" value="Boat Slip" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Boat Slip</span>
-                        <span class="option-detail">$7 per foot &bull; Requires 4 service hours</span>
+                        <span class="option-detail">$7 per foot &bull; Requires 8 service hours/yr &bull; Membership + Boat Ramp fee must also be paid</span>
                         <div class="option-calc">
                             <label for="slip-length">Boat length:</label>
                             <input type="number" id="slip-length" name="boat_length_ft" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
@@ -867,15 +881,19 @@
                     <input type="checkbox" id="opt-service" name="service_hour_payment" value="Service Hours" onchange="calculateTotal()">
                     <div class="option-label">
                         <span class="option-name">Service Hour Payment</span>
-                        <span class="option-detail">Pay in lieu of volunteer service hours ($20/hr)</span>
+                        <span class="option-detail">Pay in lieu of volunteer service hours ($25/hr)</span>
                         <div class="option-calc">
                             <label for="service-hours">Hours:</label>
                             <input type="number" id="service-hours" name="service_hours_qty" min="0" max="99" value="0" onchange="calculateTotal()" oninput="calculateTotal()">
-                            <span>hrs &times; $20 =</span>
+                            <span>hrs &times; $25 =</span>
                             <span class="calc-result" id="service-total">$0</span>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="info-callout" style="margin-top:8px;">
+                <p style="margin-bottom:0;"><strong>Service hours:</strong> Boat-slip holders owe 8 hours and kayak-rack holders owe 4 hours of community service each year (June 1&ndash;May 31). A fee may be paid in lieu of service hours. All members must either work or pay for the required hours before May 1 of the current year or risk losing slip/rack seniority and assignment. Questions about your service hours? See the secretary.</p>
             </div>
 
             <div class="total-row">
@@ -919,31 +937,35 @@
         </div>
 
         <h2>Terms of Use Agreement</h2>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-top:-6px;">This Terms of Use Agreement must be completed and returned with your application.</p>
         <div class="terms-section">
-            <h3>Glebe Heights Community Association &mdash; Terms of Use</h3>
+            <h3>GHCA Terms of Use Agreement</h3>
 
-            <h4>ARTICLE X &mdash; Use of Facilities</h4>
-            <ol>
-                <li>Non-members shall be denied the use of all community association facilities.</li>
-                <li>One ID card shall be issued per membership. Guests must be accompanied by a member at all times.</li>
-                <li>One gate key shall be issued per membership (Beach level). One boat ramp key shall be issued per membership (Beach + Boat Ramp level). Keys may not be duplicated or shared.</li>
-            </ol>
+            <p>With the continued growth of our surrounding community and the Mayo peninsula in general, the Board has noticed a substantial increase in non-members trespassing upon the properties. This creates a substantial liability for the GHCA in regards to insurance and maintaining the quality of service and facilities offered by the GHCA. The following is a reminder of the terms of use outlined in the GHCA By-Laws and is provided here to encourage everyone to assist in keeping our facilities free of trespassers and violators of the established By-Laws. These are only an excerpt of the By-Laws; a full version of the GHCA By-Laws is available on the <a href="bylaws.html" style="color:var(--primary-light);font-weight:500;">By-Laws page</a> or by contacting the association at <a href="mailto:glebeheights.secretary@gmail.com" style="color:var(--primary-light);font-weight:500;">glebeheights.secretary@gmail.com</a>.</p>
 
-            <h4>ARTICLE XV &mdash; Beach &amp; Property Rules</h4>
-            <ol>
-                <li>The beach area is for members and their accompanied guests only.</li>
-                <li>The boat ramp is for use by paid boat ramp members only.</li>
-                <li>Two (2) parking passes shall be issued per household.</li>
-                <li>Fires are permitted only in the designated fire pit and must be attended at all times.</li>
-                <li>No persons shall be on the beach after 11:00 PM.</li>
-                <li>Members are responsible for keeping the beach and facilities clean. Please clean up after yourself and your guests.</li>
-                <li>No animals are permitted on the beach. Animals are allowed on other community property provided owners clean up after them.</li>
-                <li>No trailer storage on community property for more than 24 hours.</li>
-                <li>Parking in the community lot is for members only.</li>
+            <h4>ARTICLE X &mdash; USE OF ASSOCIATION PROPERTY</h4>
+            <p style="font-size:0.92rem;margin-bottom:10px;"><strong>Section 1:</strong> Persons not members of the Association will be denied use of the beach, grills, firepit, piers and boating facilities, including boat ramp and any future improvements erected and maintained by authority of the Association.</p>
+            <p style="font-size:0.92rem;margin-bottom:10px;"><strong>Section 2:</strong> Each assessment-paying member shall be given one Identification Card. Guests must be accompanied to the beach, pier, boat ramp and facilities by a member, who shall be responsible for his guests' actions and conduct and, while being responsible, be held liable for costs payable for any damage to property or any item maintained by this Association.</p>
+            <p style="font-size:0.92rem;margin-bottom:10px;"><strong>Section 3:</strong> Each assessment-paying member shall be given one (1) key to the gate lock and one (1) key to the boat ramp lock depending on level of membership. Keys SHALL NOT be duplicated and SHALL NOT be given to any person other than the current members. Keys MUST NOT be given to guests under any circumstance.</p>
+
+            <h4>ARTICLE XV &mdash; ADDENDUM</h4>
+            <p style="font-size:0.92rem;margin-bottom:10px;"><strong>Section I:</strong> Added to these By-Laws are all rules incorporated in regards to the Community Beach operation. These rules shall be available for all members. Notice shall also be posted on the beach.</p>
+            <ol type="a">
+                <li>Admittance to the beach by members and accompanied guests only.</li>
+                <li>Admittance to pier by members and accompanied guests only.</li>
+                <li>Boat ramp for use only by paid-up members of the Association ramp maintenance fee.</li>
+                <li>Parking of cars for members only in designated areas. Members will be assigned two (2) Parking Passes per household and must display those passes in the front windshield of the vehicle when parked on the association property. Failure to display may result in the towing of the vehicle at the owner's expense.</li>
+                <li>Open fires are ONLY allowed in the designated fire pit AND MUST be guarded by a member. All fires should be completely extinguished before leaving the property.</li>
+                <li>No one allowed on the beach after 11 PM (unless due to circumstances beyond control).</li>
+                <li>All picnic tables, etc. must always be neat and clean, with no trash of any kind to be tossed around.</li>
+                <li>No animals allowed on the beach. Animals are allowed on other areas of the property but must be cleaned up after promptly.</li>
+                <li>This is a private beach owned and maintained by the GHCA, Inc. Any defacing of property or damage of any means can and will be enforced by law.</li>
+                <li>There will be no boat trailers left at the beach property for more than twenty-four (24) hours. Violators will be subject to towing at the owner's expense.</li>
+                <li>Parking at the GHCA properties is for members and guests only using the given property. It is not an overflow parking area for private parties or events unless previously approved at a general meeting or by the Board.</li>
             </ol>
 
             <div class="sig-block">
-                <p style="margin-bottom: 20px; font-size: 0.95rem; color: var(--text);">By signing below, I acknowledge that I have read, understand, and agree to abide by the Glebe Heights Community Association Terms of Use.</p>
+                <p style="margin-bottom: 20px; font-size: 0.95rem; color: var(--text);">By signing below, I agree to the terms of use and agree to abide by all of the terms provided in the GHCA By-Laws. A full copy of the By-Laws is posted for members on the <a href="bylaws.html" style="color:var(--primary-light);font-weight:500;">By-Laws page</a>.</p>
                 <div class="sig-line">
                     <div>
                         <div class="sig-field"></div>
@@ -954,15 +976,30 @@
                         <div class="sig-field-label">Date</div>
                     </div>
                 </div>
+                <div class="sig-line" style="margin-top:24px;">
+                    <div>
+                        <div class="sig-field"></div>
+                        <div class="sig-field-label">Print Name</div>
+                    </div>
+                    <div>
+                        <div class="sig-field"></div>
+                        <div class="sig-field-label">Membership Level</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="print-bar no-print">
+        <div class="print-bar no-print" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
             <button class="btn-print" onclick="window.print()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                Print Application
+                Print / Save as PDF
             </button>
+            <a class="btn-print" href="forms/2026-GHCA-Membership-Form.docx" download style="background:var(--primary-dark);text-decoration:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Word Form
+            </a>
         </div>
+        <p class="no-print" style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:-8px;">Fill it out here, then <strong>Print / Save as PDF</strong> to keep a signed copy &mdash; or download the Word form to print and sign by hand.</p>
     </div>
 
     <footer class="footer">
@@ -1004,7 +1041,7 @@
             total += slipCost;
 
             const serviceHrs = parseInt(document.getElementById('service-hours').value) || 0;
-            const serviceCost = document.getElementById('opt-service').checked ? serviceHrs * 20 : 0;
+            const serviceCost = document.getElementById('opt-service').checked ? serviceHrs * 25 : 0;
             document.getElementById('service-total').textContent = '$' + serviceCost;
             total += serviceCost;
 
@@ -1032,7 +1069,10 @@
             let memberships = [];
             if (document.getElementById('opt-beach').checked) memberships.push('Beach / Membership Only ($60)');
             if (document.getElementById('opt-boat-ramp').checked) memberships.push('Beach + Boat Ramp ($100)');
-            if (document.getElementById('opt-kayak').checked) memberships.push('Kayak Rack ($25)');
+            if (document.getElementById('opt-kayak').checked) {
+                const kslip = document.getElementById('kayak-slip').value.trim();
+                memberships.push('Kayak Rack ($25)' + (kslip ? ' - slip #' + kslip : ''));
+            }
             if (document.getElementById('opt-slip').checked) {
                 const len = document.getElementById('slip-length').value;
                 memberships.push('Boat Slip (' + len + ' ft = ' + document.getElementById('slip-total').textContent + ')');
