@@ -1,5 +1,5 @@
 {
-  "version": 1794776646992,
+  "version": 1794777514009,
   "updatedBy": "sheiilindley99@gmail.com",
   "adminEdits": {
     "index.html": {
@@ -194,42 +194,15 @@
     "boatslips.html": {
       "boatslips-table": {
         "headers": [
-          "Member",
+          "Member ↕",
           "Boat Size",
-          "Slip #",
+          "Slip # ▲",
           "Kayak Rack",
           "Rack #",
           "Hours",
           "Seniority"
         ],
         "rows": [
-          [
-            "Bacci",
-            "12'",
-            "5",
-            "—",
-            "—",
-            "—",
-            "6/2017"
-          ],
-          [
-            "Burton",
-            "25'",
-            "9",
-            "2 spots",
-            "8B, 11B",
-            "8 hrs",
-            "1989"
-          ],
-          [
-            "Caldwell",
-            "24'",
-            "Pier B",
-            "—",
-            "—",
-            "—",
-            "8/2016"
-          ],
           [
             "Fegan",
             "24'",
@@ -238,51 +211,6 @@
             "—",
             "—",
             "2007"
-          ],
-          [
-            "Gillogly",
-            "12'",
-            "11",
-            "—",
-            "—",
-            "3.5 hrs",
-            "6/2017"
-          ],
-          [
-            "Goodwin &amp; Miksis",
-            "20'",
-            "Pier B",
-            "—",
-            "—",
-            "8 hrs",
-            "7/2020"
-          ],
-          [
-            "Holsey, Greg &amp; Elizabeth",
-            "23'",
-            "3",
-            "2 spots",
-            "1B, 4B",
-            "5 hrs",
-            "5/8/23"
-          ],
-          [
-            "Marquis, Joe &amp; Lisa",
-            "21'",
-            "7",
-            "1 spot",
-            "—",
-            "4 hrs",
-            "6/7/2020"
-          ],
-          [
-            "Sousa-Paz, Pedro",
-            "23'",
-            "14",
-            "—",
-            "—",
-            "—",
-            "3/4/2021"
           ],
           [
             "Raulin, Don",
@@ -294,22 +222,13 @@
             "1986"
           ],
           [
-            "Roach, Ryan &amp; Julie",
-            "12'",
-            "13",
+            "Holsey, Greg &amp; Elizabeth",
+            "23'",
+            "3",
             "2 spots",
-            "13A, 14A",
-            "—",
-            "6/21/2018"
-          ],
-          [
-            "Sokol",
-            "18'",
-            "6",
-            "—",
-            "—",
-            "—",
-            "6/11/2018"
+            "1B, 4B",
+            "5 hrs",
+            "5/8/23"
           ],
           [
             "Berthold, Maggie &amp; Ben",
@@ -321,6 +240,51 @@
             ""
           ],
           [
+            "Bacci",
+            "12'",
+            "5",
+            "—",
+            "—",
+            "—",
+            "6/2017"
+          ],
+          [
+            "Sokol",
+            "18'",
+            "6",
+            "—",
+            "—",
+            "—",
+            "6/11/2018"
+          ],
+          [
+            "Marquis, Joe &amp; Lisa",
+            "21'",
+            "7",
+            "1 spot",
+            "—",
+            "4 hrs",
+            "6/7/2020"
+          ],
+          [
+            "Trumbell, Melissa &amp; Jack",
+            "TBD",
+            "8",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Burton",
+            "25'",
+            "9",
+            "2 spots",
+            "8B, 11B",
+            "8 hrs",
+            "1989"
+          ],
+          [
             "Burke, Bill (Patty &amp; Diane daughters)",
             "24'",
             "10",
@@ -330,9 +294,54 @@
             ""
           ],
           [
-            "Trumbell, Melissa &amp; Jack",
-            "TBD",
-            "8",
+            "Gillogly",
+            "12'",
+            "11",
+            "—",
+            "—",
+            "3.5 hrs",
+            "6/2017"
+          ],
+          [
+            "Roach, Ryan &amp; Julie",
+            "12'",
+            "13",
+            "2 spots",
+            "13A, 14A",
+            "—",
+            "6/21/2018"
+          ],
+          [
+            "Sousa-Paz, Pedro",
+            "23'",
+            "14",
+            "—",
+            "—",
+            "—",
+            "3/4/2021"
+          ],
+          [
+            "Caldwell",
+            "24'",
+            "Pier B",
+            "—",
+            "—",
+            "—",
+            "8/2016"
+          ],
+          [
+            "Goodwin &amp; Miksis",
+            "20'",
+            "Pier B",
+            "—",
+            "—",
+            "8 hrs",
+            "7/2020"
+          ],
+          [
+            "OPEN SLIP",
+            "",
+            "12",
             "",
             "",
             "",
