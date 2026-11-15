@@ -105,6 +105,39 @@
             top: 0;
         }
 
+        .sort-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+            padding: 0;
+            border: 0;
+            background: none;
+            color: inherit;
+            font: inherit;
+            letter-spacing: inherit;
+            text-align: left;
+            text-transform: inherit;
+            cursor: pointer;
+        }
+
+        .sort-button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        .sort-arrow {
+            font-size: 0.7rem;
+            line-height: 1;
+            opacity: 0.7;
+        }
+
+        .sort-button:hover .sort-arrow,
+        .sort-button:focus-visible .sort-arrow {
+            opacity: 1;
+        }
+
         .slip-table td {
             padding: 10px 14px;
             border-bottom: 1px solid var(--border);
@@ -255,9 +288,17 @@
             <table class="slip-table">
                 <thead>
                     <tr>
-                        <th>Member</th>
+                        <th scope="col" aria-sort="none">
+                            <button type="button" class="sort-button" data-column="0" data-type="text" title="Sort by member name">
+                                Member <span class="sort-arrow" aria-hidden="true">&updownarrow;</span>
+                            </button>
+                        </th>
                         <th>Boat Size</th>
-                        <th>Slip #</th>
+                        <th scope="col" aria-sort="none">
+                            <button type="button" class="sort-button" data-column="2" data-type="slip" title="Sort by slip number">
+                                Slip # <span class="sort-arrow" aria-hidden="true">&updownarrow;</span>
+                            </button>
+                        </th>
                         <th>Kayak Rack</th>
                         <th>Rack #</th>
                         <th>Hours</th>
@@ -429,6 +470,75 @@
             toggle.addEventListener('click', () => {
                 toggle.classList.toggle('active');
                 nav.classList.toggle('active');
+            });
+        }
+
+        const slipTable = document.querySelector('.slip-table');
+        if (slipTable) {
+            const tbody = slipTable.tBodies[0];
+            const sortButtons = slipTable.querySelectorAll('.sort-button');
+            const collator = new Intl.Collator(undefined, {
+                numeric: true,
+                sensitivity: 'base'
+            });
+
+            const cellValue = (row, column) =>
+                row.cells[column]?.textContent.trim() || '';
+
+            const isUnassigned = value =>
+                !value || value === '\u2014' || value === '-' || value.toLowerCase() === 'n/a';
+
+            sortButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const column = Number(button.dataset.column);
+                    const type = button.dataset.type;
+                    const direction = button.dataset.direction === 'ascending'
+                        ? 'descending'
+                        : 'ascending';
+                    const multiplier = direction === 'ascending' ? 1 : -1;
+
+                    sortButtons.forEach(otherButton => {
+                        delete otherButton.dataset.direction;
+                        otherButton.closest('th').setAttribute('aria-sort', 'none');
+                        otherButton.querySelector('.sort-arrow').textContent = '\u2195';
+                    });
+
+                    button.dataset.direction = direction;
+                    button.closest('th').setAttribute('aria-sort', direction);
+                    button.querySelector('.sort-arrow').textContent =
+                        direction === 'ascending' ? '\u25B2' : '\u25BC';
+
+                    const rows = Array.from(tbody.rows);
+                    rows.sort((rowA, rowB) => {
+                        const valueA = cellValue(rowA, column);
+                        const valueB = cellValue(rowB, column);
+                        const unassignedA = isUnassigned(valueA);
+                        const unassignedB = isUnassigned(valueB);
+
+                        if (unassignedA !== unassignedB) {
+                            return unassignedA ? 1 : -1;
+                        }
+
+                        if (unassignedA) {
+                            return 0;
+                        }
+
+                        if (type === 'slip') {
+                            const numberA = /^\d+$/.test(valueA) ? Number(valueA) : null;
+                            const numberB = /^\d+$/.test(valueB) ? Number(valueB) : null;
+
+                            if (numberA !== null && numberB !== null) {
+                                return (numberA - numberB) * multiplier;
+                            }
+                            if (numberA !== null) return -1;
+                            if (numberB !== null) return 1;
+                        }
+
+                        return collator.compare(valueA, valueB) * multiplier;
+                    });
+
+                    rows.forEach(row => tbody.appendChild(row));
+                });
             });
         }
     </script>
