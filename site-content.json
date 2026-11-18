@@ -1,5 +1,5 @@
 {
-  "version": 1794777739292,
+  "version": 1794980975239,
   "updatedBy": "sheiilindley99@gmail.com",
   "adminEdits": {
     "index.html": {
@@ -196,7 +196,7 @@
         "headers": [
           "Member ↕",
           "Boat Size",
-          "Slip # ▲",
+          "Slip # ↕",
           "Kayak Rack",
           "Rack #",
           "Hours",
@@ -224,7 +224,7 @@
           [
             "Holsey, Greg &amp; Elizabeth",
             "23'",
-            "3",
+            "12",
             "2 spots",
             "1B, 4B",
             "5 hrs",
@@ -314,7 +314,7 @@
           [
             "Sousa-Paz, Pedro",
             "23'",
-            "14",
+            "3",
             "—",
             "—",
             "—",
@@ -341,7 +341,7 @@
           [
             "OPEN SLIP",
             "",
-            "12",
+            "14",
             "",
             "",
             "",
